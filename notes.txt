@@ -1,0 +1,4237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --brand-navy: #4169E1;
+      --brand-deep: #4169E1;
+      --brand-blue: #4169E1;
+      --brand-blue-dark: #4169E1;
+      --card-blue: #0F2B46;
+      --text-dark: #0a2237;
+      --text-light: #ffffff;
+      --surface-light: rgba(255,255,255,0.9);
+      --surface-dark: rgba(65,105,225,0.76);
+      --border-light: rgba(14,39,64,0.12);
+      --border-dark: rgba(255,255,255,0.18);
+      --shadow-strong: 0 28px 60px rgba(6,20,35,0.26);
+      --shadow-soft: 0 20px 38px rgba(15,43,70,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(65,105,225,0.16), transparent 30%),
+        linear-gradient(180deg, #edf3ff 0%, #eaf1ff 46%, #f8fbff 100%);
+      top: 0 !important;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* Google Translate Overrides */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-logo-link,
+    .goog-te-gadget span {
+      display: none !important;
+    }
+
+    .goog-te-gadget {
+      color: transparent !important;
+      font-size: 0 !important;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left));
+      background: #061a33;
+      color: var(--text-light);
+    }
+
+    .topbar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+    }
+
+    .topbar-item small {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left));
+      background: #0F2B46;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(15,43,70,0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      flex: 0 0 auto;
+    }
+
+    .logo-mark {
+      position: relative;
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%),
+        linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        0 16px 30px rgba(6,18,44,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -10px 16px rgba(0,0,0,0.3);
+    }
+
+    .brand h2 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      width: auto;
+      text-align: left;
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 600;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: rgba(255,255,255,0.12);
+      color: #d8ebff;
+      transform: translateY(-1px);
+    }
+
+    /* Translation Elements */
+    .translate-widget {
+      position: fixed;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lang-btn {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px 10px 10px;
+      border: none;
+      border-radius: 999px;
+      background: #0F2B46;
+      color: transparent;
+      box-shadow: 0 22px 40px rgba(15,43,70,0.26);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .lang-btn > * {
+      color: #fff;
+    }
+
+    .lang-btn:hover,
+    .lang-btn:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 26px 48px rgba(15,43,70,0.3);
+    }
+
+    .lang-chip {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.24);
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .lang-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+    }
+
+    .lang-copy strong {
+      font-size: 0.97rem;
+      font-weight: 700;
+    }
+
+    .lang-copy span {
+      font-size: 0.72rem;
+      opacity: 0.82;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px));
+      z-index: 1150;
+      transform: translate(-50%, 14px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(8,22,37,0.92);
+      color: #fff;
+      box-shadow: 0 18px 34px rgba(8,22,37,0.28);
+      font-size: 0.92rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .status-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* Main Content Sections */
+    main {
+      width: 100%;
+    }
+
+    .story-section {
+      --bg-shift: 0;
+      --card-tilt: 0;
+      --reveal: 0;
+      scroll-margin-top: 110px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100svh;
+      padding: clamp(72px, 8vw, 104px) max(20px, env(safe-area-inset-right)) clamp(56px, 6vw, 84px) max(20px, env(safe-area-inset-left));
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 1600px;
+    }
+
+    .story-section::before {
+      content: "";
+      position: absolute;
+      inset: -5%;
+      background-image: var(--section-image);
+      background-position: center;
+      background-size: cover;
+      opacity: 1;
+      transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.04);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+      z-index: -2;
+    }
+
+    .story-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      z-index: -1;
+    }
+
+    .section-card {
+      width: min(900px, 100%);
+      padding: clamp(34px, 6vw, 72px) clamp(24px, 5vw, 60px);
+      border-radius: 34px;
+      border: 1px solid var(--border-dark);
+      background: #0F2B46;
+      color: var(--text-light);
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transform-style: preserve-3d;
+      transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) 
+                 rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) 
+                 scale(calc(0.94 + (var(--reveal) * 0.06)));
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                  opacity 0.22s ease, filter 0.22s ease, box-shadow 0.35s ease;
+      text-align: center;
+    }
+
+    .story-section.show .section-card {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .section-card:hover {
+      box-shadow: 0 34px 70px rgba(8,22,37,0.22);
+    }
+
+    .hero-copy h1,
+    .section-copy h2 {
+      font-size: clamp(2rem, 4.8vw, 4.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-copy h2 {
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
+    }
+
+    .hero-copy p,
+    .section-copy p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+      line-height: 1.8;
+      max-width: 72ch;
+      opacity: 0.95;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 12px;
+      margin-top: 16px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+    }
+
+    .section-info span {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .section-info span + span::before {
+      content: "|";
+      margin-right: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* --- UPDATED SOLID CTA POPUP OVERLAY --- */
+    .popup {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vw, 24px);
+      background: rgba(6, 26, 51, 0.65); 
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .popup.open {
+      display: flex;
+    }
+
+    /* --- MODAL CONTAINER --- */
+    .popup-content {
+      position: relative;
+      width: min(560px, 100%);
+      max-height: calc(100svh - 2 * clamp(12px, 3vw, 24px));
+      padding: 36px;
+      border-radius: 24px;
+      background: #ffffff; 
+      border-top: 6px solid var(--brand-navy); 
+      color: var(--text-dark);
+      box-shadow: 0 40px 80px rgba(6, 20, 35, 0.35);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    /* --- CLOSE BUTTON ('X') --- */
+    .popup-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: #f0f4f8;
+      color: var(--card-blue);
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .popup-close:hover {
+      background: #e1e8f0;
+      color: var(--brand-navy);
+      transform: rotate(90deg);
+    }
+
+    /* --- POPUP TYPOGRAPHY --- */
+    .popup-content h3 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      color: var(--card-blue);
+      margin-bottom: 8px;
+    }
+
+    .popup-content p {
+      color: #4a5d70;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .popup-content h3 .bi-primary {
+      color: var(--card-blue);
+    }
+
+    .popup-content h3 .bi-secondary {
+      color: var(--brand-navy);
+      font-size: 1rem;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .bi-primary, .bi-secondary {
+      display: block;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* --- FORM GRID & LABELS --- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 16px;
+      margin-top: 28px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group-full {
+      grid-column: 1 / -1;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--card-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .input-group label .bi-secondary {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* --- INPUT FIELDS --- */
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 2px solid #e1e8f0;
+      background: #f8faff;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--brand-navy);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.15);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* --- CALL TO ACTION BUTTONS --- */
+    .popup-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 999px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .popup-actions .btn:not(.btn-outline) {
+      width: 100%; 
+      padding: 18px 24px;
+      font-size: 1.1rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand-navy) 0%, #2b4cad 100%);
+      box-shadow: 0 12px 24px rgba(65, 105, 225, 0.3);
+      letter-spacing: 0.02em;
+    }
+
+    .popup-actions .btn:not(.btn-outline):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 32px rgba(65, 105, 225, 0.4);
+    }
+
+    .popup-actions .btn-outline {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      color: #64748b;
+      min-height: auto;
+      padding: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .popup-actions .btn-outline:hover {
+      background: transparent;
+      color: var(--text-dark);
+      transform: none;
+      text-decoration: underline;
+    }
+
+    /* Media Queries */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .split-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy p {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 820px) {
+      nav {
+        justify-content: center;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-highlights,
+      .feature-stack,
+      .info-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar, .topbar-item {
+        justify-content: flex-end;
+      }
+      .logo-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+      }
+      .story-section {
+        min-height: auto;
+        padding-top: 84px;
+        padding-bottom: 54px;
+      }
+      .section-card {
+        border-radius: 28px;
+        padding: 24px 20px;
+      }
+      .hero-copy h1,
+      .section-copy h2 {
+        font-size: clamp(1.9rem, 11vw, 3rem);
+      }
+      .lang-btn {
+        right: 14px;
+        left: 14px;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        justify-content: center;
+      }
+      .lang-copy span {
+        display: none;
+      }
+      .popup {
+        padding: 12px;
+        align-items: flex-end;
+      }
+      .popup-content {
+        border-radius: 28px 28px 18px 18px;
+        padding: 24px 18px 20px;
+        max-height: calc(100svh - 12px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
+
+  <div class="popup" id="popup" aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="popup-close" id="popupClose" type="button" aria-label="ಮುಚ್ಚಿ / Close enquiry form">
+        &times;
+      </button>
+      
+      <h3 id="popupTitle">
+        <span class="bi-primary">ಪ್ರವೇಶ ವಿಚಾರಣೆ</span>
+        <span class="bi-secondary">Admissions Enquiry</span>
+      </h3>
+      
+      <p>
+        <span class="bi-primary">ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</span>
+        <span class="bi-secondary">Share your details and our team will guide you through admissions.</span>
+      </p>
+
+      <form id="enquiryForm">
+        <div class="form-grid">
+          
+          <div class="input-group">
+            <label for="name">
+              <span class="bi-primary">ವಿದ್ಯಾರ್ಥಿ / ಪೋಷಕರ ಹೆಸರು</span>
+              <span class="bi-secondary">Student / Parent Name</span>
+            </label>
+            <input id="name" name="name" type="text" placeholder="ಹೆಸರು ನಮೂದಿಸಿ / Enter your name" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="phone">
+              <span class="bi-primary">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</span>
+              <span class="bi-secondary">Phone Number</span>
+            </label>
+            <input id="phone" name="phone" type="tel" placeholder="ದೂರವಾಣಿ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ / Enter phone" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="class">
+              <span class="bi-primary">ಆಸಕ್ತ ತರಗತಿ</span>
+              <span class="bi-secondary">Interested Class</span>
+            </label>
+            <input id="class" name="class" type="text" placeholder="ತರಗತಿ / Nursery / Grade 1">
+          </div>
+          
+          <div class="input-group">
+            <label for="email">
+              <span class="bi-primary">ಇಮೇಲ್ ವಿಳಾಸ</span>
+              <span class="bi-secondary">Email Address</span>
+            </label>
+            <input id="email" name="email" type="email" placeholder="ಇಮೇಲ್ ನಮೂದಿಸಿ / Enter your email">
+          </div>
+          
+          <div class="input-group input-group-full">
+            <label for="message">
+              <span class="bi-primary">ಸಂದೇಶ</span>
+              <span class="bi-secondary">Message</span>
+            </label>
+            <textarea id="message" name="message" placeholder="ಸಂದೇಶ ನಮೂದಿಸಿ / Tell us what you would like to know."></textarea>
+          </div>
+          
+        </div>
+        
+        <div class="popup-actions">
+          <button class="btn" type="submit">ಸಲ್ಲಿಸಿ / Submit Enquiry</button>
+          <button class="btn btn-outline" type="button" onclick="closePopup()">ಮುಚ್ಚಿ / Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com">
+      <small>Email</small>
+      <strong>school@mail.com</strong>
+    </a>
+    <a class="topbar-item" href="tel:+919876543210">
+      <small>Contact</small>
+      <strong>+91 98765 43210</strong>
+    </a>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="logo-mark notranslate" translate="no">SCH</div>
+      <h2 class="notranslate" translate="no">School Name</h2>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="lang-btn" onclick="translatePage()">
+    <span class="lang-chip">KN</span>
+    <span class="lang-copy">
+      <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
+      <span>Tap to translate full page</span>
+    </span>
+  </div>
+
+  <div class="status-toast" id="statusToast" aria-live="polite"></div>
+
+  <main>
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h1>Shaping Confident Learners</h1>
+          <p class="section-info">
+            <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
+          </p>
+          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>About Our School</h2>
+          <p class="section-info">
+            <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
+          </p>
+          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="expertise" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Our Expertise</h2>
+          <p class="section-info">
+            <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
+          </p>
+          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Campus Life</h2>
+          <p class="section-info">
+            <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
+          </p>
+          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Admissions Open 2026-27</h2>
+          <p class="section-info">
+            <span>Nursery To Grade 8</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
+          </p>
+          <p>Start your child's learning journey with a school that plans for growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Contact Us</h2>
+          <p class="section-info">
+            <span>Admissions Help</span><span>Campus Visits</span><span>Directions</span><span>Support</span>
+          </p>
+          <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popupCloseButton = document.getElementById("popupClose");
+    const enquiryForm = document.getElementById("enquiryForm");
+    const toast = document.getElementById("statusToast");
+    const sections = document.querySelectorAll(".story-section");
+    const translateButton = document.querySelector(".lang-btn");
+    const translateButtonLabel = document.getElementById("translateButtonLabel");
+
+    let toastTimer;
+    let currentLanguage = "en";
+    let translationReady = false;
+    let ticking = false;
+    const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
+
+    // Clean up duplicate/unnecessary sections
+    document.querySelectorAll("main > section:not(.story-section)").forEach(s => s.remove());
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function openPopup() {
+      popup.classList.add("open");
+      popup.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closePopup() {
+      popup.classList.remove("open");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function setTranslateButtonState(language) {
+      const isKannada = language === "kn";
+      translateButton.setAttribute("aria-pressed", isKannada ? "true" : "false");
+      translateButtonLabel.textContent = isKannada ? "Read in English" : kannadaLabel;
+    }
+
+    function applyLanguage(language, attempt = 0) {
+      const combo = document.querySelector(".goog-te-combo");
+
+      if (!combo) {
+        if (attempt < 24) {
+          window.setTimeout(() => applyLanguage(language, attempt + 1), 250);
+          return;
+        }
+        showToast("Translation is still loading. Please tap again in a moment.");
+        return;
+      }
+
+      combo.value = language;
+      combo.dispatchEvent(new Event("change"));
+      currentLanguage = language;
+      setTranslateButtonState(language);
+      showToast(language === "kn" ? "Translating the page to Kannada." : "Switched back to English.");
+    }
+
+    function translatePage() {
+      const nextLang = currentLanguage === "kn" ? "en" : "kn";
+      if (!translationReady && !document.querySelector(".goog-te-combo")) {
+        showToast("Preparing Kannada translation...");
+      }
+      applyLanguage(nextLang);
+    }
+
+    function updateParallax() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = rect.top + (rect.height / 2) - (vh / 2);
+        const progress = offset / vh;
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
+        const bgShift = Math.max(-40, Math.min(40, progress * -28));
+        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
+
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.style.setProperty("--card-tilt", tilt.toFixed(2));
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+
+        if (reveal > 0.16) section.classList.add("show");
+      });
+
+      ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: "en",
+        includedLanguages: "en,kn",
+        autoDisplay: false,
+        multilanguagePage: false
+      }, "google_translate_element");
+      translationReady = true;
+    };
+
+    // Event Listeners
+    popup.addEventListener("click", (e) => { if(e.target === popup) closePopup(); });
+    popupCloseButton.addEventListener("click", closePopup);
+    
+    enquiryForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      closePopup();
+      enquiryForm.reset();
+      showToast("Thanks! Your enquiry has been recorded.");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popup.classList.contains("open")) closePopup();
+    });
+
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate);
+    window.addEventListener("load", () => {
+      requestParallaxUpdate();
+      window.setTimeout(openPopup, 700);
+    });
+
+    requestParallaxUpdate();
+    setTranslateButtonState(currentLanguage);
+  </script>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
+
+-------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --brand-navy: #4169E1;
+      --brand-deep: #4169E1;
+      --brand-blue: #4169E1;
+      --brand-blue-dark: #4169E1;
+      --card-blue: #0F2B46;
+      --text-dark: #0a2237;
+      --text-light: #ffffff;
+      --surface-light: rgba(255,255,255,0.9);
+      --surface-dark: rgba(65,105,225,0.76);
+      --border-light: rgba(14,39,64,0.12);
+      --border-dark: rgba(255,255,255,0.18);
+      --shadow-strong: 0 28px 60px rgba(6,20,35,0.26);
+      --shadow-soft: 0 20px 38px rgba(15,43,70,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(65,105,225,0.16), transparent 30%),
+        linear-gradient(180deg, #edf3ff 0%, #eaf1ff 46%, #f8fbff 100%);
+      top: 0 !important;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* Google Translate Overrides */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-logo-link,
+    .goog-te-gadget span {
+      display: none !important;
+    }
+
+    .goog-te-gadget {
+      color: transparent !important;
+      font-size: 0 !important;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left));
+      background: #061a33;
+      color: var(--text-light);
+    }
+
+    .topbar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+    }
+
+    .topbar-item small {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left));
+      background: #0F2B46;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(15,43,70,0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      flex: 0 0 auto;
+    }
+
+    .logo-mark {
+      position: relative;
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%),
+        linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        0 16px 30px rgba(6,18,44,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -10px 16px rgba(0,0,0,0.3);
+    }
+
+    .brand h2 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      width: auto;
+      text-align: left;
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 600;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: rgba(255,255,255,0.12);
+      color: #d8ebff;
+      transform: translateY(-1px);
+    }
+
+    /* Translation Elements */
+    .translate-widget {
+      position: fixed;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lang-btn {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px 10px 10px;
+      border: none;
+      border-radius: 999px;
+      background: #0F2B46;
+      color: transparent;
+      box-shadow: 0 22px 40px rgba(15,43,70,0.26);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .lang-btn > * {
+      color: #fff;
+    }
+
+    .lang-btn:hover,
+    .lang-btn:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 26px 48px rgba(15,43,70,0.3);
+    }
+
+    .lang-chip {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.24);
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .lang-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+    }
+
+    .lang-copy strong {
+      font-size: 0.97rem;
+      font-weight: 700;
+    }
+
+    .lang-copy span {
+      font-size: 0.72rem;
+      opacity: 0.82;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px));
+      z-index: 1150;
+      transform: translate(-50%, 14px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(8,22,37,0.92);
+      color: #fff;
+      box-shadow: 0 18px 34px rgba(8,22,37,0.28);
+      font-size: 0.92rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .status-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* Main Content Sections */
+    main {
+      width: 100%;
+    }
+
+    .story-section {
+      --bg-shift: 0;
+      --card-tilt: 0;
+      --reveal: 0;
+      scroll-margin-top: 110px;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 1600px;
+    }
+
+    .section-card {
+      grid-column: 2;
+      width: 100%;
+      max-width: none;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      padding: clamp(48px, 7vw, 96px);
+      border-radius: 0;
+      border: none;
+      background: #0F2B46;
+      color: var(--text-light);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform-style: preserve-3d;
+      transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) 
+                 rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) 
+                 scale(calc(0.94 + (var(--reveal) * 0.06)));
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                  opacity 0.22s ease, filter 0.22s ease;
+      text-align: left;
+    }
+
+    .section-image {
+      min-height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.04);
+      transform-origin: center;
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, filter 0.22s ease;
+    }
+
+    .story-section:nth-child(odd) .section-image {
+      grid-column: 1;
+    }
+
+    .story-section:nth-child(even) .section-image {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(odd) .section-card {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(even) .section-card {
+      grid-column: 1;
+    }
+
+    .story-section.show .section-card {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .section-copy {
+      width: min(100%, 560px);
+    }
+
+    .hero-copy h1,
+    .section-copy h2 {
+      font-size: clamp(2rem, 4.8vw, 4.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .section-copy h2 {
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
+    }
+
+    .hero-copy p,
+    .section-copy p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+      line-height: 1.8;
+      max-width: 72ch;
+      opacity: 0.95;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .section-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px 12px;
+      margin-top: 16px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      color: rgba(255,255,255,0.9);
+      text-align: left;
+    }
+
+    .section-info span {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .section-info span + span::before {
+      content: "|";
+      margin-right: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* --- UPDATED SOLID CTA POPUP OVERLAY --- */
+    .popup {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vw, 24px);
+      background: rgba(6, 26, 51, 0.65); 
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .popup.open {
+      display: flex;
+    }
+
+    /* --- MODAL CONTAINER --- */
+    .popup-content {
+      position: relative;
+      width: min(560px, 100%);
+      max-height: calc(100svh - 2 * clamp(12px, 3vw, 24px));
+      padding: 36px;
+      border-radius: 24px;
+      background: #ffffff; 
+      border-top: 6px solid var(--brand-navy); 
+      color: var(--text-dark);
+      box-shadow: 0 40px 80px rgba(6, 20, 35, 0.35);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    /* --- CLOSE BUTTON ('X') --- */
+    .popup-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: #f0f4f8;
+      color: var(--card-blue);
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .popup-close:hover {
+      background: #e1e8f0;
+      color: var(--brand-navy);
+      transform: rotate(90deg);
+    }
+
+    /* --- POPUP TYPOGRAPHY --- */
+    .popup-content h3 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      color: var(--card-blue);
+      margin-bottom: 8px;
+    }
+
+    .popup-content p {
+      color: #4a5d70;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .popup-content h3 .bi-primary {
+      color: var(--card-blue);
+    }
+
+    .popup-content h3 .bi-secondary {
+      color: var(--brand-navy);
+      font-size: 1rem;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .bi-primary, .bi-secondary {
+      display: block;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* --- FORM GRID & LABELS --- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 16px;
+      margin-top: 28px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group-full {
+      grid-column: 1 / -1;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--card-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .input-group label .bi-secondary {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* --- INPUT FIELDS --- */
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 2px solid #e1e8f0;
+      background: #f8faff;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--brand-navy);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.15);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* --- CALL TO ACTION BUTTONS --- */
+    .popup-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 999px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .popup-actions .btn:not(.btn-outline) {
+      width: 100%; 
+      padding: 18px 24px;
+      font-size: 1.1rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand-navy) 0%, #2b4cad 100%);
+      box-shadow: 0 12px 24px rgba(65, 105, 225, 0.3);
+      letter-spacing: 0.02em;
+    }
+
+    .popup-actions .btn:not(.btn-outline):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 32px rgba(65, 105, 225, 0.4);
+    }
+
+    .popup-actions .btn-outline {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      color: #64748b;
+      min-height: auto;
+      padding: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .popup-actions .btn-outline:hover {
+      background: transparent;
+      color: var(--text-dark);
+      transform: none;
+      text-decoration: underline;
+    }
+
+    /* Media Queries */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .split-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy p {
+        max-width: none;
+      }
+    }
+
+@media (max-width: 820px) {
+      .story-section {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .story-section .section-image,
+      .story-section .section-card {
+        grid-column: 1;
+      }
+      .section-image {
+        min-height: 42vh;
+        transform: none;
+      }
+      .section-card {
+        min-height: auto;
+        padding: clamp(32px, 7vw, 48px) clamp(20px, 6vw, 32px);
+      }
+      nav {
+        justify-content: center;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-highlights,
+      .feature-stack,
+      .info-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar, .topbar-item {
+        justify-content: flex-end;
+      }
+      .logo-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+      }
+      .story-section {
+        min-height: auto;
+        padding-top: 84px;
+        padding-bottom: 54px;
+      }
+      .section-card {
+        border-radius: 28px;
+        padding: 24px 20px;
+      }
+      .hero-copy h1,
+      .section-copy h2 {
+        font-size: clamp(1.9rem, 11vw, 3rem);
+      }
+      .lang-btn {
+        right: 14px;
+        left: 14px;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        justify-content: center;
+      }
+      .lang-copy span {
+        display: none;
+      }
+      .popup {
+        padding: 12px;
+        align-items: flex-end;
+      }
+      .popup-content {
+        border-radius: 28px 28px 18px 18px;
+        padding: 24px 18px 20px;
+        max-height: calc(100svh - 12px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
+
+  <div class="popup" id="popup" aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="popup-close" id="popupClose" type="button" aria-label="ಮುಚ್ಚಿ / Close enquiry form">
+        &times;
+      </button>
+      
+      <h3 id="popupTitle">
+        <span class="bi-primary">ಪ್ರವೇಶ ವಿಚಾರಣೆ</span>
+        <span class="bi-secondary">Admissions Enquiry</span>
+      </h3>
+      
+      <p>
+        <span class="bi-primary">ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</span>
+        <span class="bi-secondary">Share your details and our team will guide you through admissions.</span>
+      </p>
+
+      <form id="enquiryForm">
+        <div class="form-grid">
+          
+          <div class="input-group">
+            <label for="name">
+              <span class="bi-primary">ವಿದ್ಯಾರ್ಥಿ / ಪೋಷಕರ ಹೆಸರು</span>
+              <span class="bi-secondary">Student / Parent Name</span>
+            </label>
+            <input id="name" name="name" type="text" placeholder="ಹೆಸರು ನಮೂದಿಸಿ / Enter your name" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="phone">
+              <span class="bi-primary">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</span>
+              <span class="bi-secondary">Phone Number</span>
+            </label>
+            <input id="phone" name="phone" type="tel" placeholder="ದೂರವಾಣಿ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ / Enter phone" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="class">
+              <span class="bi-primary">ಆಸಕ್ತ ತರಗತಿ</span>
+              <span class="bi-secondary">Interested Class</span>
+            </label>
+            <input id="class" name="class" type="text" placeholder="ತರಗತಿ / Nursery / Grade 1">
+          </div>
+          
+          <div class="input-group">
+            <label for="email">
+              <span class="bi-primary">ಇಮೇಲ್ ವಿಳಾಸ</span>
+              <span class="bi-secondary">Email Address</span>
+            </label>
+            <input id="email" name="email" type="email" placeholder="ಇಮೇಲ್ ನಮೂದಿಸಿ / Enter your email">
+          </div>
+          
+          <div class="input-group input-group-full">
+            <label for="message">
+              <span class="bi-primary">ಸಂದೇಶ</span>
+              <span class="bi-secondary">Message</span>
+            </label>
+            <textarea id="message" name="message" placeholder="ಸಂದೇಶ ನಮೂದಿಸಿ / Tell us what you would like to know."></textarea>
+          </div>
+          
+        </div>
+        
+        <div class="popup-actions">
+          <button class="btn" type="submit">ಸಲ್ಲಿಸಿ / Submit Enquiry</button>
+          <button class="btn btn-outline" type="button" onclick="closePopup()">ಮುಚ್ಚಿ / Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com">
+      <small>Email</small>
+      <strong>school@mail.com</strong>
+    </a>
+    <a class="topbar-item" href="tel:+919876543210">
+      <small>Contact</small>
+      <strong>+91 98765 43210</strong>
+    </a>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="logo-mark notranslate" translate="no">SCH</div>
+      <h2 class="notranslate" translate="no">School Name</h2>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="lang-btn" onclick="translatePage()">
+    <span class="lang-chip">KN</span>
+    <span class="lang-copy">
+      <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
+      <span>Tap to translate full page</span>
+    </span>
+  </div>
+
+  <div class="status-toast" id="statusToast" aria-live="polite"></div>
+
+  <main>
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h1>Shaping Confident Learners</h1>
+          <p class="section-info">
+            <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
+          </p>
+          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>About Our School</h2>
+          <p class="section-info">
+            <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
+          </p>
+          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="expertise" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Our Expertise</h2>
+          <p class="section-info">
+            <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
+          </p>
+          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Campus Life</h2>
+          <p class="section-info">
+            <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
+          </p>
+          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Admissions Open 2026-27</h2>
+          <p class="section-info">
+            <span>Nursery To Grade 8</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
+          </p>
+          <p>Start your child's learning journey with a school that plans for growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Contact Us</h2>
+          <p class="section-info">
+            <span>Admissions Help</span><span>Campus Visits</span><span>Directions</span><span>Support</span>
+          </p>
+          <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+  </main>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popupCloseButton = document.getElementById("popupClose");
+    const enquiryForm = document.getElementById("enquiryForm");
+    const toast = document.getElementById("statusToast");
+    const sections = document.querySelectorAll(".story-section");
+    const translateButton = document.querySelector(".lang-btn");
+    const translateButtonLabel = document.getElementById("translateButtonLabel");
+
+    let toastTimer;
+    let currentLanguage = "en";
+    let translationReady = false;
+    let ticking = false;
+    const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
+
+    // Clean up duplicate/unnecessary sections
+    document.querySelectorAll("main > section:not(.story-section)").forEach(s => s.remove());
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function openPopup() {
+      popup.classList.add("open");
+      popup.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closePopup() {
+      popup.classList.remove("open");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function setTranslateButtonState(language) {
+      const isKannada = language === "kn";
+      translateButton.setAttribute("aria-pressed", isKannada ? "true" : "false");
+      translateButtonLabel.textContent = isKannada ? "Read in English" : kannadaLabel;
+    }
+
+    function applyLanguage(language, attempt = 0) {
+      const combo = document.querySelector(".goog-te-combo");
+
+      if (!combo) {
+        if (attempt < 24) {
+          window.setTimeout(() => applyLanguage(language, attempt + 1), 250);
+          return;
+        }
+        showToast("Translation is still loading. Please tap again in a moment.");
+        return;
+      }
+
+      combo.value = language;
+      combo.dispatchEvent(new Event("change"));
+      currentLanguage = language;
+      setTranslateButtonState(language);
+      showToast(language === "kn" ? "Translating the page to Kannada." : "Switched back to English.");
+    }
+
+    function translatePage() {
+      const nextLang = currentLanguage === "kn" ? "en" : "kn";
+      if (!translationReady && !document.querySelector(".goog-te-combo")) {
+        showToast("Preparing Kannada translation...");
+      }
+      applyLanguage(nextLang);
+    }
+
+    function updateParallax() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = rect.top + (rect.height / 2) - (vh / 2);
+        const progress = offset / vh;
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
+        const bgShift = Math.max(-40, Math.min(40, progress * -28));
+        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
+
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.style.setProperty("--card-tilt", tilt.toFixed(2));
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+
+        if (reveal > 0.16) section.classList.add("show");
+      });
+
+      ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: "en",
+        includedLanguages: "en,kn",
+        autoDisplay: false,
+        multilanguagePage: false
+      }, "google_translate_element");
+      translationReady = true;
+    };
+
+    // Event Listeners
+    popup.addEventListener("click", (e) => { if(e.target === popup) closePopup(); });
+    popupCloseButton.addEventListener("click", closePopup);
+    
+    enquiryForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      closePopup();
+      enquiryForm.reset();
+      showToast("Thanks! Your enquiry has been recorded.");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popup.classList.contains("open")) closePopup();
+    });
+
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate);
+    window.addEventListener("load", () => {
+      requestParallaxUpdate();
+      window.setTimeout(openPopup, 700);
+    });
+
+    requestParallaxUpdate();
+    setTranslateButtonState(currentLanguage);
+  </script>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
+----------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --brand-navy: #4169E1;
+      --brand-deep: #4169E1;
+      --brand-blue: #4169E1;
+      --brand-blue-dark: #4169E1;
+      --card-blue: #0F2B46;
+      --text-dark: #0a2237;
+      --text-light: #ffffff;
+      --surface-light: rgba(255,255,255,0.9);
+      --surface-dark: rgba(65,105,225,0.76);
+      --border-light: rgba(14,39,64,0.12);
+      --border-dark: rgba(255,255,255,0.18);
+      --shadow-strong: 0 28px 60px rgba(6,20,35,0.26);
+      --shadow-soft: 0 20px 38px rgba(15,43,70,0.12);
+
+      /* Modern Form Colors */
+      --f-primary: #4169E1;
+      --f-primary-glow: rgba(65, 105, 225, 0.15);
+      --f-dark: #0F172A;
+      --f-muted: #64748B;
+      --f-bg: #F4F7F9;
+      --f-border: #E2E8F0;
+      --f-radius: 16px;
+      --f-error: #EF4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(65,105,225,0.16), transparent 30%),
+        linear-gradient(180deg, #edf3ff 0%, #eaf1ff 46%, #f8fbff 100%);
+      top: 0 !important;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* Google Translate Overrides */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-logo-link,
+    .goog-te-gadget span {
+      display: none !important;
+    }
+
+    .goog-te-gadget {
+      color: transparent !important;
+      font-size: 0 !important;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left));
+      background: #061a33;
+      color: var(--text-light);
+    }
+
+    .topbar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+    }
+
+    .topbar-item small {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left));
+      background: #0F2B46;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(15,43,70,0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    /* Hamburger Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      flex: 0 0 auto;
+    }
+
+    .logo-mark {
+      position: relative;
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%),
+        linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        0 16px 30px rgba(6,18,44,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -10px 16px rgba(0,0,0,0.3);
+    }
+
+    .brand h2 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      width: auto;
+      text-align: left;
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 600;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: rgba(255,255,255,0.12);
+      color: #d8ebff;
+      transform: translateY(-1px);
+    }
+
+    /* Translation Elements */
+    .translate-widget {
+      position: fixed;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lang-btn {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px 10px 10px;
+      border: none;
+      border-radius: 999px;
+      background: #0F2B46;
+      color: transparent;
+      box-shadow: 0 22px 40px rgba(15,43,70,0.26);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .lang-btn > * {
+      color: #fff;
+    }
+
+    .lang-btn:hover,
+    .lang-btn:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 26px 48px rgba(15,43,70,0.3);
+    }
+
+    .lang-chip {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.24);
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .lang-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+    }
+
+    .lang-copy strong {
+      font-size: 0.97rem;
+      font-weight: 700;
+    }
+
+    .lang-copy span {
+      font-size: 0.72rem;
+      opacity: 0.82;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px));
+      z-index: 1150;
+      transform: translate(-50%, 14px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(8,22,37,0.92);
+      color: #fff;
+      box-shadow: 0 18px 34px rgba(8,22,37,0.28);
+      font-size: 0.92rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .status-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* Main Content Sections */
+    main {
+      width: 100%;
+    }
+
+    .story-section {
+      --bg-shift: 0;
+      --card-tilt: 0;
+      --reveal: 0;
+      scroll-margin-top: 110px;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 1600px;
+    }
+
+    .section-card {
+      grid-column: 2;
+      width: 100%;
+      max-width: none;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      padding: clamp(48px, 7vw, 96px);
+      border-radius: 0;
+      border: none;
+      background: #0F2B46;
+      color: var(--text-light);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform-style: preserve-3d;
+      transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) 
+                 rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) 
+                 scale(calc(0.94 + (var(--reveal) * 0.06)));
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                  opacity 0.22s ease, filter 0.22s ease;
+      text-align: left;
+    }
+
+    .section-image {
+      min-height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.04);
+      transform-origin: center;
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, filter 0.22s ease;
+    }
+
+    .story-section:nth-child(odd) .section-image {
+      grid-column: 1;
+    }
+
+    .story-section:nth-child(even) .section-image {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(odd) .section-card {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(even) .section-card {
+      grid-column: 1;
+    }
+
+    .story-section.show .section-card {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .section-copy {
+      width: min(100%, 560px);
+    }
+
+    .hero-copy h1,
+    .section-copy h2 {
+      font-size: clamp(2rem, 4.8vw, 4.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .section-copy h2 {
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
+    }
+
+    .hero-copy p,
+    .section-copy p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+      line-height: 1.8;
+      max-width: 72ch;
+      opacity: 0.95;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .section-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px 12px;
+      margin-top: 16px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      color: rgba(255,255,255,0.9);
+      text-align: left;
+    }
+
+    .section-info span {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .section-info span + span::before {
+      content: "|";
+      margin-right: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* --- UPDATED SOLID CTA POPUP OVERLAY --- */
+    .popup {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vw, 24px);
+      background: rgba(6, 26, 51, 0.65); 
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .popup.open {
+      display: flex;
+    }
+
+    .pro-card {
+      background: var(--f-bg); 
+      width: min(600px, 100%);
+      border-radius: 24px; 
+      padding: 40px; 
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .popup.open .pro-card {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .btn-close {
+      position: absolute; top: 16px; right: 16px; width: 40px; height: 40px;
+      border-radius: 50%; background: #fff; border: 1px solid var(--f-border);
+      font-size: 1.5rem; color: var(--f-muted); cursor: pointer;
+      display: grid; place-items: center; transition: all 0.3s ease; z-index: 10;
+    }
+    .btn-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; transform: rotate(90deg); }
+
+    .form-header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px; }
+    .header-icon { width: 48px; height: 48px; color: var(--f-primary); margin-bottom: 12px; background: #fff; padding: 10px; border-radius: 12px; box-shadow: 0 4px 12px var(--f-primary-glow); }
+    .form-header h2 { color: var(--f-dark); font-size: 1.6rem; font-weight: 800; }
+    .form-header .kn-heading { color: var(--f-primary); font-size: 1.1rem; font-weight: 800; margin-top: 4px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .full-width { grid-column: 1 / -1; }
+
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .label-wrapper { display: flex; flex-direction: column; line-height: 1.3; align-items: center; text-align: center; }
+    .en-lbl { font-size: 0.75rem; font-weight: 800; color: var(--f-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kn-lbl { font-size: 0.95rem; font-weight: 800; color: var(--f-primary); }
+
+    .field-wrapper { position: relative; width: 100%; }
+    .field-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #94A3B8; pointer-events: none; }
+    
+    .popup-input, .popup-select, .popup-textarea {
+      width: 100%; padding: 12px 14px 12px 40px; font-size: 0.9rem; font-weight: 600; 
+      color: var(--f-dark); background: #fff; border: 2px solid var(--f-border); border-radius: 12px; transition: all 0.3s ease;
+    }
+    .popup-textarea { padding-left: 14px; min-height: 80px; resize: none; }
+    .popup-input:focus, .popup-select:focus, .popup-textarea:focus {
+      outline: none; border-color: var(--f-primary); box-shadow: 0 0 0 4px var(--f-primary-glow); transform: translateY(-1px);
+    }
+
+    .popup-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; cursor: pointer;
+    }
+
+    .char-counter { font-size: 0.7rem; font-weight: 700; color: var(--f-muted); text-align: right; margin-top: 4px; }
+
+    .action-group { display: flex; gap: 12px; margin-top: 24px; grid-column: 1 / -1; }
+    .form-btn {
+      flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;
+    }
+    .btn-cancel { background: #fff; color: var(--f-muted); border: 1px solid var(--f-border); }
+    .btn-submit { background: var(--f-primary); color: #fff; box-shadow: 0 8px 20px var(--f-primary-glow); }
+    .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
+    .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.85; }
+    .form-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+    @media (max-width: 600px) {
+      .pro-card { 
+        padding: 30px 20px; 
+        border-radius: 24px; 
+        width: 92%; 
+        max-height: 85svh; 
+        overflow-y: auto; 
+        margin: auto;
+      }
+      .form-grid { 
+        grid-template-columns: 1fr 1fr; /* Strict: Follow desktop parameters */
+        gap: 12px; 
+      }
+      .action-group { flex-direction: row; gap: 10px; }
+      .form-btn { padding: 10px 5px; }
+      .form-btn .en-btn { font-size: 0.8rem; }
+      .form-btn .kn-btn { font-size: 0.7rem; }
+    }
+
+    /* Media Queries */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .split-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy p {
+        max-width: none;
+      }
+    }
+
+@media (max-width: 820px) {
+      .story-section {
+        height: 100svh; /* Strict height */
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+      }
+      .section-image {
+        height: 45svh;
+        min-height: 0;
+        width: 100%;
+        order: 1;
+      }
+      .section-card {
+        height: 55svh;
+        min-height: 0;
+        order: 2;
+        padding: 40px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow-y: auto;
+      }
+
+      header {
+        justify-content: center;
+      }
+
+      .menu-toggle { 
+        display: flex; 
+        position: absolute;
+        right: max(20px, env(safe-area-inset-right));
+      }
+
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0F2B46;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px;
+        gap: 16px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-highlights,
+      .feature-stack,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-copy h2, 
+      .hero-copy h1,
+      .section-copy p,
+      .hero-copy p,
+      .section-info {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar, .topbar-item {
+        justify-content: flex-end;
+      }
+      .logo-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+      }
+      .story-section {
+        min-height: auto;
+        padding-top: 84px;
+        padding-bottom: 54px;
+      }
+      .section-card {
+        border-radius: 28px;
+        padding: 24px 20px;
+      }
+      .hero-copy h1,
+      .section-copy h2 {
+        font-size: clamp(1.9rem, 11vw, 3rem);
+      }
+      .lang-btn {
+        right: 14px;
+        left: 14px;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        justify-content: center;
+      }
+      .lang-copy span {
+        display: none;
+      }
+      .popup {
+        padding: 12px;
+        align-items: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
+
+  <div class="popup" id="popup" aria-hidden="true">
+    <div class="pro-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="btn-close" id="popupClose" aria-label="Close" type="button">&times;</button>
+
+      <div class="form-header">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <h2 id="popupTitle">Admission Enquiry Form</h2>
+        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ ಫಾರ್ಮ್</div>
+      </div>
+
+      <form id="admissionForm">
+        <div class="form-grid">
+          
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Parent's Name</span>
+              <span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="parentName" name="parentName" class="popup-input" required placeholder="Parent Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Phone Number</span>
+              <span class="kn-lbl">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <input type="tel" id="phone" name="phone" class="popup-input" required placeholder="Mobile No.">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Child's Name</span>
+              <span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <input type="text" id="childName" name="childName" class="popup-input" required placeholder="Child Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Admitting To</span>
+              <span class="kn-lbl">ಪ್ರವೇಶ ತರಗತಿ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <select id="admissionClass" name="admissionClass" class="popup-select" required>
+                <option value="" disabled selected>Select</option>
+                <option value="prenursery">Pre-Nursery</option>
+                <option value="nursery">Nursery</option>
+                <option value="lkg">LKG</option>
+                <option value="ukg">UKG</option>
+                <option value="class1">Class I</option>
+                <option value="class2">Class II</option>
+                <option value="class3">Class III</option>
+                <option value="class4">Class IV</option>
+                <option value="class5">Class V</option>
+                <option value="class6">Class VI</option>
+                <option value="class7">Class VII</option>
+                <option value="class8">Class VIII</option>
+                <option value="class9">Class IX</option>
+                <option value="class10">Class X</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group full-width">
+            <div class="label-wrapper">
+              <span class="en-lbl">Enquiry Message</span>
+              <span class="kn-lbl">ವಿಚಾರಣೆ ಸಂದೇಶ</span>
+            </div>
+            <textarea id="message" name="message" class="popup-textarea" maxlength="1000" required placeholder="How can we help you? / ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"></textarea>
+            <div class="char-counter" id="charCount">0 / 1000</div>
+          </div>
+          
+        </div>
+        
+        <div class="action-group">
+          <button type="button" class="form-btn btn-cancel" id="cancelButton">
+            <span class="en-btn">Cancel</span>
+            <span class="kn-btn">ರದ್ದುಮಾಡಿ</span>
+          </button>
+          <button type="submit" class="form-btn btn-submit">
+            <span class="en-btn">Submit Enquiry</span>
+            <span class="kn-btn">ಸಲ್ಲಿಸಿ</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com">
+      <small>Email</small>
+      <strong>school@mail.com</strong>
+    </a>
+    <a class="topbar-item" href="tel:+919876543210">
+      <small>Contact</small>
+      <strong>+91 98765 43210</strong>
+    </a>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="logo-mark notranslate" translate="no">SCH</div>
+      <h2 class="notranslate" translate="no">School Name</h2>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="lang-btn" onclick="translatePage()">
+    <span class="lang-chip">KN</span>
+    <span class="lang-copy">
+      <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
+      <span>Tap to translate full page</span>
+    </span>
+  </div>
+
+  <div class="status-toast" id="statusToast" aria-live="polite"></div>
+
+  <main>
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h1>Shaping Confident Learners</h1>
+          <p class="section-info">
+            <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
+          </p>
+          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>About Our School</h2>
+          <p class="section-info">
+            <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
+          </p>
+          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="expertise" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Our Expertise</h2>
+          <p class="section-info">
+            <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
+          </p>
+          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Campus Life</h2>
+          <p class="section-info">
+            <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
+          </p>
+          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Admissions Open 2026-27</h2>
+          <p class="section-info">
+            <span>Nursery To Grade 8</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
+          </p>
+          <p>Start your child's learning journey with a school that plans for growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Contact Us</h2>
+          <p class="section-info">
+            <span>Admissions Help</span><span>Campus Visits</span><span>Directions</span><span>Support</span>
+          </p>
+          <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+  </main>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popupCloseButton = document.getElementById("popupClose");
+    const enquiryForm = document.getElementById("admissionForm");
+    const cancelButton = document.getElementById("cancelButton");
+    const toast = document.getElementById("statusToast");
+    const sections = document.querySelectorAll(".story-section");
+    const translateButton = document.querySelector(".lang-btn");
+    const translateButtonLabel = document.getElementById("translateButtonLabel");
+    const msgInput = document.getElementById('message');
+    const charCounter = document.getElementById('charCount');
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.querySelector("header nav");
+
+    let toastTimer;
+    let currentLanguage = "en";
+    let translationReady = false;
+    let ticking = false;
+    const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
+
+    // Clean up duplicate/unnecessary sections
+    document.querySelectorAll("main > section:not(.story-section)").forEach(s => s.remove());
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function openPopup() {
+      if (enquiryForm) {
+        enquiryForm.reset();
+        if (charCounter) charCounter.textContent = `0 / 1000`;
+      }
+      popup.classList.add("open");
+      popup.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closePopup() {
+      if (enquiryForm) {
+        enquiryForm.reset();
+      }
+      popup.classList.remove("open");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    // Mobile Menu Toggle
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+      });
+      navMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          navMenu.classList.remove("active");
+          menuToggle.classList.remove("active");
+        });
+      });
+    }
+
+    const MAX_CHARS = 1000;
+    if (msgInput && charCounter) {
+      msgInput.addEventListener('input', (e) => {
+        const len = e.target.value.length;
+        charCounter.textContent = `${len} / ${MAX_CHARS}`;
+        charCounter.style.color = len >= MAX_CHARS ? 'var(--f-error)' : 'var(--f-muted)';
+      });
+    }
+
+    function setTranslateButtonState(language) {
+      const isKannada = language === "kn";
+      translateButton.setAttribute("aria-pressed", isKannada ? "true" : "false");
+      translateButtonLabel.textContent = isKannada ? "Read in English" : kannadaLabel;
+    }
+
+    function applyLanguage(language, attempt = 0) {
+      const combo = document.querySelector(".goog-te-combo");
+
+      if (!combo) {
+        if (attempt < 24) {
+          window.setTimeout(() => applyLanguage(language, attempt + 1), 250);
+          return;
+        }
+        showToast("Translation is still loading. Please tap again in a moment.");
+        return;
+      }
+
+      combo.value = language;
+      combo.dispatchEvent(new Event("change"));
+      currentLanguage = language;
+      setTranslateButtonState(language);
+      showToast(language === "kn" ? "Translating the page to Kannada." : "Switched back to English.");
+    }
+
+    function translatePage() {
+      const nextLang = currentLanguage === "kn" ? "en" : "kn";
+      if (!translationReady && !document.querySelector(".goog-te-combo")) {
+        showToast("Preparing Kannada translation...");
+      }
+      applyLanguage(nextLang);
+    }
+
+    function updateParallax() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = rect.top + (rect.height / 2) - (vh / 2);
+        const progress = offset / vh;
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
+        const bgShift = Math.max(-40, Math.min(40, progress * -28));
+        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
+
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.style.setProperty("--card-tilt", tilt.toFixed(2));
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+
+        if (reveal > 0.16) section.classList.add("show");
+      });
+
+      ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: "en",
+        includedLanguages: "en,kn",
+        autoDisplay: false,
+        multilanguagePage: false
+      }, "google_translate_element");
+      translationReady = true;
+    };
+
+    // Event Listeners
+    popup.addEventListener("click", (e) => { if(e.target === popup) closePopup(); });
+    popupCloseButton.addEventListener("click", closePopup);
+
+    if (enquiryForm) {
+      enquiryForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        closePopup();
+        showToast("Thanks! Your enquiry has been recorded.");
+      });
+    }
+
+    if (cancelButton) {
+      cancelButton.addEventListener("click", () => {
+        if(confirm("Discard enquiry? / ವಿಚಾರಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೆ?")) {
+          closePopup();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popup.classList.contains("open")) closePopup();
+    });
+
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate);
+    window.addEventListener("load", () => {
+      requestParallaxUpdate();
+      window.setTimeout(openPopup, 700);
+    });
+
+    requestParallaxUpdate();
+    setTranslateButtonState(currentLanguage);
+  </script>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
+----------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School</title>
+
+  <style>
+    :root {
+      --brand-navy: #4169E1;
+      --brand-deep: #4169E1;
+      --brand-blue: #4169E1;
+      --brand-blue-dark: #4169E1;
+      --card-blue: #0F2B46;
+      --text-dark: #0a2237;
+      --text-light: #ffffff;
+      --surface-light: rgba(255,255,255,0.9);
+      --surface-dark: rgba(65,105,225,0.76);
+      --border-light: rgba(14,39,64,0.12);
+      --border-dark: rgba(255,255,255,0.18);
+      --shadow-strong: 0 28px 60px rgba(6,20,35,0.26);
+      --shadow-soft: 0 20px 38px rgba(15,43,70,0.12);
+
+      /* Modern Form Colors */
+      --f-primary: #4169E1;
+      --f-primary-glow: rgba(65, 105, 225, 0.15);
+      --f-dark: #0F172A;
+      --f-muted: #64748B;
+      --f-bg: #F4F7F9;
+      --f-border: #E2E8F0;
+      --f-radius: 16px;
+      --f-error: #EF4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top left, rgba(65,105,225,0.16), transparent 30%),
+        linear-gradient(180deg, #edf3ff 0%, #eaf1ff 46%, #f8fbff 100%);
+      top: 0 !important;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left));
+      background: #061a33;
+      color: var(--text-light);
+    }
+
+    .topbar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+    }
+
+    .topbar-item small {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left));
+      background: #0F2B46;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(15,43,70,0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    /* Hamburger Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      flex: 0 0 auto;
+    }
+
+    .logo-mark {
+      position: relative;
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%),
+        linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        0 16px 30px rgba(6,18,44,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -10px 16px rgba(0,0,0,0.3);
+    }
+
+    .brand h2 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      width: auto;
+      text-align: left;
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 600;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: rgba(255,255,255,0.12);
+      color: #d8ebff;
+      transform: translateY(-1px);
+    }
+
+    .status-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px));
+      z-index: 1150;
+      transform: translate(-50%, 14px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(8,22,37,0.92);
+      color: #fff;
+      box-shadow: 0 18px 34px rgba(8,22,37,0.28);
+      font-size: 0.92rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .status-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* Main Content Sections */
+    main {
+      width: 100%;
+    }
+
+    .story-section {
+      --bg-shift: 0;
+      --card-tilt: 0;
+      --reveal: 0;
+      scroll-margin-top: 110px;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 1600px;
+    }
+
+    .section-card {
+      grid-column: 2;
+      width: 100%;
+      max-width: none;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(48px, 7vw, 96px);
+      border-radius: 0;
+      border: none;
+      background: #0F2B46;
+      color: var(--text-light);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform-style: preserve-3d;
+      transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) 
+                 rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) 
+                 scale(calc(0.94 + (var(--reveal) * 0.06)));
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                  opacity 0.22s ease, filter 0.22s ease;
+      text-align: center;
+    }
+
+    .section-image {
+      min-height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.04);
+      transform-origin: center;
+      opacity: calc(0.08 + (var(--reveal) * 0.92));
+      filter: blur(calc((1 - var(--reveal)) * 14px));
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, filter 0.22s ease;
+    }
+
+    .story-section:nth-child(odd) .section-image {
+      grid-column: 1;
+    }
+
+    .story-section:nth-child(even) .section-image {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(odd) .section-card {
+      grid-column: 2;
+    }
+
+    .story-section:nth-child(even) .section-card {
+      grid-column: 1;
+    }
+
+    .story-section.show .section-card {
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .section-copy {
+      width: min(100%, 560px);
+    }
+
+    .hero-copy h1,
+    .section-copy h2 {
+      font-size: clamp(2rem, 4.8vw, 4.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-inline: 0;
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    .section-copy h2 {
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
+    }
+
+    .hero-copy p,
+    .section-copy p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+      line-height: 1.8;
+      max-width: 72ch;
+      opacity: 0.95;
+      margin-inline: 0;
+      text-align: center;
+    }
+
+    .section-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.35;
+      color: #fff;
+      text-align: center;
+    }
+
+    .section-info span {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      text-transform: capitalize;
+      transition: background 0.3s ease;
+    }
+
+    .section-info span:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .section-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 32px;
+      padding: 14px 36px;
+      background: var(--brand-navy);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 999px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 16px rgba(65, 105, 225, 0.25);
+      cursor: pointer;
+      border: none;
+    }
+    .section-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .contact-methods {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .contact-icon:hover {
+      background: var(--brand-navy);
+      transform: translateY(-4px);
+    }
+    .contact-icon svg { width: 22px; height: 22px; }
+
+    /* --- UPDATED SOLID CTA POPUP OVERLAY --- */
+    .popup {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vw, 24px);
+      background: rgba(6, 26, 51, 0.65); 
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .popup.open {
+      display: flex;
+    }
+
+    .pro-card {
+      background: var(--f-bg); 
+      width: min(600px, 100%);
+      border-radius: 24px; 
+      padding: 40px; 
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .popup.open .pro-card {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .btn-close {
+      position: absolute; top: 16px; right: 16px; width: 40px; height: 40px;
+      border-radius: 50%; background: #fff; border: 1px solid var(--f-border);
+      font-size: 1.5rem; color: var(--f-muted); cursor: pointer;
+      display: grid; place-items: center; transition: all 0.3s ease; z-index: 10;
+    }
+    .btn-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; transform: rotate(90deg); }
+
+    .form-header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px; }
+    .header-icon { width: 48px; height: 48px; color: var(--f-primary); margin-bottom: 12px; background: #fff; padding: 10px; border-radius: 12px; box-shadow: 0 4px 12px var(--f-primary-glow); }
+    .form-header h2 { color: var(--f-dark); font-size: 1.6rem; font-weight: 800; }
+    .form-header .kn-heading { color: var(--f-primary); font-size: 1.1rem; font-weight: 800; margin-top: 4px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .full-width { grid-column: 1 / -1; }
+
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .label-wrapper { display: flex; flex-direction: column; line-height: 1.3; align-items: center; text-align: center; }
+    .en-lbl { font-size: 0.75rem; font-weight: 800; color: var(--f-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kn-lbl { font-size: 0.95rem; font-weight: 800; color: var(--f-primary); }
+
+    .field-wrapper { position: relative; width: 100%; }
+    .field-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #94A3B8; pointer-events: none; }
+    
+    .popup-input, .popup-select, .popup-textarea {
+      width: 100%; padding: 12px 14px 12px 40px; font-size: 0.9rem; font-weight: 600; 
+      color: var(--f-dark); background: #fff; border: 2px solid var(--f-border); border-radius: 12px; transition: all 0.3s ease;
+    }
+    .popup-textarea { padding-left: 14px; min-height: 80px; resize: none; }
+    .popup-input:focus, .popup-select:focus, .popup-textarea:focus {
+      outline: none; border-color: var(--f-primary); box-shadow: 0 0 0 4px var(--f-primary-glow); transform: translateY(-1px);
+    }
+
+    .popup-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; cursor: pointer;
+    }
+
+    .char-counter { font-size: 0.7rem; font-weight: 700; color: var(--f-muted); text-align: right; margin-top: 4px; }
+
+    .action-group { display: flex; gap: 12px; margin-top: 24px; grid-column: 1 / -1; }
+    .form-btn {
+      flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;
+    }
+    .btn-cancel { background: #fff; color: var(--f-muted); border: 1px solid var(--f-border); }
+    .btn-submit { background: var(--f-primary); color: #fff; box-shadow: 0 8px 20px var(--f-primary-glow); }
+    .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
+    .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.85; }
+    .form-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+    @media (max-width: 600px) {
+      .pro-card { 
+        padding: 30px 20px; 
+        border-radius: 24px; 
+        width: 92%; 
+        max-height: 85svh; 
+        overflow-y: auto; 
+        margin: auto;
+      }
+      .form-grid { 
+        grid-template-columns: 1fr 1fr; /* Strict: Follow desktop parameters */
+        gap: 12px; 
+      }
+      .action-group { flex-direction: row; gap: 10px; }
+      .form-btn { padding: 10px 5px; }
+      .form-btn .en-btn { font-size: 0.8rem; }
+      .form-btn .kn-btn { font-size: 0.7rem; }
+    }
+
+    /* Media Queries */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .split-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy p {
+        max-width: none;
+      }
+    }
+
+@media (max-width: 820px) {
+      .story-section {
+        height: 100svh; /* Strict height */
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+      }
+      .section-image {
+        height: 45svh;
+        min-height: 0;
+        width: 100%;
+        order: 1;
+      }
+      .section-card {
+        height: 55svh;
+        min-height: 0;
+        order: 2;
+        padding: 40px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow-y: auto;
+      }
+
+      header {
+        justify-content: center;
+        position: relative;
+      }
+      .brand {
+        justify-content: center;
+      }
+      .logo-mark {
+        position: absolute;
+        left: max(20px, env(safe-area-inset-left));
+      }
+      .menu-toggle { 
+        display: flex; 
+        position: absolute;
+        right: max(20px, env(safe-area-inset-right));
+      }
+
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0F2B46;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px;
+        gap: 16px;
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-highlights,
+      .feature-stack,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-copy h2, 
+      .hero-copy h1,
+      .section-copy p,
+      .hero-copy p,
+      .section-info {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar, .topbar-item {
+        justify-content: flex-end;
+      }
+      .logo-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+      }
+      .story-section {
+        min-height: auto;
+        padding-top: 84px;
+        padding-bottom: 54px;
+      }
+      .section-card {
+        border-radius: 28px;
+        padding: 24px 20px;
+      }
+      .hero-copy h1,
+      .section-copy h2 {
+        font-size: clamp(1.9rem, 11vw, 3rem);
+      }
+      .lang-btn {
+        right: 14px;
+        left: 14px;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        justify-content: center;
+      }
+      .lang-copy span {
+        display: none;
+      }
+      .popup {
+        padding: 12px;
+        align-items: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="popup" id="popup" aria-hidden="true">
+    <div class="pro-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="btn-close" id="popupClose" aria-label="Close" type="button">&times;</button>
+
+      <div class="form-header">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <h2 id="popupTitle">Admission Enquiry Form</h2>
+        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ ಫಾರ್ಮ್</div>
+      </div>
+
+      <form id="admissionForm">
+        <div class="form-grid">
+          
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Parent's Name</span>
+              <span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="parentName" name="parentName" class="popup-input" required placeholder="Parent Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Phone Number</span>
+              <span class="kn-lbl">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <input type="tel" id="phone" name="phone" class="popup-input" required placeholder="Mobile No.">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Child's Name</span>
+              <span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <input type="text" id="childName" name="childName" class="popup-input" required placeholder="Child Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Admitting To</span>
+              <span class="kn-lbl">ಪ್ರವೇಶ ತರಗತಿ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <select id="admissionClass" name="admissionClass" class="popup-select" required>
+                <option value="" disabled selected>Select</option>
+                <option value="prenursery">Pre-Nursery</option>
+                <option value="nursery">Nursery</option>
+                <option value="lkg">LKG</option>
+                <option value="ukg">UKG</option>
+                <option value="class1">Class I</option>
+                <option value="class2">Class II</option>
+                <option value="class3">Class III</option>
+                <option value="class4">Class IV</option>
+                <option value="class5">Class V</option>
+                <option value="class6">Class VI</option>
+                <option value="class7">Class VII</option>
+                <option value="class8">Class VIII</option>
+                <option value="class9">Class IX</option>
+                <option value="class10">Class X</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group full-width">
+            <div class="label-wrapper">
+              <span class="en-lbl">Enquiry Message</span>
+              <span class="kn-lbl">ವಿಚಾರಣೆ ಸಂದೇಶ</span>
+            </div>
+            <textarea id="message" name="message" class="popup-textarea" maxlength="1000" required placeholder="How can we help you? / ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"></textarea>
+            <div class="char-counter" id="charCount">0 / 1000</div>
+          </div>
+          
+        </div>
+        
+        <div class="action-group">
+          <button type="button" class="form-btn btn-cancel" id="cancelButton">
+            <span class="en-btn">Cancel</span>
+            <span class="kn-btn">ರದ್ದುಮಾಡಿ</span>
+          </button>
+          <button type="submit" class="form-btn btn-submit">
+            <span class="en-btn">Submit Enquiry</span>
+            <span class="kn-btn">ಸಲ್ಲಿಸಿ</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com">
+      <small>Email</small>
+      <strong>school@mail.com</strong>
+    </a>
+    <a class="topbar-item" href="tel:+919876543210">
+      <small>Contact</small>
+      <strong>+91 98765 43210</strong>
+    </a>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="logo-mark notranslate" translate="no">SCH</div>
+      <h2 class="notranslate" translate="no">School Name</h2>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="status-toast" id="statusToast" aria-live="polite"></div>
+
+  <main>
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h1>Shaping Confident Learners</h1>
+          <p class="section-info">
+            <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
+          </p>
+          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>About Our School</h2>
+          <p class="section-info">
+            <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
+          </p>
+          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+          <a href="about.html" class="section-btn">Learn More</a>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="expertise" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Our Expertise</h2>
+          <p class="section-info">
+            <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
+          </p>
+          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+          <a href="expertise.html" class="section-btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Campus Life</h2>
+          <p class="section-info">
+            <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
+          </p>
+          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+          <a href="gallery.html" class="section-btn">View Our Gallery</a>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Admissions Open 2026-27</h2>
+          <p class="section-info">
+            <span>Nursery To Grade 10</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
+          </p>
+          <p>Start your child's learning journey with a school that plans for growth.</p>
+          <button class="section-btn" onclick="openPopup()">Enquire Admission</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Contact Us</h2>
+          <p class="section-info">
+            <span>Admissions Help</span><span>Campus Visits</span><span>Directions</span><span>Support</span>
+          </p>
+          <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
+          <div class="contact-methods">
+            <a href="https://wa.me/919876543210" class="contact-icon" title="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"/><path d="M16.47 14.39c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.19.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+            </a>
+            <a href="mailto:school@mail.com" class="contact-icon" title="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="tel:+919876543210" class="contact-icon" title="Call">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+            <a href="https://instagram.com" class="contact-icon" title="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+  </main>
+
+  <script>
+    // Application Interface References
+    const SchoolApp = {
+      ui: {
+        modal: document.querySelector("#popup"),
+        closer: document.querySelector("#popupClose"),
+        admissionForm: document.querySelector("#admissionForm"),
+        abortBtn: document.querySelector("#cancelButton"),
+        notifier: document.querySelector("#statusToast"),
+        contentBlocks: document.querySelectorAll(".story-section"),
+        messageArea: document.querySelector("#message"),
+        charDisplay: document.querySelector("#charCount"),
+        navSwitcher: document.querySelector("#menuToggle"),
+        navigation: document.querySelector("header nav")
+      },
+      state: {
+        timer: null,
+        isAnimating: false
+      }
+    };
+
+    // Clean up duplicate/unnecessary sections
+    document.querySelectorAll("main > section:not(.story-section)").forEach(s => s.remove());
+
+    function triggerNotification(text) {
+      SchoolApp.ui.notifier.textContent = text;
+      SchoolApp.ui.notifier.classList.add("show");
+      window.clearTimeout(SchoolApp.state.timer);
+      SchoolApp.state.timer = window.setTimeout(() => SchoolApp.ui.notifier.classList.remove("show"), 2600);
+    }
+
+    function openPopup() {
+      if (SchoolApp.ui.admissionForm) {
+        SchoolApp.ui.admissionForm.reset();
+        if (SchoolApp.ui.charDisplay) SchoolApp.ui.charDisplay.textContent = `0 / 1000`;
+      }
+      SchoolApp.ui.modal.classList.add("open");
+      SchoolApp.ui.modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closePopup() {
+      if (SchoolApp.ui.admissionForm) {
+        SchoolApp.ui.admissionForm.reset();
+      }
+      SchoolApp.ui.modal.classList.remove("open");
+      SchoolApp.ui.modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    // Mobile Menu Toggle
+    if (SchoolApp.ui.navSwitcher && SchoolApp.ui.navigation) {
+      SchoolApp.ui.navSwitcher.addEventListener("click", () => {
+        SchoolApp.ui.navigation.classList.toggle("active");
+        SchoolApp.ui.navSwitcher.classList.toggle("active");
+      });
+      SchoolApp.ui.navigation.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          SchoolApp.ui.navigation.classList.remove("active");
+          SchoolApp.ui.navSwitcher.classList.remove("active");
+        });
+      });
+    }
+
+    const MAX_CHARS = 1000;
+    if (SchoolApp.ui.messageArea && SchoolApp.ui.charDisplay) {
+      SchoolApp.ui.messageArea.addEventListener('input', (e) => {
+        const len = e.target.value.length;
+        SchoolApp.ui.charDisplay.textContent = `${len} / ${MAX_CHARS}`;
+        SchoolApp.ui.charDisplay.style.color = len >= MAX_CHARS ? 'var(--f-error)' : 'var(--f-muted)';
+      });
+    }
+
+    function refreshScrollVisuals() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      SchoolApp.ui.contentBlocks.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = rect.top + (rect.height / 2) - (vh / 2);
+        const progress = offset / vh;
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
+        const bgShift = Math.max(-40, Math.min(40, progress * -28));
+        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
+
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.style.setProperty("--card-tilt", tilt.toFixed(2));
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+
+        if (reveal > 0.16) section.classList.add("show");
+      });
+
+      SchoolApp.state.isAnimating = false;
+    }
+
+    function requestScrollRefresh() {
+      if (!SchoolApp.state.isAnimating) {
+        window.requestAnimationFrame(refreshScrollVisuals);
+        SchoolApp.state.isAnimating = true;
+      }
+    }
+
+    // Event Listeners
+    SchoolApp.ui.modal.addEventListener("click", (e) => { if(e.target === SchoolApp.ui.modal) closePopup(); });
+    SchoolApp.ui.closer.addEventListener("click", closePopup);
+
+    if (SchoolApp.ui.admissionForm) {
+      SchoolApp.ui.admissionForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        closePopup();
+        triggerNotification("Thanks! Your enquiry has been recorded.");
+      });
+    }
+
+    if (SchoolApp.ui.abortBtn) {
+      SchoolApp.ui.abortBtn.addEventListener("click", () => {
+        if(confirm("Discard enquiry? / ವಿಚಾರಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೆ?")) {
+          closePopup();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && SchoolApp.ui.modal.classList.contains("open")) closePopup();
+    });
+
+    window.addEventListener("scroll", requestScrollRefresh, { passive: true });
+    window.addEventListener("resize", requestScrollRefresh);
+    window.addEventListener("load", () => {
+      requestScrollRefresh();
+      window.setTimeout(openPopup, 700);
+    });
+  </script>
+</body>
+</html>
+
+----------------------------------------------------------------------------------------------
+
+

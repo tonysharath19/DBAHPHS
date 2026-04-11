@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="referrer" content="no-referrer">
+  <title>School</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-navy: #4169E1; --card-blue: #0F2B46; --text-dark: #0a2237; --text-light: #ffffff;
+      --f-primary: #4169E1; --f-primary-glow: rgba(65, 105, 225, 0.15);
+      --f-dark: #0F172A; --f-muted: #64748B; --f-bg: #F4F7F9;
+      --f-border: #E2E8F0; --f-error: #EF4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Poppins", sans-serif; overflow-x: hidden; color: var(--text-dark); background: #0A192F; top: 0 !important; }
+    body.modal-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+
+    .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
+    .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
+
+    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); background: #061a33; color: var(--text-light); }
+    .topbar-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); }
+    .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; flex-direction: row; align-items: center; gap: 18px; padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); background: #0F2B46; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 24px rgba(15,43,70,0.18); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
+    .menu-toggle span { display: block; width: 26px; height: 3px; background: #fff; border-radius: 4px; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; }
+    .logo-mark { position: relative; overflow: hidden; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%), linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%); color: #fff; font-weight: 800; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 16px 30px rgba(6,18,44,0.42), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 16px rgba(0,0,0,0.3); }
+    .brand h2 { color: #ffffff; font-size: 1.4rem; line-height: 1.1; letter-spacing: 0.01em; }
+
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; width: auto; text-align: left; margin-left: auto; }
+    nav a { padding: 10px 14px; border-radius: 999px; color: #ffffff; font-weight: 600; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+    nav a:hover, nav a:focus-visible { background: rgba(255,255,255,0.12); color: #d8ebff; transform: translateY(-1px); }
+
+    .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
+    
+    /* Re-styled Translate Button */
+    .lang-btn { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 1100; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border: none; border-radius: 999px; background: #ffffff; color: var(--brand-navy); box-shadow: 0 22px 40px rgba(15,43,70,0.26); cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .lang-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 26px 48px rgba(15,43,70,0.3); }
+    .translate-icon { width: 28px; height: 28px; color: var(--brand-navy); flex-shrink: 0; }
+    .lang-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+    .lang-copy strong { font-size: 1.05rem; font-weight: 800; color: var(--brand-navy); }
+    .lang-sub { font-size: 0.72rem; opacity: 0.82; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-navy); display: block; }
+
+    .status-toast { position: fixed; left: 50%; bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px)); z-index: 1150; transform: translate(-50%, 14px); padding: 12px 18px; border-radius: 999px; background: rgba(8,22,37,0.92); color: #fff; box-shadow: 0 18px 34px rgba(8,22,37,0.28); font-size: 0.92rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
+    .status-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    main { width: 100%; background: #0A192F; }
+    .story-section { --bg-shift: 0; --card-tilt: 0; --reveal: 0; scroll-margin-top: 110px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 0; min-height: 100svh; overflow: hidden; isolation: isolate; perspective: 1600px; background: #0A192F; }
+    
+    .section-card { grid-column: 2; width: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(48px, 7vw, 96px); background: #0F2B46; color: var(--text-light); transform-style: preserve-3d; transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) scale(calc(0.94 + (var(--reveal) * 0.06))); opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease; text-align: center; }
+    .section-image { min-height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.1); transform-origin: center; opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.45s ease, opacity 0.22s ease, filter 0.22s ease; }
+    
+    .story-section:nth-child(odd) .section-image { grid-column: 1; }
+    .story-section:nth-child(even) .section-image { grid-column: 2; }
+    .story-section:nth-child(odd) .section-card { grid-column: 2; }
+    .story-section:nth-child(even) .section-card { grid-column: 1; }
+    .story-section.show .section-card { opacity: 1; filter: blur(0); }
+    
+    .section-copy { width: min(100%, 560px); display: flex; flex-direction: column; align-items: center; }
+    .hero-copy h1, .section-copy h2 { font-size: clamp(1.8rem, 6vw, 4.4rem); line-height: 1.1; letter-spacing: -0.02em; text-align: center; text-transform: capitalize; word-wrap: break-word; hyphens: auto; }
+    .section-copy h2 { font-size: clamp(1.6rem, 5vw, 3.1rem); }
+    .hero-copy p, .section-copy p { margin-top: 18px; font-size: clamp(0.95rem, 1.8vw, 1.14rem); line-height: 1.8; max-width: 72ch; opacity: 0.95; text-align: center; }
+    
+    .section-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; color: #fff; text-align: center; }
+    .section-info span { padding: 6px 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 999px; text-transform: capitalize; transition: background 0.3s ease; }
+    .section-info span:hover { background: rgba(255, 255, 255, 0.15); }
+    
+    .section-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 32px; padding: 14px 36px; background: var(--brand-navy); color: #fff; font-weight: 700; border-radius: 999px; transition: all 0.3s ease; box-shadow: 0 8px 16px rgba(65, 105, 225, 0.25); cursor: pointer; border: none; }
+    .section-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    .contact-methods { display: flex; justify-content: center; gap: 16px; margin-top: 32px; }
+    .contact-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s ease; }
+    .contact-icon:hover { background: var(--brand-navy); transform: translateY(-4px); }
+    .contact-icon svg { width: 22px; height: 22px; }
+
+    /* Popup Form */
+    .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .popup.open { display: flex; }
+    .pro-card { background: var(--f-bg); width: min(600px, 100%); border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; transition: all 0.5s ease; }
+    .popup.open .pro-card { transform: translateY(0); opacity: 1; }
+    .btn-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid var(--f-border); font-size: 1.5rem; color: var(--f-muted); cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; z-index: 10; }
+    .btn-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; transform: rotate(90deg); }
+
+    .form-header-popup { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px; }
+    .header-icon { width: 48px; height: 48px; color: var(--f-primary); margin-bottom: 12px; background: #fff; padding: 10px; border-radius: 12px; box-shadow: 0 4px 12px var(--f-primary-glow); }
+    .form-header-popup h2 { color: var(--f-dark); font-size: clamp(1.4rem, 4vw, 1.6rem); font-weight: 800; }
+    .form-header-popup .kn-heading { color: var(--f-primary); font-size: 1.1rem; font-weight: 800; margin-top: 4px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .full-width { grid-column: 1 / -1; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .label-wrapper { display: flex; flex-direction: column; line-height: 1.3; align-items: center; text-align: center; }
+    .en-lbl { font-size: 0.75rem; font-weight: 800; color: var(--f-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kn-lbl { font-size: 0.95rem; font-weight: 800; color: var(--f-primary); }
+
+    .field-wrapper { position: relative; width: 100%; }
+    .field-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #94A3B8; pointer-events: none; }
+    .popup-input, .popup-select, .popup-textarea { width: 100%; padding: 12px 14px 12px 40px; font-size: 0.9rem; font-weight: 600; color: var(--f-dark); background: #fff; border: 2px solid var(--f-border); border-radius: 12px; transition: all 0.3s ease; -webkit-appearance: none; appearance: none; }
+    .popup-textarea { padding-left: 14px; min-height: 80px; resize: none; }
+    .popup-input:focus, .popup-select:focus, .popup-textarea:focus { outline: none; border-color: var(--f-primary); box-shadow: 0 0 0 4px var(--f-primary-glow); transform: translateY(-1px); }
+    .popup-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; cursor: pointer; }
+
+    .char-counter { font-size: 0.7rem; font-weight: 700; color: var(--f-muted); text-align: right; margin-top: 4px; }
+    .action-group { display: flex; gap: 12px; margin-top: 24px; grid-column: 1 / -1; }
+    .form-btn { flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease; }
+    .btn-cancel { background: #fff; color: var(--f-muted); border: 1px solid var(--f-border); }
+    .btn-submit { background: var(--f-primary); color: #fff; box-shadow: 0 8px 20px var(--f-primary-glow); }
+    .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
+    .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.85; }
+    .form-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 820px) {
+      .story-section { min-height: 100vh; grid-template-columns: 1fr; display: flex; flex-direction: column; perspective: none; }
+      
+      /* Mobile Smooth Scroll Reveal (NO GAPS) */
+      .section-image { height: 40vh; min-height: 250px; width: 100%; order: 1; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: scale(calc(1.05 - (var(--reveal) * 0.05))); }
+      .section-card { flex: 1; min-height: 50vh; order: 2; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translateY(calc((1 - var(--reveal)) * 40px)); }
+      
+      header { justify-content: flex-start; }
+      .menu-toggle { display: flex; position: absolute; right: max(20px, env(safe-area-inset-right)); }
+      nav { position: absolute; top: 100%; left: 0; right: 0; background: #0F2B46; flex-direction: column; align-items: center; padding: 24px; gap: 16px; transform: translateY(-20px); opacity: 0; pointer-events: none; transition: 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      nav.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    }
+
+    @media (max-width: 620px) {
+      .topbar, .topbar-item { justify-content: flex-end; }
+      .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
+      
+      /* Mobile Floating Action Translate Button (PILL WITH ICON) */
+      .lang-btn { right: 16px; left: auto; bottom: 16px; width: auto; height: auto; padding: 12px 20px; border-radius: 999px; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1100; flex-direction: row; gap: 8px; }
+      .lang-sub { display: none; } 
+      .lang-copy { display: flex; align-items: center; }
+      .lang-copy strong { font-size: 0.95rem; }
+
+      .popup { padding: 12px; align-items: center; }
+      .pro-card { padding: 30px 20px; border-radius: 24px; width: 96%; max-height: 85svh; overflow-y: auto; margin: auto; }
+      .form-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .action-group { flex-direction: row; gap: 10px; }
+      .form-btn { padding: 10px 5px; }
+      .form-btn .en-btn { font-size: 0.8rem; } .form-btn .kn-btn { font-size: 0.7rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
+
+  <div class="popup" id="popup" aria-hidden="true">
+    <div class="pro-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="btn-close" id="popupClose" aria-label="Close" type="button">&times;</button>
+
+      <div class="form-header-popup">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <h2 id="popupTitle">Admission Enquiry Form</h2>
+        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ ಫಾರ್ಮ್</div>
+      </div>
+
+      <form id="admissionForm">
+        <div class="form-grid">
+          
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Parent's Name</span>
+              <span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="parentName" name="parentName" class="popup-input" required placeholder="Parent Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Phone Number</span>
+              <span class="kn-lbl">ದೂರವಾಣಿ ಸಂಖ್ಯೆ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <input type="tel" id="phone" name="phone" class="popup-input" required placeholder="Mobile No.">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Child's Name</span>
+              <span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <input type="text" id="childName" name="childName" class="popup-input" required placeholder="Child Name">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-wrapper">
+              <span class="en-lbl">Admitting To</span>
+              <span class="kn-lbl">ಪ್ರವೇಶ ತರಗತಿ</span>
+            </div>
+            <div class="field-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <select id="admissionClass" name="admissionClass" class="popup-select" required>
+                <option value="" disabled selected>Select</option>
+                <option value="prenursery">Pre-Nursery</option>
+                <option value="nursery">Nursery</option>
+                <option value="lkg">LKG</option>
+                <option value="ukg">UKG</option>
+                <option value="class1">Class I</option>
+                <option value="class2">Class II</option>
+                <option value="class3">Class III</option>
+                <option value="class4">Class IV</option>
+                <option value="class5">Class V</option>
+                <option value="class6">Class VI</option>
+                <option value="class7">Class VII</option>
+                <option value="class8">Class VIII</option>
+                <option value="class9">Class IX</option>
+                <option value="class10">Class X</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group full-width">
+            <div class="label-wrapper">
+              <span class="en-lbl">Enquiry Message</span>
+              <span class="kn-lbl">ವಿಚಾರಣೆ ಸಂದೇಶ</span>
+            </div>
+            <textarea id="message" name="message" class="popup-textarea" maxlength="1000" required placeholder="How can we help you? / ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"></textarea>
+            <div class="char-counter" id="charCount">0 / 1000</div>
+          </div>
+          
+        </div>
+        
+        <div class="action-group">
+          <button type="button" class="form-btn btn-cancel" id="cancelButton">
+            <span class="en-btn">Cancel</span>
+            <span class="kn-btn">ರದ್ದುಮಾಡಿ</span>
+          </button>
+          <button type="submit" class="form-btn btn-submit">
+            <span class="en-btn">Submit Enquiry</span>
+            <span class="kn-btn">ಸಲ್ಲಿಸಿ</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com">
+      <small>Email</small>
+      <strong>school@mail.com</strong>
+    </a>
+    <a class="topbar-item" href="tel:+919876543210">
+      <small>Contact</small>
+      <strong>+91 98765 43210</strong>
+    </a>
+  </div>
+
+  <header>
+    <div class="brand">
+      <div class="logo-mark notranslate" translate="no">SCH</div>
+      <h2 class="notranslate" translate="no">School Name</h2>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <button class="lang-btn" onclick="translatePage()">
+    <svg class="translate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span class="lang-copy">
+      <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
+      <span class="lang-sub">Tap to translate full page</span>
+    </span>
+  </button>
+
+  <div class="status-toast" id="statusToast" aria-live="polite"></div>
+
+  <main>
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1592066575517-58df903152f2?q=80&w=1298&auto=format&fit=crop');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h1>Shaping Confident Learners</h1>
+          <p class="section-info">
+            <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
+          </p>
+          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1495727034151-8fdc73e332a8?w=600&auto=format&fit=crop');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>About Our School</h2>
+          <p class="section-info">
+            <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
+          </p>
+          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+          <a href="#about" class="section-btn">Learn More</a>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="expertise" class="story-section theme-dark" style="--section-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Our Expertise</h2>
+          <p class="section-info">
+            <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
+          </p>
+          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+          <a href="#expertise" class="section-btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1629872928185-171e13c8e58b?w=600&auto=format&fit=crop');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Campus Life</h2>
+          <p class="section-info">
+            <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
+          </p>
+          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+          <a href="#gallery" class="section-btn">View Our Campus</a>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://media.istockphoto.com/id/1598301288/photo/father-talking-to-teacher-in-classroom.webp?a=1&b=1&s=612x612&w=0&k=20&c=7XADdEtn9pUgfwWXnNwzvLEx_Y6oqpJcWTeJxI6085w=');">
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Admissions Open 2026-27</h2>
+          <p class="section-info">
+            <span>Nursery To Grade 8</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
+          </p>
+          <p>Start your child's learning journey with a school that plans for growth.</p>
+          <button class="section-btn" onclick="openPopup()">Enquire Admission</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1629360067822-89c74b25bb66?w=600&auto=format&fit=crop');">
+      <div class="section-card">
+        <div class="section-copy">
+          <h2>Contact Us</h2>
+          <p class="section-info">
+            <span>Admissions Help</span><span>Campus Visits</span><span>Directions</span><span>Support</span>
+          </p>
+          <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
+          <div class="contact-methods">
+            <a href="https://wa.me/919876543210" class="contact-icon" title="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.04c0 2.12.554 4.189 1.602 6.006L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.635 0 12.038-5.403 12.04-12.04.001-3.218-1.252-6.242-3.525-8.514z"/></svg>
+            </a>
+            <a href="https://instagram.com" class="contact-icon" title="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="mailto:school@mail.com" class="contact-icon" title="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="tel:+919876543210" class="contact-icon" title="Call">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="section-image" style="background-image: var(--section-image);"></div>
+    </section>
+  </main>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const popupCloseButton = document.getElementById("popupClose");
+    const enquiryForm = document.getElementById("admissionForm");
+    const cancelButton = document.getElementById("cancelButton");
+    const toast = document.getElementById("statusToast");
+    const sections = document.querySelectorAll(".story-section");
+    const translateButton = document.querySelector(".lang-btn");
+    const translateButtonLabel = document.getElementById("translateButtonLabel");
+    const msgInput = document.getElementById('message');
+    const charCounter = document.getElementById('charCount');
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.querySelector("header nav");
+
+    let toastTimer;
+    let currentLanguage = "en";
+    let translationReady = false;
+    let ticking = false;
+    const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
+
+    function showToast(message) {
+      toast.textContent = message; toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function openPopup() {
+      if (enquiryForm) { enquiryForm.reset(); if (charCounter) charCounter.textContent = `0 / 1000`; }
+      popup.classList.add("open"); popup.setAttribute("aria-hidden", "false"); document.body.classList.add("modal-open");
+    }
+
+    function closePopup() {
+      if (enquiryForm) enquiryForm.reset();
+      popup.classList.remove("open"); popup.setAttribute("aria-hidden", "true"); document.body.classList.remove("modal-open");
+    }
+
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false, multilanguagePage: false
+      }, "google_translate_element");
+      translationReady = true;
+    };
+
+    function setTranslateButtonState(lang) {
+      const isKn = lang === "kn";
+      translateButton.setAttribute("aria-pressed", isKn ? "true" : "false");
+      translateButtonLabel.textContent = isKn ? "Read in English" : kannadaLabel;
+    }
+
+    function applyLanguage(lang, attempt = 0) {
+      const combo = document.querySelector(".goog-te-combo");
+      if (!combo) {
+        if (attempt < 24) { window.setTimeout(() => applyLanguage(lang, attempt + 1), 250); return; }
+        showToast("Translation loading. Please wait."); return;
+      }
+      combo.value = lang;
+      combo.dispatchEvent(new Event("change"));
+      currentLanguage = lang;
+      setTranslateButtonState(lang);
+      showToast(lang === "kn" ? "Translating to Kannada..." : "Switched to English.");
+    }
+
+    window.translatePage = function() {
+      const nextLang = currentLanguage === "kn" ? "en" : "kn";
+      if (!translationReady && !document.querySelector(".goog-te-combo")) showToast("Preparing translation...");
+      applyLanguage(nextLang);
+    };
+
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active"); menuToggle.classList.toggle("active");
+      });
+      navMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => { navMenu.classList.remove("active"); menuToggle.classList.remove("active"); });
+      });
+    }
+
+    const MAX_CHARS = 1000;
+    if (msgInput && charCounter) {
+      msgInput.addEventListener('input', (e) => {
+        const len = e.target.value.length;
+        charCounter.textContent = `${len} / ${MAX_CHARS}`;
+        charCounter.style.color = len >= MAX_CHARS ? 'var(--f-error)' : 'var(--f-muted)';
+      });
+    }
+
+    function updateParallax() {
+      // Keep mobile transitions purely opacity and standard transforms to prevent gaps
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = rect.top + (rect.height / 2) - (vh / 2);
+        const progress = offset / vh;
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
+        const bgShift = Math.max(-40, Math.min(40, progress * -28));
+        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
+
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.style.setProperty("--card-tilt", tilt.toFixed(2));
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+        if (reveal > 0.16) section.classList.add("show");
+      });
+      ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; }
+    }
+
+    popup.addEventListener("click", (e) => { if(e.target === popup) closePopup(); });
+    popupCloseButton.addEventListener("click", closePopup);
+
+    if (enquiryForm) {
+      enquiryForm.addEventListener("submit", (e) => {
+        e.preventDefault(); closePopup(); showToast("Thanks! Your enquiry has been recorded.");
+      });
+    }
+    if (cancelButton) {
+      cancelButton.addEventListener("click", () => { if(confirm("Discard enquiry? / ವಿಚಾರಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೆ?")) closePopup(); });
+    }
+
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.classList.contains("open")) closePopup(); });
+    window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+    window.addEventListener("resize", requestParallaxUpdate);
+    
+    // POPUP AUTO LOAD FIX
+    window.addEventListener("load", () => { 
+      requestParallaxUpdate(); 
+      setTimeout(openPopup, 800); 
+    });
+    
+    requestParallaxUpdate();
+  </script>
+
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
