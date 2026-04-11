@@ -50,11 +50,12 @@
 
     .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
     
-    /* Re-styled Translate Button */
-    .lang-btn { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 1100; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border: none; border-radius: 999px; background: #ffffff; color: var(--brand-navy); box-shadow: 0 22px 40px rgba(15,43,70,0.26); cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .lang-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 26px 48px rgba(15,43,70,0.3); }
+    /* FLOATING & MOVABLE TRANSLATE BUTTON */
+    .lang-btn { position: fixed; top: 90px; right: max(18px, env(safe-area-inset-right)); left: auto; bottom: auto; z-index: 1100; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border: none; border-radius: 999px; background: #ffffff; color: var(--brand-navy); box-shadow: 0 15px 35px rgba(0,0,0,0.3); cursor: grab; touch-action: none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .lang-btn:active { cursor: grabbing; }
+    .lang-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
     .translate-icon { width: 28px; height: 28px; color: var(--brand-navy); flex-shrink: 0; }
-    .lang-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+    .lang-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; pointer-events: none; }
     .lang-copy strong { font-size: 1.05rem; font-weight: 800; color: var(--brand-navy); }
     .lang-sub { font-size: 0.72rem; opacity: 0.82; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-navy); display: block; }
 
@@ -64,7 +65,7 @@
     main { width: 100%; background: #0A192F; }
     .story-section { --bg-shift: 0; --card-tilt: 0; --reveal: 0; scroll-margin-top: 110px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 0; min-height: 100svh; overflow: hidden; isolation: isolate; perspective: 1600px; background: #0A192F; }
     
-    .section-card { grid-column: 2; width: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(48px, 7vw, 96px); background: #0F2B46; color: var(--text-light); transform-style: preserve-3d; transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) scale(calc(0.94 + (var(--reveal) * 0.06))); opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease; text-align: center; }
+    .section-card { grid-column: 2; width: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(48px, 7vw, 96px); transform-style: preserve-3d; transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) scale(calc(0.94 + (var(--reveal) * 0.06))); opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease; text-align: center; }
     .section-image { min-height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.1); transform-origin: center; opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.45s ease, opacity 0.22s ease, filter 0.22s ease; }
     
     .story-section:nth-child(odd) .section-image { grid-column: 1; }
@@ -73,14 +74,30 @@
     .story-section:nth-child(even) .section-card { grid-column: 1; }
     .story-section.show .section-card { opacity: 1; filter: blur(0); }
     
+    /* ALTERNATING COLORS LOGIC */
+    /* Dark Theme (Odd Sections) */
+    .story-section.theme-dark .section-card { background: #0F2B46; color: #ffffff; }
+    .story-section.theme-dark h1, .story-section.theme-dark h2 { color: #ffffff; }
+    .story-section.theme-dark p { color: rgba(255, 255, 255, 0.95); }
+    .story-section.theme-dark .section-info span { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; }
+    .story-section.theme-dark .section-info span:hover { background: rgba(255, 255, 255, 0.15); }
+    
+    /* Light Theme (Even Sections) */
+    .story-section.theme-light .section-card { background: #ffffff; color: #0a2237; }
+    .story-section.theme-light h1, .story-section.theme-light h2 { color: #0F2B46; }
+    .story-section.theme-light p { color: #0a2237; }
+    .story-section.theme-light .section-info span { background: rgba(65, 105, 225, 0.08); border: 1px solid rgba(65, 105, 225, 0.2); color: var(--brand-navy); }
+    .story-section.theme-light .section-info span:hover { background: rgba(65, 105, 225, 0.15); color: #0F2B46; }
+    .story-section.theme-light .contact-icon { background: rgba(65, 105, 225, 0.1); border: 1px solid rgba(65, 105, 225, 0.3); color: var(--brand-navy); }
+    .story-section.theme-light .contact-icon:hover { background: var(--brand-navy); color: #ffffff; transform: translateY(-4px); }
+
     .section-copy { width: min(100%, 560px); display: flex; flex-direction: column; align-items: center; }
     .hero-copy h1, .section-copy h2 { font-size: clamp(1.8rem, 6vw, 4.4rem); line-height: 1.1; letter-spacing: -0.02em; text-align: center; text-transform: capitalize; word-wrap: break-word; hyphens: auto; }
     .section-copy h2 { font-size: clamp(1.6rem, 5vw, 3.1rem); }
     .hero-copy p, .section-copy p { margin-top: 18px; font-size: clamp(0.95rem, 1.8vw, 1.14rem); line-height: 1.8; max-width: 72ch; opacity: 0.95; text-align: center; }
     
-    .section-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; color: #fff; text-align: center; }
-    .section-info span { padding: 6px 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 999px; text-transform: capitalize; transition: background 0.3s ease; }
-    .section-info span:hover { background: rgba(255, 255, 255, 0.15); }
+    .section-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; text-align: center; }
+    .section-info span { padding: 6px 16px; border-radius: 999px; text-transform: capitalize; transition: background 0.3s ease; }
     
     .section-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 32px; padding: 14px 36px; background: var(--brand-navy); color: #fff; font-weight: 700; border-radius: 999px; transition: all 0.3s ease; box-shadow: 0 8px 16px rgba(65, 105, 225, 0.25); cursor: pointer; border: none; }
     .section-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -126,14 +143,10 @@
     .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.85; }
     .form-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-    /* Media Queries for Responsiveness */
     @media (max-width: 820px) {
       .story-section { min-height: 100vh; grid-template-columns: 1fr; display: flex; flex-direction: column; perspective: none; }
-      
-      /* Mobile Smooth Scroll Reveal (NO GAPS) */
       .section-image { height: 40vh; min-height: 250px; width: 100%; order: 1; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: scale(calc(1.05 - (var(--reveal) * 0.05))); }
       .section-card { flex: 1; min-height: 50vh; order: 2; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translateY(calc((1 - var(--reveal)) * 40px)); }
-      
       header { justify-content: flex-start; }
       .menu-toggle { display: flex; position: absolute; right: max(20px, env(safe-area-inset-right)); }
       nav { position: absolute; top: 100%; left: 0; right: 0; background: #0F2B46; flex-direction: column; align-items: center; padding: 24px; gap: 16px; transform: translateY(-20px); opacity: 0; pointer-events: none; transition: 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -143,9 +156,9 @@
     @media (max-width: 620px) {
       .topbar, .topbar-item { justify-content: flex-end; }
       .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
-      
-      /* Mobile Floating Action Translate Button (PILL WITH ICON) */
-      .lang-btn { right: 16px; left: auto; bottom: 16px; width: auto; height: auto; padding: 12px 20px; border-radius: 999px; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1100; flex-direction: row; gap: 8px; }
+      .mobile-break { display: block; }
+      /* Mobile Floating Action Translate Button */
+      .lang-btn { top: 80px; right: 16px; left: auto; bottom: auto; width: auto; height: auto; padding: 12px 20px; border-radius: 999px; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1100; flex-direction: row; gap: 8px; }
       .lang-sub { display: none; } 
       .lang-copy { display: flex; align-items: center; }
       .lang-copy strong { font-size: 0.95rem; }
@@ -292,7 +305,7 @@
     </button>
   </header>
 
-  <button class="lang-btn" onclick="translatePage()">
+  <button class="lang-btn" id="langBtn" type="button">
     <svg class="translate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
     <span class="lang-copy">
       <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
@@ -362,7 +375,7 @@
       <div class="section-image" style="background-image: var(--section-image);"></div>
       <div class="section-card">
         <div class="section-copy">
-          <h2>Admissions Open 2026-27</h2>
+          <h2>Admissions Open <span class="mobile-break">2026-27</span></h2>
           <p class="section-info">
             <span>Nursery To Grade 8</span><span>Enquiries Open</span><span>School Visits</span><span>Quick Support</span>
           </p>
@@ -407,7 +420,6 @@
     const cancelButton = document.getElementById("cancelButton");
     const toast = document.getElementById("statusToast");
     const sections = document.querySelectorAll(".story-section");
-    const translateButton = document.querySelector(".lang-btn");
     const translateButtonLabel = document.getElementById("translateButtonLabel");
     const msgInput = document.getElementById('message');
     const charCounter = document.getElementById('charCount');
@@ -419,6 +431,47 @@
     let translationReady = false;
     let ticking = false;
     const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
+
+    /* Drag Logic for Translate Button */
+    const langBtn = document.getElementById("langBtn");
+    let isDragging = false, moved = false, startX, startY, initialLeft, initialTop;
+
+    function dragStart(e) {
+      if(e.type === "touchstart") { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+      else { startX = e.clientX; startY = e.clientY; }
+      const rect = langBtn.getBoundingClientRect();
+      initialLeft = rect.left; initialTop = rect.top;
+      isDragging = true; moved = false; langBtn.style.transition = 'none';
+    }
+
+    function dragMove(e) {
+      if(!isDragging) return;
+      let currentX, currentY;
+      if(e.type === "touchmove") { currentX = e.touches[0].clientX; currentY = e.touches[0].clientY; }
+      else { currentX = e.clientX; currentY = e.clientY; }
+      const dx = currentX - startX, dy = currentY - startY;
+      if(Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      if(moved) {
+        if(e.cancelable) e.preventDefault();
+        langBtn.style.left = `${initialLeft + dx}px`;
+        langBtn.style.top = `${initialTop + dy}px`;
+        langBtn.style.right = 'auto'; langBtn.style.bottom = 'auto';
+      }
+    }
+
+    function dragEnd() { isDragging = false; langBtn.style.transition = 'transform 0.25s ease, box-shadow 0.25s ease'; }
+
+    langBtn.addEventListener("mousedown", dragStart);
+    document.addEventListener("mousemove", dragMove, { passive: false });
+    document.addEventListener("mouseup", dragEnd);
+    langBtn.addEventListener("touchstart", dragStart, { passive: true });
+    document.addEventListener("touchmove", dragMove, { passive: false });
+    document.addEventListener("touchend", dragEnd);
+
+    langBtn.addEventListener("click", (e) => {
+      if(moved) { e.preventDefault(); e.stopPropagation(); return; }
+      translatePage();
+    });
 
     function showToast(message) {
       toast.textContent = message; toast.classList.add("show");
@@ -437,15 +490,13 @@
     }
 
     window.googleTranslateElementInit = function() {
-      new google.translate.TranslateElement({
-        pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false, multilanguagePage: false
-      }, "google_translate_element");
+      new google.translate.TranslateElement({ pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false, multilanguagePage: false }, "google_translate_element");
       translationReady = true;
     };
 
     function setTranslateButtonState(lang) {
       const isKn = lang === "kn";
-      translateButton.setAttribute("aria-pressed", isKn ? "true" : "false");
+      langBtn.setAttribute("aria-pressed", isKn ? "true" : "false");
       translateButtonLabel.textContent = isKn ? "Read in English" : kannadaLabel;
     }
 
@@ -455,10 +506,8 @@
         if (attempt < 24) { window.setTimeout(() => applyLanguage(lang, attempt + 1), 250); return; }
         showToast("Translation loading. Please wait."); return;
       }
-      combo.value = lang;
-      combo.dispatchEvent(new Event("change"));
-      currentLanguage = lang;
-      setTranslateButtonState(lang);
+      combo.value = lang; combo.dispatchEvent(new Event("change"));
+      currentLanguage = lang; setTranslateButtonState(lang);
       showToast(lang === "kn" ? "Translating to Kannada..." : "Switched to English.");
     }
 
@@ -469,9 +518,7 @@
     };
 
     if (menuToggle && navMenu) {
-      menuToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("active"); menuToggle.classList.toggle("active");
-      });
+      menuToggle.addEventListener("click", () => { navMenu.classList.toggle("active"); menuToggle.classList.toggle("active"); });
       navMenu.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => { navMenu.classList.remove("active"); menuToggle.classList.remove("active"); });
       });
@@ -487,7 +534,6 @@
     }
 
     function updateParallax() {
-      // Keep mobile transitions purely opacity and standard transforms to prevent gaps
       const vh = window.innerHeight || document.documentElement.clientHeight;
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
@@ -513,9 +559,7 @@
     popupCloseButton.addEventListener("click", closePopup);
 
     if (enquiryForm) {
-      enquiryForm.addEventListener("submit", (e) => {
-        e.preventDefault(); closePopup(); showToast("Thanks! Your enquiry has been recorded.");
-      });
+      enquiryForm.addEventListener("submit", (e) => { e.preventDefault(); closePopup(); showToast("Thanks! Your enquiry has been recorded."); });
     }
     if (cancelButton) {
       cancelButton.addEventListener("click", () => { if(confirm("Discard enquiry? / ವಿಚಾರಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೆ?")) closePopup(); });
@@ -524,13 +568,7 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.classList.contains("open")) closePopup(); });
     window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
     window.addEventListener("resize", requestParallaxUpdate);
-    
-    // POPUP AUTO LOAD FIX
-    window.addEventListener("load", () => { 
-      requestParallaxUpdate(); 
-      setTimeout(openPopup, 800); 
-    });
-    
+    window.addEventListener("load", () => { requestParallaxUpdate(); setTimeout(openPopup, 800); });
     requestParallaxUpdate();
   </script>
 
