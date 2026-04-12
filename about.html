@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="referrer" content="no-referrer">
+  <title>About Our Legacy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* MATCHING INDEX.HTML PALETTE */
+      --brand-navy: #4169E1;    /* Bright Blue */
+      --brand-dark: #0F2B46;    /* Deep Blue Card/Bg */
+      --brand-darker: #061a33;  /* Topbar Deep Blue */
+      --brand-gold: #C5A059;    /* Legacy Accent */
+      
+      --bg-light: #f8fbff;      /* Light section bg */
+      --text-dark: #0a2237;     
+      --text-light: #ffffff;
+      --f-border: #E2E8F0; 
+      --f-muted: #64748B;
+      
+      --font-main: "Poppins", sans-serif; 
+      --font-heading: 'Playfair Display', serif; 
+      --font-body: 'Merriweather', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); overflow-x: hidden; color: var(--text-dark); background: var(--brand-dark); top: 0 !important; line-height: 1.8; }
+    body.modal-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: var(--font-main); }
+    
+    h1, h2, h3, h4, .logo-mark, .signature { font-family: var(--font-heading); }
+
+    .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
+    .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
+
+    /* SCROLL REVEAL ANIMATIONS */
+    .scroll-reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .scroll-reveal.show { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+    /* GLOBAL TOPBAR & HEADER (Matching index.html) */
+    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 6px max(20px, env(safe-area-inset-right)) 6px max(20px, env(safe-area-inset-left)); background: var(--brand-darker); color: var(--text-light); }
+    .topbar-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-main); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); }
+    .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; color: #ffffff; }
+
+    header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; flex-direction: row; align-items: center; gap: 18px; padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); background: #0F2B46; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 24px rgba(15,43,70,0.18); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; }
+    .logo-mark { position: relative; overflow: hidden; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%), linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%); color: #fff; font-weight: 800; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 16px 30px rgba(6,18,44,0.42), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 16px rgba(0,0,0,0.3); }
+    .brand h2 { color: #ffffff; font-size: 1.4rem; line-height: 1.1; letter-spacing: 0.01em; font-family: var(--font-main); font-weight: 700; }
+    
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; width: auto; text-align: left; margin-left: auto; font-family: var(--font-main); }
+    nav a { padding: 10px 14px; border-radius: 999px; color: #ffffff; font-weight: 600; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+    nav a:hover, nav a:focus-visible { background: rgba(255,255,255,0.12); color: #d8ebff; transform: translateY(-1px); }
+    
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
+    .menu-toggle span { display: block; width: 26px; height: 3px; background: #fff; border-radius: 4px; transition: transform 0.3s ease, opacity 0.3s ease; }
+
+    /* FLOATING ACTION BUTTONS */
+    .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
+    .fab-container { position: fixed; top: 110px; right: max(20px, env(safe-area-inset-right)); z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; cursor: grab; touch-action: none; transition: transform 0.2s ease, top 0.3s ease; }
+    .fab-container:active { cursor: grabbing; }
+    
+    .fab-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: none; }
+    .fab-btn:hover { transform: translateY(-3px) scale(1.05); }
+    
+    .lang-fab { background: #fff; color: var(--brand-navy); border: 2px solid #e2e8f0; }
+    .fab-text { font-size: 1.6rem; font-family: var(--font-main); font-weight: 800; line-height: 1; margin-top: -2px; }
+    
+    /* Blue Filled Admission Button */
+    .enquiry-fab { background: var(--brand-navy); color: #ffffff; border: 2px solid var(--brand-navy); }
+    .enquiry-text { font-size: 0.5rem; font-family: var(--font-main); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: center; line-height: 1.2; }
+
+    /* PAGE STRUCTURE & THEMES */
+    main { width: 100%; background: var(--brand-dark); }
+    .legacy-section { width: 100%; min-height: 100svh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 100px 5%; }
+
+    .theme-light { background: var(--bg-light); color: var(--text-dark); }
+    .theme-dark { background: var(--brand-dark); color: #fff; }
+
+    /* HERO CAROUSEL - NO TINT, NO TRANSPARENCY */
+    #hero { padding: 0; display: block; position: relative; background: var(--brand-dark); }
+    .carousel-container { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; }
+    /* Opacity toggles for slider, no filters */
+    .carousel-slide { width: 100%; height: 100%; position: absolute; inset: 0; background-size: cover; background-position: center top; opacity: 0; transition: opacity 1.5s ease-in-out; }
+    .carousel-slide.active { opacity: 1; }
+    
+    .hero-content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+    /* Heavy text shadows to ensure readability over pure images, text is white for both */
+    .hero-content h1 { font-size: clamp(3rem, 7vw, 6rem); color: #ffffff; font-weight: 800; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.8); }
+    .hero-content p { font-size: clamp(1.2rem, 2vw, 1.8rem); color: #ffffff; font-weight: 600; max-width: 800px; text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.8); }
+
+    /* CONTENT BLOCKS */
+    .content-wrapper { max-width: 1200px; width: 100%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; z-index: 5; }
+    .content-single { max-width: 1000px; width: 100%; text-align: center; z-index: 5; margin: 0 auto; }
+    
+    .ornament { width: 80px; height: auto; margin-bottom: 24px; color: var(--brand-gold); }
+    h2.legacy-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; margin-bottom: 30px; line-height: 1.1; color: var(--brand-gold); text-align: left; }
+    .theme-light h2.legacy-title { color: var(--brand-dark); }
+    .content-single h2.legacy-title { text-align: center; }
+    
+    p.legacy-text { font-size: clamp(1rem, 1.2vw, 1.15rem); line-height: 2; margin-bottom: 20px; opacity: 0.95; text-align: justify; }
+    
+    .drop-cap::first-letter { font-family: var(--font-heading); font-size: 4.5rem; float: left; padding-right: 12px; line-height: 0.8; color: var(--brand-gold); font-weight: 700; margin-top: 8px; }
+    .theme-light .drop-cap::first-letter { color: var(--brand-dark); }
+
+    .badge-art { width: 100%; height: 500px; border-radius: 20px; background: var(--brand-dark); display: grid; place-items: center; position: relative; border: 4px solid var(--brand-gold); box-shadow: 0 30px 60px rgba(0,0,0,0.4); overflow: hidden; }
+    .badge-art img { width: 100%; height: 100%; object-fit: cover; }
+    .badge-label { position: absolute; bottom: 30px; background: var(--brand-gold); color: var(--brand-dark); padding: 12px 30px; font-family: var(--font-main); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+    /* Signature */
+    .signature-container { display: flex; justify-content: flex-start; width: 100%; margin-top: 20px; }
+    .signature { font-family: 'Brush Script MT', cursive; font-size: 3.5rem; color: var(--brand-gold); transform: rotate(-2deg); }
+
+    /* VISION & MISSION - WHITE CARDS WITH BLUE TEXT/ICONS */
+    .alignment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; max-width: 1200px; z-index: 5; align-items: stretch; }
+    .alignment-col { background: #ffffff; padding: 50px; border-radius: 20px; border: 1px solid var(--f-border); transition: all 0.4s ease; display: flex; flex-direction: column; align-items: center; text-align: center; height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .alignment-col:hover { border-color: var(--brand-navy); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+    
+    .legacy-icon { width: 64px; height: 64px; margin-bottom: 24px; color: var(--brand-dark); }
+    .legacy-col-title { font-family: var(--font-heading); font-size: clamp(2.2rem, 3.5vw, 3rem); font-weight: 700; color: var(--brand-dark); margin-bottom: 24px; text-transform: capitalize; }
+    .legacy-col-text { font-family: var(--font-body); font-size: clamp(1rem, 1.1vw, 1.1rem); line-height: 1.9; opacity: 0.95; text-align: center; color: var(--brand-dark); flex-grow: 1; }
+
+    /* CORE VALUES - BLUE HEADINGS & TEXT */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+    .value-card { padding: 40px 30px; background: #ffffff; border: 1px solid var(--f-border); border-radius: 16px; text-align: center; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; }
+    .value-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-color: var(--brand-navy); }
+    .value-icon { width: 48px; height: 48px; color: var(--brand-dark); margin-bottom: 20px; }
+    .value-card h3 { font-size: 1.7rem; margin-bottom: 16px; color: var(--brand-dark); font-family: var(--font-heading); font-weight: 700; }
+    .value-card p { font-size: 0.95rem; line-height: 1.8; color: var(--brand-dark); opacity: 0.9; text-align: center; font-weight: 400; }
+
+    /* MANAGEMENT & LEADERSHIP */
+    .mgmt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; width: 100%; }
+    .mgmt-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .mgmt-img { width: 100%; aspect-ratio: 3/4; border-radius: 12px; border: 2px solid var(--brand-gold); margin-bottom: 16px; object-fit: cover; transition: 0.4s; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .mgmt-card:hover .mgmt-img { transform: scale(1.03); border-color: #fff; }
+    .mgmt-card h4 { font-size: 1.25rem; color: var(--brand-gold); font-family: var(--font-heading); font-weight: 600; }
+    .mgmt-card span { font-family: var(--font-main); font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .sub-heading-legacy { font-family: var(--font-heading); font-size: 2.2rem; color: var(--brand-gold); margin-bottom: 30px; font-weight: 700; text-align: center; width: 100%; }
+
+    .principal-card { display: flex; gap: 40px; align-items: center; text-align: left; background: rgba(197, 160, 89, 0.05); border-radius: 20px; padding: 40px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 60px; }
+    .principal-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid var(--brand-gold); flex-shrink: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .principal-info h3 { font-size: 2.2rem; color: var(--brand-gold); margin-bottom: 8px; font-family: var(--font-heading); font-weight: 700; }
+    .principal-info h4 { font-family: var(--font-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-bottom: 16px; font-weight: 600; }
+
+    /* POPUP FORM */
+    .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 43, 70, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .popup.open { display: flex; }
+    .pro-card { background: var(--bg-light); width: min(600px, 100%); border-radius: 24px; padding: 32px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 2px solid var(--brand-navy); max-height: 90svh; overflow-y: auto; }
+    .btn-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 1px solid var(--brand-navy); font-size: 1.4rem; color: var(--brand-dark); cursor: pointer; display: grid; place-items: center; transition: 0.3s; z-index: 10; }
+    .btn-close:hover { background: var(--f-error); color: #EF4444; border-color: #EF4444; transform: rotate(90deg); }
+    .form-header-popup { text-align: center; margin-bottom: 20px; }
+    .form-header-popup h2 { color: var(--brand-dark); font-size: 1.6rem; font-family: var(--font-heading); font-weight: 800; }
+    .form-header-popup .kn-heading { color: var(--brand-navy); font-size: 1.1rem; font-family: var(--font-heading); font-weight: 800; margin-top: 4px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; font-family: var(--font-main); }
+    .input-group { display: flex; flex-direction: column; gap: 4px; }
+    .input-group.full-width { grid-column: 1 / -1; }
+    .label-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.2; margin-bottom: 4px; }
+    .en-lbl { font-size: 0.7rem; font-weight: 700; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kn-lbl { font-size: 0.9rem; font-weight: 700; color: var(--brand-navy); }
+    .popup-input, .popup-select, .popup-textarea { width: 100%; padding: 12px; font-size: 0.9rem; border: 1px solid var(--f-border); border-radius: 8px; background: #fff; -webkit-appearance: none; appearance: none; }
+    .popup-textarea { min-height: 80px; resize: none; }
+    .action-group { display: flex; gap: 12px; margin-top: 16px; grid-column: 1 / -1; font-family: var(--font-main); }
+    .form-btn { flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .btn-cancel { background: #e2e8f0; color: var(--brand-dark); }
+    .btn-submit { background: var(--brand-navy); color: #fff; }
+    .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
+    .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.9; }
+
+    /* RESPONSIVE BREAKPOINTS (Mobile Centered & Justified) */
+    @media (max-width: 992px) {
+      .content-wrapper { grid-template-columns: 1fr; gap: 40px; }
+      .alignment-grid { grid-template-columns: 1fr; gap: 20px; }
+      .badge-art { height: 400px; }
+      .principal-card { flex-direction: column; text-align: center; padding: 30px; }
+      .principal-img { width: 180px; height: 180px; }
+      .values-grid { grid-template-columns: 1fr; gap: 20px; }
+      .mgmt-grid { grid-template-columns: repeat(2, 1fr); }
+      .principal-info { text-align: center; }
+    }
+    
+    @media (max-width: 600px) {
+      .topbar, .topbar-item { justify-content: flex-end; }
+      .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
+      
+      header { justify-content: flex-start; }
+      .menu-toggle { display: flex; position: absolute; right: 20px; }
+      nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--brand-dark); flex-direction: column; align-items: center; padding: 24px; gap: 16px; opacity: 0; pointer-events: none; transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.1); transform: translateY(-10px); }
+      nav.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      
+      .fab-container { top: 85px; right: 12px; gap: 10px; transform: scale(0.9); transform-origin: top right; }
+      .enquiry-text { font-size: 0.4rem; } /* Mobile FAB text size */
+
+      /* Mobile Specific Alignment Rules */
+      .legacy-section { padding: 60px 16px; height: auto; min-height: 100svh; }
+      #history .content-wrapper > div:last-child { padding: 0 10px; }
+      h1, h2, h3, h4, .legacy-title, .legacy-col-title, .sub-heading-legacy { text-align: center !important; }
+      p.legacy-text, .legacy-col-text, .value-card p { text-align: justify !important; hyphens: auto; }
+      .signature-container { display: flex; justify-content: center; width: 100%; }
+      .drop-cap::first-letter { float: none; display: inline; padding: 0; margin: 0; font-size: inherit; font-family: inherit; color: inherit; line-height: inherit; }
+      
+      .badge-art { height: 280px; }
+      .mgmt-grid { gap: 15px; }
+      .mgmt-img { border-radius: 8px; }
+      .mgmt-card h4 { font-size: 1.1rem; }
+      
+      .form-grid { grid-template-columns: 1fr; }
+      .popup { padding: 10px; }
+      .pro-card { padding: 24px 16px; border-radius: 20px; width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="google_translate_element" class="translate-widget"></div>
+
+  <div id="fabContainer" class="fab-container">
+    <button class="fab-btn lang-fab" id="langBtn" type="button" title="Translate Page">
+      <span id="langIcon" class="fab-text">ಕ</span>
+    </button>
+    <button class="fab-btn enquiry-fab" id="enquiryFab" type="button" title="Admission Enquiry">
+      <span class="enquiry-text">Admission<br>Enquiry</span>
+    </button>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="pro-card">
+      <button class="btn-close" id="popupClose">&times;</button>
+      <div class="form-header-popup">
+        <h2>Admission Enquiry Form</h2>
+        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ</div>
+      </div>
+      <form id="admissionForm">
+        <div class="form-grid">
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Parent Name</span><span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span></div>
+            <input type="text" class="popup-input" required placeholder="Name">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Phone</span><span class="kn-lbl">ದೂರವಾಣಿ</span></div>
+            <input type="tel" class="popup-input" required placeholder="Mobile">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Child Name</span><span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span></div>
+            <input type="text" class="popup-input" required placeholder="Name">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Class</span><span class="kn-lbl">ತರಗತಿ</span></div>
+            <select class="popup-select" required>
+              <option value="" disabled selected>Select Class</option>
+              <option value="prenursery">Pre-Nursery</option>
+              <option value="nursery">Nursery</option>
+              <option value="lkg">LKG</option>
+              <option value="ukg">UKG</option>
+              <option value="1">Class I</option>
+              <option value="2">Class II</option>
+              <option value="3">Class III</option>
+              <option value="4">Class IV</option>
+              <option value="5">Class V</option>
+              <option value="6">Class VI</option>
+              <option value="7">Class VII</option>
+              <option value="8">Class VIII</option>
+              <option value="9">Class IX</option>
+              <option value="10">Class X</option>
+            </select>
+          </div>
+          <div class="input-group full-width">
+            <div class="label-wrapper"><span class="en-lbl">Message</span><span class="kn-lbl">ಸಂದೇಶ</span></div>
+            <textarea class="popup-textarea" required placeholder="How can we help?"></textarea>
+          </div>
+        </div>
+        <div class="action-group">
+          <button type="button" class="form-btn btn-cancel" id="cancelButton">
+            <span class="en-btn">Cancel</span>
+            <span class="kn-btn">ರದ್ದುಮಾಡಿ</span>
+          </button>
+          <button type="submit" class="form-btn btn-submit">
+            <span class="en-btn">Submit Enquiry</span>
+            <span class="kn-btn">ಸಲ್ಲಿಸಿ</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com"><small>Email</small> <strong>school@mail.com</strong></a>
+    <a class="topbar-item" href="tel:+919876543210"><small>Contact</small> <strong>+91 98765 43210</strong></a>
+  </div>
+  <header>
+    <div class="brand">
+      <div class="logo-mark">SCH</div>
+      <h2>School Name</h2>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#expertise">Expertise</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="index.html#admissions">Admissions</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <section id="hero" class="legacy-section">
+      <div class="carousel-container" id="carousel">
+        <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?q=80&w=2083&auto=format&fit=crop');"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="scroll-reveal">A Legacy of Excellence</h1>
+        <p class="scroll-reveal delay-1">Forging brilliant minds and noble hearts through decades of uncompromising educational prestige.</p>
+      </div>
+    </section>
+
+    <section id="history" class="legacy-section theme-light">
+      <div class="content-wrapper">
+        <div class="badge-art scroll-reveal">
+          <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1200&auto=format&fit=crop" alt="Historic Building">
+          <div class="badge-label">Established 1952</div>
+        </div>
+        <div class="scroll-reveal delay-1">
+          <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+          <h2 class="legacy-title">Our Historic Roots</h2>
+          <p class="legacy-text drop-cap">Rooted deeply in the ethos of classical education, our institution began as a humble sanctuary for eager minds in 1952. What started in a modest brick building with a handful of visionary educators has blossomed into a sweeping campus of academic rigor and architectural majesty. Over the decades, we have meticulously preserved our historical foundations while seamlessly integrating modern pedagogical advancements.</p>
+          <p class="legacy-text">Our halls have echoed with the footsteps of generations of scholars, leaders, and pioneers. Every cornerstone of this campus was laid with the singular belief that education is not merely the transfer of knowledge, but the profound shaping of character. We stand today not just as a school, but as a living monument to intellectual heritage, unwavering discipline, and the timeless pursuit of excellence that defines our legacy.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="founder" class="legacy-section theme-dark">
+      <div class="content-wrapper" style="direction: rtl;">
+        <div class="badge-art scroll-reveal" style="direction: ltr;">
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Old Indian Professor">
+          <div class="badge-label">The Visionary</div>
+        </div>
+        <div class="scroll-reveal delay-1" style="direction: ltr;">
+          <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+          <h2 class="legacy-title">Meet Our Founder</h2>
+          <p class="legacy-text">Prof. Parameshwar Hegde was a man whose foresight extended far beyond the horizons of his era. An esteemed scholar and a devoted philanthropist, he recognized that true societal progress could only be forged in the crucibles of exceptional education. Dedicating his life to academic betterment, he laid the foundation of this institution with nothing but a relentless vision and an unyielding spirit.</p>
+          <p class="legacy-text">He believed deeply that a school should be a sanctuary where intellect and morality are intertwined. His commitment to structured learning was balanced by his profound compassion for every student. Prof. Hegde’s philosophy—that character outshines curriculum—remains the very bedrock of our teaching methodology. Today, his legacy breathes through every corridor, inspiring a new generation to rise, to lead, and to conquer the complexities of the modern world with classical grace.</p>
+          <div class="signature-container">
+            <div class="signature">Parameshwar Hegde</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="message" class="legacy-section theme-light">
+      <div class="content-single scroll-reveal">
+        <svg class="ornament" style="margin-inline:auto;" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+        <h2 class="legacy-title">The Founder's Message</h2>
+        <p class="legacy-text" style="font-size: 1.3rem; font-style: italic; text-align: center;">"Education is the grand architecture of the human soul. When we lay the bricks of knowledge, we must mortar them with integrity, discipline, and empathy. I established this institution not to merely populate the world with scholars, but to enrich it with individuals of profound character. Do not seek education simply to acquire wealth or status; seek it to illuminate the shadows of ignorance in your own mind and in the world around you. Walk these halls with the reverence of those who understand that learning is a sacred privilege. Leave them with the courage to lead, the wisdom to serve, and the unshakeable resolve to leave your mark upon the tapestry of history."</p>
+      </div>
+    </section>
+
+    <section id="vision" class="legacy-section theme-dark">
+      <div class="alignment-grid">
+        <div class="alignment-col scroll-reveal">
+          <svg class="legacy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+          <h3 class="legacy-col-title">Our Vision</h3>
+          <p class="legacy-col-text">To stand as a global beacon of classical education, merging time-honored academic traditions with cutting-edge innovation. We envision a future where our alumni are distinguished not just by their unparalleled intellectual prowess, but by their profound moral compass. We strive to cultivate an elite sanctuary of learning that continually redefines educational prestige, nurturing global leaders who approach the complexities of tomorrow with the wisdom of the past.</p>
+        </div>
+        <div class="alignment-col scroll-reveal delay-1">
+          <svg class="legacy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <h3 class="legacy-col-title">Our Mission</h3>
+          <p class="legacy-col-text">To provide a rigorous, holistic educational experience that demands excellence in every endeavor. We are committed to forging an environment where discipline shapes character, curiosity fuels discovery, and tradition anchors progress. Through a masterfully crafted curriculum, exceptional mentorship, and a relentless standard of integrity, our mission is to empower every scholar to realize their highest potential and to serve humanity with distinction, courage, and unwavering honor.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="values" class="legacy-section theme-light">
+      <div class="content-single scroll-reveal" style="max-width: 1200px;">
+        <h2 class="legacy-title" style="text-align: center;">Our Core Values</h2>
+        <div class="values-grid">
+          <div class="value-card scroll-reveal delay-1">
+            <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <h3>Integrity</h3>
+            <p>The uncompromising adherence to moral and ethical principles. We believe that true intellect is worthless without the anchor of a noble and honest character.</p>
+          </div>
+          <div class="value-card scroll-reveal delay-2">
+            <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <h3>Excellence</h3>
+            <p>The relentless pursuit of the highest standards. We do not accept mediocrity; we demand that every scholar pushes the boundaries of their own potential daily.</p>
+          </div>
+          <div class="value-card scroll-reveal delay-3">
+            <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Discipline</h3>
+            <p>The mastery of self. We instill the understanding that profound freedom and monumental success are born entirely from rigorous, self-imposed structure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="management" class="legacy-section theme-dark" style="align-items: flex-start; padding-top: 100px;">
+      <div class="content-single" style="max-width: 1200px;">
+        <h2 class="legacy-title scroll-reveal">Meet The Leadership</h2>
+        
+        <div class="principal-card scroll-reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" class="principal-img" alt="Principal Dr. Meera Krishnan">
+          <div class="principal-info">
+            <h3>Dr. Meera Krishnan</h3>
+            <h4>Principal & Dean of Academics</h4>
+            <p class="legacy-text">An esteemed educationalist and seasoned administrator, Dr. Krishnan brings over two decades of uncompromising academic leadership to our campus. Her tenure has been defined by a fierce dedication to preserving our heritage while modernizing our scientific curriculum. She firmly believes that strict discipline and profound empathy are the twin pillars of a transformative education, guiding our scholars to global prominence.</p>
+          </div>
+        </div>
+
+        <h3 class="sub-heading-legacy scroll-reveal">Board of Trustees</h3>
+        <div class="mgmt-grid">
+          <div class="mgmt-card scroll-reveal delay-1">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Anand Sharma">
+            <h4>Anand Sharma</h4><span>Chairman</span>
+          </div>
+          <div class="mgmt-card scroll-reveal delay-2">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Rajesh Iyer">
+            <h4>Rajesh Iyer</h4><span>Vice Chairman</span>
+          </div>
+          <div class="mgmt-card scroll-reveal delay-3">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Vikram Singh">
+            <h4>Vikram Singh</h4><span>Secretary</span>
+          </div>
+          <div class="mgmt-card scroll-reveal delay-1">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Priya Desai">
+            <h4>Priya Desai</h4><span>Treasurer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+    // Translate Logic
+    const langBtn = document.getElementById("langBtn");
+    let currentLanguage = "en";
+    function setTranslateButtonState(lang) { document.getElementById("langIcon").textContent = lang === "kn" ? "EN" : "ಕ"; }
+    function applyLanguage(lang) {
+      const combo = document.querySelector(".goog-te-combo");
+      if(combo) { combo.value = lang; combo.dispatchEvent(new Event("change")); currentLanguage = lang; setTranslateButtonState(lang); }
+    }
+    langBtn.addEventListener("click", () => { applyLanguage(currentLanguage === "kn" ? "en" : "kn"); });
+    window.googleTranslateElementInit = function() { new google.translate.TranslateElement({ pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false }, "google_translate_element"); };
+
+    // Mobile Menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.querySelector("nav");
+    menuToggle.addEventListener("click", () => { navMenu.classList.toggle("active"); menuToggle.classList.toggle("active"); });
+    navMenu.querySelectorAll("a").forEach(link => { link.addEventListener("click", () => { navMenu.classList.remove("active"); menuToggle.classList.remove("active"); }); });
+
+    // Popup Logic
+    const popup = document.getElementById("popup");
+    document.getElementById("enquiryFab").addEventListener("click", () => { popup.classList.add("open"); document.body.classList.add("modal-open"); });
+    document.getElementById("popupClose").addEventListener("click", () => { popup.classList.remove("open"); document.body.classList.remove("modal-open"); });
+    document.getElementById("cancelButton").addEventListener("click", () => { popup.classList.remove("open"); document.body.classList.remove("modal-open"); });
+    popup.addEventListener("click", (e) => { if(e.target === popup) { popup.classList.remove("open"); document.body.classList.remove("modal-open"); } });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.classList.contains("open")) { popup.classList.remove("open"); document.body.classList.remove("modal-open"); } });
+
+    // Hero Carousel Auto-Swipe
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentSlide = 0;
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 2000); 
+
+    // FAB Drag Logic
+    const fabContainer = document.getElementById("fabContainer");
+    let isDragging = false, moved = false, startX, startY, initialLeft, initialTop;
+    function dragStart(e) {
+      if(e.target.closest('button')) {
+        startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+        startY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+        const rect = fabContainer.getBoundingClientRect();
+        initialLeft = rect.left; initialTop = rect.top;
+        isDragging = true; moved = false; fabContainer.style.transition = 'none';
+      }
+    }
+    function dragMove(e) {
+      if(!isDragging) return;
+      const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+      const currentY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+      const dx = currentX - startX, dy = currentY - startY;
+      if(Math.abs(dx) > 5 || Math.abs(dy) > 5) moved = true;
+      if(moved) {
+        if(e.cancelable) e.preventDefault();
+        fabContainer.style.left = `${initialLeft + dx}px`;
+        fabContainer.style.top = `${initialTop + dy}px`;
+        fabContainer.style.right = 'auto';
+      }
+    }
+    function dragEnd() { isDragging = false; fabContainer.style.transition = 'transform 0.2s ease, top 0.3s ease'; }
+    fabContainer.addEventListener("mousedown", dragStart); document.addEventListener("mousemove", dragMove, {passive: false}); document.addEventListener("mouseup", dragEnd);
+    fabContainer.addEventListener("touchstart", dragStart, {passive: true}); document.addEventListener("touchmove", dragMove, {passive: false}); document.addEventListener("touchend", dragEnd);
+
+    document.getElementById("langBtn").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
+    document.getElementById("enquiryFab").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
