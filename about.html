@@ -12,21 +12,10 @@
 
   <style>
     :root {
-      /* MATCHING INDEX.HTML PALETTE */
-      --brand-navy: #4169E1;    /* Bright Blue */
-      --brand-dark: #0F2B46;    /* Deep Blue Card/Bg */
-      --brand-darker: #061a33;  /* Topbar Deep Blue */
-      --brand-gold: #C5A059;    /* Legacy Accent */
-      
-      --bg-light: #f8fbff;      /* Light section bg */
-      --text-dark: #0a2237;     
-      --text-light: #ffffff;
-      --f-border: #E2E8F0; 
-      --f-muted: #64748B;
-      
-      --font-main: "Poppins", sans-serif; 
-      --font-heading: 'Playfair Display', serif; 
-      --font-body: 'Merriweather', serif;
+      --brand-navy: #4169E1; --brand-dark: #0F2B46; --brand-darker: #061a33; --brand-gold: #C5A059;
+      --bg-light: #f8fbff; --text-dark: #0a2237; --text-light: #ffffff;
+      --f-border: #E2E8F0; --f-muted: #64748B;
+      --font-main: "Poppins", sans-serif; --font-heading: 'Playfair Display', serif; --font-body: 'Merriweather', serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,13 +31,11 @@
     .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
     .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
 
-    /* SCROLL REVEAL ANIMATIONS */
     .scroll-reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
     .scroll-reveal.show { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-    /* GLOBAL TOPBAR & HEADER (Matching index.html) */
-    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 6px max(20px, env(safe-area-inset-right)) 6px max(20px, env(safe-area-inset-left)); background: var(--brand-darker); color: var(--text-light); }
+    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); background: var(--brand-darker); color: var(--text-light); }
     .topbar-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-main); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); }
     .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; color: #ffffff; }
 
@@ -64,7 +51,6 @@
     .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
     .menu-toggle span { display: block; width: 26px; height: 3px; background: #fff; border-radius: 4px; transition: transform 0.3s ease, opacity 0.3s ease; }
 
-    /* FLOATING ACTION BUTTONS */
     .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
     .fab-container { position: fixed; top: 110px; right: max(20px, env(safe-area-inset-right)); z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; cursor: grab; touch-action: none; transition: transform 0.2s ease, top 0.3s ease; }
     .fab-container:active { cursor: grabbing; }
@@ -75,30 +61,24 @@
     .lang-fab { background: #fff; color: var(--brand-navy); border: 2px solid #e2e8f0; }
     .fab-text { font-size: 1.6rem; font-family: var(--font-main); font-weight: 800; line-height: 1; margin-top: -2px; }
     
-    /* Blue Filled Admission Button */
     .enquiry-fab { background: var(--brand-navy); color: #ffffff; border: 2px solid var(--brand-navy); }
     .enquiry-text { font-size: 0.5rem; font-family: var(--font-main); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: center; line-height: 1.2; }
 
-    /* PAGE STRUCTURE & THEMES */
     main { width: 100%; background: var(--brand-dark); }
     .legacy-section { width: 100%; min-height: 100svh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 100px 5%; }
 
     .theme-light { background: var(--bg-light); color: var(--text-dark); }
     .theme-dark { background: var(--brand-dark); color: #fff; }
 
-    /* HERO CAROUSEL - NO TINT, NO TRANSPARENCY */
     #hero { padding: 0; display: block; position: relative; background: var(--brand-dark); }
     .carousel-container { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; }
-    /* Opacity toggles for slider, no filters */
     .carousel-slide { width: 100%; height: 100%; position: absolute; inset: 0; background-size: cover; background-position: center top; opacity: 0; transition: opacity 1.5s ease-in-out; }
     .carousel-slide.active { opacity: 1; }
     
     .hero-content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-    /* Heavy text shadows to ensure readability over pure images, text is white for both */
     .hero-content h1 { font-size: clamp(3rem, 7vw, 6rem); color: #ffffff; font-weight: 800; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.8); }
     .hero-content p { font-size: clamp(1.2rem, 2vw, 1.8rem); color: #ffffff; font-weight: 600; max-width: 800px; text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.8); }
 
-    /* CONTENT BLOCKS */
     .content-wrapper { max-width: 1200px; width: 100%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; z-index: 5; }
     .content-single { max-width: 1000px; width: 100%; text-align: center; z-index: 5; margin: 0 auto; }
     
@@ -116,11 +96,9 @@
     .badge-art img { width: 100%; height: 100%; object-fit: cover; }
     .badge-label { position: absolute; bottom: 30px; background: var(--brand-gold); color: var(--brand-dark); padding: 12px 30px; font-family: var(--font-main); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-    /* Signature */
     .signature-container { display: flex; justify-content: flex-start; width: 100%; margin-top: 20px; }
     .signature { font-family: 'Brush Script MT', cursive; font-size: 3.5rem; color: var(--brand-gold); transform: rotate(-2deg); }
 
-    /* VISION & MISSION - WHITE CARDS WITH BLUE TEXT/ICONS */
     .alignment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; max-width: 1200px; z-index: 5; align-items: stretch; }
     .alignment-col { background: #ffffff; padding: 50px; border-radius: 20px; border: 1px solid var(--f-border); transition: all 0.4s ease; display: flex; flex-direction: column; align-items: center; text-align: center; height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .alignment-col:hover { border-color: var(--brand-navy); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
@@ -129,7 +107,6 @@
     .legacy-col-title { font-family: var(--font-heading); font-size: clamp(2.2rem, 3.5vw, 3rem); font-weight: 700; color: var(--brand-dark); margin-bottom: 24px; text-transform: capitalize; }
     .legacy-col-text { font-family: var(--font-body); font-size: clamp(1rem, 1.1vw, 1.1rem); line-height: 1.9; opacity: 0.95; text-align: center; color: var(--brand-dark); flex-grow: 1; }
 
-    /* CORE VALUES - BLUE HEADINGS & TEXT */
     .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
     .value-card { padding: 40px 30px; background: #ffffff; border: 1px solid var(--f-border); border-radius: 16px; text-align: center; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; }
     .value-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-color: var(--brand-navy); }
@@ -137,7 +114,6 @@
     .value-card h3 { font-size: 1.7rem; margin-bottom: 16px; color: var(--brand-dark); font-family: var(--font-heading); font-weight: 700; }
     .value-card p { font-size: 0.95rem; line-height: 1.8; color: var(--brand-dark); opacity: 0.9; text-align: center; font-weight: 400; }
 
-    /* MANAGEMENT & LEADERSHIP */
     .mgmt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; width: 100%; }
     .mgmt-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
     .mgmt-img { width: 100%; aspect-ratio: 3/4; border-radius: 12px; border: 2px solid var(--brand-gold); margin-bottom: 16px; object-fit: cover; transition: 0.4s; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
@@ -176,7 +152,7 @@
     .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
     .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.9; }
 
-    /* RESPONSIVE BREAKPOINTS (Mobile Centered & Justified) */
+    /* RESPONSIVE BREAKPOINTS */
     @media (max-width: 992px) {
       .content-wrapper { grid-template-columns: 1fr; gap: 40px; }
       .alignment-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -198,15 +174,20 @@
       nav.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
       
       .fab-container { top: 85px; right: 12px; gap: 10px; transform: scale(0.9); transform-origin: top right; }
-      .enquiry-text { font-size: 0.4rem; } /* Mobile FAB text size */
+      .enquiry-text { font-size: 0.4rem; }
 
-      /* Mobile Specific Alignment Rules */
       .legacy-section { padding: 60px 16px; height: auto; min-height: 100svh; }
       #history .content-wrapper > div:last-child { padding: 0 10px; }
       h1, h2, h3, h4, .legacy-title, .legacy-col-title, .sub-heading-legacy { text-align: center !important; }
       p.legacy-text, .legacy-col-text, .value-card p { text-align: justify !important; hyphens: auto; }
+      
+      /* Restrict signature size on mobile to prevent wrapping */
+      .signature { font-size: 2rem; }
       .signature-container { display: flex; justify-content: center; width: 100%; }
       .drop-cap::first-letter { float: none; display: inline; padding: 0; margin: 0; font-size: inherit; font-family: inherit; color: inherit; line-height: inherit; }
+      
+      /* Mobile Vision/Mission Alignment fix */
+      .alignment-col { padding: 30px 16px; }
       
       .badge-art { height: 280px; }
       .mgmt-grid { gap: 15px; }
