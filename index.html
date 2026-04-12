@@ -50,14 +50,20 @@
 
     .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
     
-    /* FLOATING & MOVABLE TRANSLATE BUTTON - FIXED Z-INDEX & POSITION */
-    .lang-btn { position: fixed; top: 100px; right: max(18px, env(safe-area-inset-right)); left: auto; bottom: auto; z-index: 900; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border: none; border-radius: 999px; background: #ffffff; color: var(--brand-navy); box-shadow: 0 15px 35px rgba(0,0,0,0.3); cursor: grab; touch-action: none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .lang-btn:active { cursor: grabbing; }
-    .lang-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
-    .translate-icon { width: 28px; height: 28px; color: var(--brand-navy); flex-shrink: 0; }
-    .lang-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; pointer-events: none; }
-    .lang-copy strong { font-size: 1.05rem; font-weight: 800; color: var(--brand-navy); }
-    .lang-sub { font-size: 0.72rem; opacity: 0.82; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-navy); display: block; }
+    /* FLOATING ACTION BUTTONS (Movable Container - Both Circular) */
+    .fab-container { position: fixed; top: 100px; right: max(16px, env(safe-area-inset-right)); z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; cursor: grab; touch-action: none; transition: transform 0.25s ease; }
+    .fab-container:active { cursor: grabbing; }
+    
+    .fab-btn { width: 60px; height: 60px; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    .fab-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+    
+    .lang-fab { background: #ffffff; color: var(--brand-navy); border: 2px solid var(--f-border); }
+    .lang-fab:hover { background: var(--f-bg); border-color: #cbd5e1; }
+    .fab-text { font-size: 1.6rem; font-weight: 800; line-height: 1; margin-top: -2px; }
+    
+    .enquiry-fab { background: var(--brand-navy); color: #ffffff; border: 2px solid var(--brand-navy); flex-direction: column; }
+    .enquiry-fab:hover { background: #2b4cad; border-color: #2b4cad; }
+    .enquiry-text { font-size: 0.50rem; font-weight: 800; line-height: 1.15; text-align: center; text-transform: uppercase; letter-spacing: 0.02em; }
 
     .status-toast { position: fixed; left: 50%; bottom: max(90px, calc(env(safe-area-inset-bottom) + 90px)); z-index: 1150; transform: translate(-50%, 14px); padding: 12px 18px; border-radius: 999px; background: rgba(8,22,37,0.92); color: #fff; box-shadow: 0 18px 34px rgba(8,22,37,0.28); font-size: 0.92rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
     .status-toast.show { opacity: 1; transform: translate(-50%, 0); }
@@ -109,23 +115,18 @@
     .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
     .popup.open { display: flex; }
     
-    /* Reduced Padding to optimize height */
     .pro-card { background: var(--f-bg); width: min(600px, 100%); border-radius: 24px; padding: 24px 32px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; transition: all 0.5s ease; max-height: 95svh; overflow-y: auto; }
     .popup.open .pro-card { transform: translateY(0); opacity: 1; }
     
     .btn-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 1px solid var(--f-border); font-size: 1.4rem; color: var(--f-muted); cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; z-index: 10; }
     .btn-close:hover { background: #FEE2E2; color: #EF4444; border-color: #FECACA; transform: rotate(90deg); }
 
-    /* Reduced Margin and Icon size */
     .form-header-popup { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 16px; }
     .header-icon { width: 40px; height: 40px; color: var(--f-primary); margin-bottom: 8px; background: #fff; padding: 8px; border-radius: 10px; box-shadow: 0 4px 12px var(--f-primary-glow); }
     .form-header-popup h2 { color: var(--f-dark); font-size: clamp(1.3rem, 4vw, 1.5rem); font-weight: 800; line-height: 1.2; }
     .form-header-popup .kn-heading { color: var(--f-primary); font-size: 1.1rem; font-weight: 800; margin-top: 4px; line-height: 1.2; }
-    
-    /* Year Badge Class */
     .year-badge { display: block; font-size: 0.95rem; font-weight: 600; color: var(--f-muted); margin-top: 2px; }
 
-    /* Tighter Grid */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
     .full-width { grid-column: 1 / -1; }
     .input-group { display: flex; flex-direction: column; gap: 4px; }
@@ -136,7 +137,6 @@
     .field-wrapper { position: relative; width: 100%; }
     .field-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94A3B8; pointer-events: none; }
     
-    /* Reduced Padding in inputs */
     .popup-input, .popup-select, .popup-textarea { width: 100%; padding: 10px 14px 10px 36px; font-size: 0.9rem; font-weight: 600; color: var(--f-dark); background: #fff; border: 2px solid var(--f-border); border-radius: 12px; transition: all 0.3s ease; -webkit-appearance: none; appearance: none; }
     .popup-textarea { padding-left: 14px; min-height: 60px; resize: none; }
     .popup-input:focus, .popup-select:focus, .popup-textarea:focus { outline: none; border-color: var(--f-primary); box-shadow: 0 0 0 4px var(--f-primary-glow); transform: translateY(-1px); }
@@ -144,7 +144,6 @@
 
     .char-counter { font-size: 0.7rem; font-weight: 700; color: var(--f-muted); text-align: right; margin-top: 2px; }
     
-    /* Tighter Action Buttons */
     .action-group { display: flex; gap: 12px; margin-top: 16px; grid-column: 1 / -1; }
     .form-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease; }
     .btn-cancel { background: #fff; color: var(--f-muted); border: 1px solid var(--f-border); }
@@ -168,11 +167,11 @@
       .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
       .mobile-break { display: block; }
       
-      /* Translate Button Mobile Specifics */
-      .lang-btn { top: 85px; right: 16px; left: auto; bottom: auto; width: auto; height: auto; padding: 12px 20px; border-radius: 999px; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 900; flex-direction: row; gap: 8px; }
-      .lang-sub { display: none; } 
-      .lang-copy { display: flex; align-items: center; }
-      .lang-copy strong { font-size: 0.95rem; }
+      /* Mobile Scale for Circular Buttons */
+      .fab-container { top: 85px; right: 12px; gap: 10px; }
+      .fab-btn { width: 54px; height: 54px; }
+      .fab-text { font-size: 1.4rem; }
+      .enquiry-text { font-size: 0.4rem; }
 
       .popup { padding: 12px; align-items: center; }
       .pro-card { padding: 24px 16px; border-radius: 20px; width: 96%; margin: auto; }
@@ -188,6 +187,15 @@
 <body>
 
   <div id="google_translate_element" class="translate-widget" aria-hidden="true"></div>
+
+  <div id="fabContainer" class="fab-container">
+    <button class="fab-btn lang-fab" id="langBtn" type="button" title="Translate Page">
+      <span id="langIcon" class="fab-text">ಕ</span>
+    </button>
+    <button class="fab-btn enquiry-fab" id="enquiryFab" type="button" title="Admission Enquiry">
+      <span class="enquiry-text">Admission<br>Enquiry</span>
+    </button>
+  </div>
 
   <div class="popup" id="popup" aria-hidden="true">
     <div class="pro-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
@@ -317,14 +325,6 @@
     </button>
   </header>
 
-  <button class="lang-btn" id="langBtn" type="button">
-    <svg class="translate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    <span class="lang-copy">
-      <strong id="translateButtonLabel">ಕನ್ನಡದಲ್ಲಿ ಓದಿ</strong>
-      <!--<span class="lang-sub">Tap to translate full page</span>-->
-    </span>
-  </button>
-
   <div class="status-toast" id="statusToast" aria-live="polite"></div>
 
   <main>
@@ -432,7 +432,6 @@
     const cancelButton = document.getElementById("cancelButton");
     const toast = document.getElementById("statusToast");
     const sections = document.querySelectorAll(".story-section");
-    const translateButtonLabel = document.getElementById("translateButtonLabel");
     const msgInput = document.getElementById('message');
     const charCounter = document.getElementById('charCount');
     const menuToggle = document.getElementById("menuToggle");
@@ -442,18 +441,22 @@
     let currentLanguage = "en";
     let translationReady = false;
     let ticking = false;
-    const kannadaLabel = "ಕನ್ನಡದಲ್ಲಿ ಓದಿ";
 
-    /* Drag Logic for Translate Button */
+    /* Drag Logic for the FAB Container */
+    const fabContainer = document.getElementById("fabContainer");
     const langBtn = document.getElementById("langBtn");
+    const enquiryFab = document.getElementById("enquiryFab");
+    
     let isDragging = false, moved = false, startX, startY, initialLeft, initialTop;
 
     function dragStart(e) {
-      if(e.type === "touchstart") { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
-      else { startX = e.clientX; startY = e.clientY; }
-      const rect = langBtn.getBoundingClientRect();
-      initialLeft = rect.left; initialTop = rect.top;
-      isDragging = true; moved = false; langBtn.style.transition = 'none';
+      if(e.target.closest('button')) {
+        if(e.type === "touchstart") { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+        else { startX = e.clientX; startY = e.clientY; }
+        const rect = fabContainer.getBoundingClientRect();
+        initialLeft = rect.left; initialTop = rect.top;
+        isDragging = true; moved = false; fabContainer.style.transition = 'none';
+      }
     }
 
     function dragMove(e) {
@@ -465,24 +468,30 @@
       if(Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
       if(moved) {
         if(e.cancelable) e.preventDefault();
-        langBtn.style.left = `${initialLeft + dx}px`;
-        langBtn.style.top = `${initialTop + dy}px`;
-        langBtn.style.right = 'auto'; langBtn.style.bottom = 'auto';
+        fabContainer.style.left = `${initialLeft + dx}px`;
+        fabContainer.style.top = `${initialTop + dy}px`;
+        fabContainer.style.right = 'auto'; fabContainer.style.bottom = 'auto';
       }
     }
 
-    function dragEnd() { isDragging = false; langBtn.style.transition = 'transform 0.25s ease, box-shadow 0.25s ease'; }
+    function dragEnd() { isDragging = false; fabContainer.style.transition = 'transform 0.25s ease'; }
 
-    langBtn.addEventListener("mousedown", dragStart);
+    fabContainer.addEventListener("mousedown", dragStart);
     document.addEventListener("mousemove", dragMove, { passive: false });
     document.addEventListener("mouseup", dragEnd);
-    langBtn.addEventListener("touchstart", dragStart, { passive: true });
+    fabContainer.addEventListener("touchstart", dragStart, { passive: true });
     document.addEventListener("touchmove", dragMove, { passive: false });
     document.addEventListener("touchend", dragEnd);
 
+    // Using explicit listeners to prevent click if dragged
     langBtn.addEventListener("click", (e) => {
       if(moved) { e.preventDefault(); e.stopPropagation(); return; }
       translatePage();
+    });
+
+    enquiryFab.addEventListener("click", (e) => {
+      if(moved) { e.preventDefault(); e.stopPropagation(); return; }
+      openPopup();
     });
 
     function showToast(message) {
@@ -508,8 +517,7 @@
 
     function setTranslateButtonState(lang) {
       const isKn = lang === "kn";
-      langBtn.setAttribute("aria-pressed", isKn ? "true" : "false");
-      translateButtonLabel.textContent = isKn ? "Read in English" : kannadaLabel;
+      document.getElementById("langIcon").textContent = isKn ? "EN" : "ಕ";
     }
 
     function applyLanguage(lang, attempt = 0) {
