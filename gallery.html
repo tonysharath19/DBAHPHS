@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="referrer" content="no-referrer">
+  <title>A Chronicle of Excellence - Gallery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* MATCHING INDEX.HTML PALETTE */
+      --brand-navy: #4169E1;    
+      --brand-dark: #0F2B46;    
+      --brand-darker: #061a33;  
+      --brand-gold: #C5A059;    
+      
+      --bg-light: #ffffff;      /* Enforced White Background */
+      --text-dark: #0a2237;     
+      --text-light: #ffffff;
+      --f-border: #E2E8F0; 
+      --f-muted: #64748B;
+      
+      --font-main: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif; 
+      --font-heading: 'Playfair Display', serif; 
+      --font-body: 'Merriweather', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); overflow-x: hidden; color: var(--text-dark); background: var(--bg-light); top: 0 !important; line-height: 1.8; }
+    body.modal-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: var(--font-main); }
+    h1, h2, h3, h4, .logo-mark { font-family: var(--font-heading); }
+
+    .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
+    .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
+
+    /* "POP APPEAR" SCROLL REVEAL ANIMATIONS */
+    .scroll-reveal { opacity: 0; transform: translateY(40px) scale(0.85); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .scroll-reveal.show { opacity: 1; transform: translateY(0) scale(1); }
+    
+    /* Staggering delays for the grids */
+    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } 
+    .delay-3 { transition-delay: 0.3s; } .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.1s; } .delay-6 { transition-delay: 0.2s; } /* Second row resets delay */
+    .delay-7 { transition-delay: 0.3s; } .delay-8 { transition-delay: 0.4s; }
+
+    /* TOPBAR & HEADER */
+    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); background: var(--brand-darker); color: var(--text-light); }
+    .topbar-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-main); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); }
+    .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; color: #ffffff; }
+
+    header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; flex-direction: row; align-items: center; gap: 18px; padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); background: var(--brand-dark); border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 24px rgba(15,43,70,0.18); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; }
+    .logo-mark { position: relative; overflow: hidden; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%), linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%); color: #fff; font-weight: 800; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 16px 30px rgba(6,18,44,0.42), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 16px rgba(0,0,0,0.3); }
+    .brand h2 { color: #ffffff; font-size: 1.4rem; line-height: 1.1; letter-spacing: 0.01em; font-family: var(--font-main); font-weight: 700; }
+    
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; width: auto; text-align: left; margin-left: auto; font-family: var(--font-main); }
+    nav a { padding: 10px 14px; border-radius: 999px; color: #ffffff; font-weight: 600; transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+    nav a:hover, nav a:focus-visible { background: rgba(255,255,255,0.12); color: #d8ebff; transform: translateY(-1px); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
+    .menu-toggle span { display: block; width: 26px; height: 3px; background: #fff; border-radius: 4px; transition: transform 0.3s ease, opacity 0.3s ease; }
+
+    /* FLOATING ACTION BUTTONS */
+    .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
+    .fab-container { position: fixed; top: 110px; right: max(20px, env(safe-area-inset-right)); z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; cursor: grab; touch-action: none; transition: transform 0.2s ease, top 0.3s ease; }
+    .fab-container:active { cursor: grabbing; }
+    .fab-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: none; }
+    .fab-btn:hover { transform: translateY(-3px) scale(1.05); }
+    .lang-fab { background: #fff; color: var(--brand-navy); border: 2px solid #e2e8f0; }
+    .fab-text { font-size: 1.6rem; font-family: var(--font-main); font-weight: 800; line-height: 1; margin-top: -2px; }
+    .enquiry-fab { background: var(--brand-navy); color: #ffffff; border: 2px solid var(--brand-navy); }
+    .enquiry-text { font-size: 0.5rem; font-family: var(--font-main); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: center; line-height: 1.2; }
+
+    /* GALLERY HERO */
+    #hero { padding: 0; display: flex; align-items: center; justify-content: center; position: relative; min-height: 100svh; background: var(--brand-dark); overflow: hidden; }
+    .hero-bg { position: absolute; inset: -5%; background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2000&auto=format&fit=crop') center/cover; animation: kenBurns 25s infinite alternate ease-in-out; filter: brightness(0.9); }
+    @keyframes kenBurns { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(-1%, -1%); } }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,43,70,0.4) 0%, rgba(15,43,70,0.7) 100%); z-index: 2; }
+    .hero-content { position: relative; z-index: 3; text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    .hero-content h1 { font-size: clamp(3rem, 6vw, 5rem); color: #ffffff; font-weight: 800; line-height: 1.1; margin-bottom: 10px; text-shadow: 0 4px 20px rgba(0,0,0,0.6); }
+    .gold-line { width: 0; height: 3px; background: var(--brand-gold); margin: 0 auto; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .scroll-reveal.show .gold-line { width: 120px; }
+    .scroll-indicator { margin-top: 40px; color: var(--brand-gold); animation: bounce 2s infinite; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+
+    /* UNIFIED SECTION STYLES (White BG, Centered Text, Full Height) */
+    main { width: 100%; background: var(--bg-light); }
+    .legacy-section { width: 100%; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 80px 5%; background: var(--bg-light); }
+    
+    .section-header { text-align: center; margin-bottom: 50px; max-width: 900px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .section-title { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 700; margin-bottom: 16px; line-height: 1.1; color: var(--brand-dark); text-align: center; }
+    .ornament { width: 60px; height: auto; margin-bottom: 20px; color: var(--brand-gold); }
+    .section-desc { font-size: clamp(1rem, 1.2vw, 1.15rem); line-height: 1.8; opacity: 0.9; margin-top: 10px; text-align: center; color: var(--text-dark); }
+
+    /* PERFECTLY SPACED 4x2 GRID LAYOUT */
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 100%; max-width: 1400px; }
+
+    /* GALLERY ITEM HOVER MECHANICS (Pop Reveal + Color Bloom) */
+    .gallery-item { position: relative; border-radius: 16px; overflow: hidden; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.15); background: var(--brand-dark); aspect-ratio: 4/3; }
+    .gallery-img { width: 100%; height: 100%; display: block; object-fit: cover; filter: grayscale(20%) brightness(0.85); transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.6s ease; }
+    .gallery-item:hover .gallery-img { transform: scale(1.1); filter: grayscale(0) brightness(1.1); }
+    
+    /* Strictly Enforced Tagline */
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 43, 70, 0.95) 0%, transparent 60%); opacity: 0; transition: opacity 0.5s ease; display: flex; align-items: flex-end; padding: 24px; justify-content: center; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-caption { color: #fff; font-family: var(--font-heading); font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 700; transform: translateY(20px); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.3; text-align: center; width: 100%; }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+    /* IMMERSIVE LIGHTBOX */
+    #lightbox { position: fixed; inset: 0; z-index: 2000; background: rgba(15, 43, 70, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+    #lightbox.active { opacity: 1; pointer-events: auto; }
+    .lb-img { max-width: 90vw; max-height: 75vh; border-radius: 12px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); object-fit: contain; transform: scale(0.95); transition: transform 0.4s ease; border: 2px solid rgba(197, 160, 89, 0.3); }
+    #lightbox.active .lb-img { transform: scale(1); }
+    .lb-caption { color: var(--brand-gold); font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 2rem); margin-top: 24px; text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.5); padding: 0 20px; }
+    
+    .lb-controls button { position: absolute; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; transition: 0.3s; padding: 20px; display: grid; place-items: center; }
+    .lb-close { top: 20px; right: 20px; font-size: 3rem !important; }
+    .lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
+    .lb-controls button:hover { color: var(--brand-gold); transform: scale(1.1); }
+    .lb-prev:hover { transform: translateY(-50%) scale(1.1) translateX(-5px); }
+    .lb-next:hover { transform: translateY(-50%) scale(1.1) translateX(5px); }
+
+    /* POPUP FORM */
+    .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 43, 70, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .popup.open { display: flex; }
+    .pro-card { background: var(--bg-light); width: min(600px, 100%); border-radius: 24px; padding: 32px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 2px solid var(--brand-navy); max-height: 90svh; overflow-y: auto; }
+    .btn-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 1px solid var(--brand-navy); font-size: 1.4rem; color: var(--brand-dark); cursor: pointer; display: grid; place-items: center; transition: 0.3s; z-index: 10; }
+    .btn-close:hover { background: var(--f-error); color: #EF4444; border-color: #EF4444; transform: rotate(90deg); }
+    .form-header-popup { text-align: center; margin-bottom: 20px; }
+    .form-header-popup h2 { color: var(--brand-dark); font-size: 1.6rem; font-family: var(--font-heading); font-weight: 800; }
+    .form-header-popup .kn-heading { color: var(--brand-navy); font-size: 1.1rem; font-family: var(--font-heading); font-weight: 800; margin-top: 4px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; font-family: var(--font-main); }
+    .input-group { display: flex; flex-direction: column; gap: 4px; }
+    .input-group.full-width { grid-column: 1 / -1; }
+    .label-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.2; margin-bottom: 4px; }
+    .en-lbl { font-size: 0.7rem; font-weight: 700; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kn-lbl { font-size: 0.9rem; font-weight: 700; color: var(--brand-navy); }
+    .popup-input, .popup-select, .popup-textarea { width: 100%; padding: 12px; font-size: 0.9rem; border: 1px solid var(--f-border); border-radius: 8px; background: #fff; -webkit-appearance: none; appearance: none; }
+    .popup-textarea { min-height: 80px; resize: none; }
+    .action-group { display: flex; gap: 12px; margin-top: 16px; grid-column: 1 / -1; font-family: var(--font-main); }
+    .form-btn { flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .btn-cancel { background: #e2e8f0; color: var(--brand-dark); }
+    .btn-submit { background: var(--brand-navy); color: #fff; }
+    .form-btn .en-btn { font-size: 0.9rem; font-weight: 800; }
+    .form-btn .kn-btn { font-size: 0.8rem; font-weight: 700; opacity: 0.9; }
+
+    /* RESPONSIVE BREAKPOINTS (Mobile adjustments) */
+    @media (max-width: 992px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    
+    @media (max-width: 600px) {
+      .topbar, .topbar-item { justify-content: flex-end; }
+      .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
+      header { justify-content: flex-start; }
+      .menu-toggle { display: flex; position: absolute; right: 20px; }
+      nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--brand-dark); flex-direction: column; align-items: center; padding: 24px; gap: 16px; opacity: 0; pointer-events: none; transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.1); transform: translateY(-10px); }
+      nav.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      
+      .fab-container { top: 85px; right: 12px; gap: 10px; transform: scale(0.9); transform-origin: top right; }
+      .enquiry-text { font-size: 0.4rem; }
+      
+      .legacy-section { padding: 80px 16px; min-height: 100svh; height: auto; }
+      .section-header { margin-bottom: 40px; }
+      h1, h2, h3, h4, .section-title, .section-desc { text-align: center !important; }
+      
+      /* Mobile Grid 2x4 */
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .gallery-item { aspect-ratio: 1/1; border-radius: 12px; }
+      
+      .gallery-caption { font-size: 0.9rem; }
+      
+      .form-grid { grid-template-columns: 1fr; }
+      .popup { padding: 10px; }
+      .pro-card { padding: 24px 16px; border-radius: 20px; width: 100%; }
+      
+      .lb-controls button { padding: 10px; }
+      .lb-prev { left: 5px; } .lb-next { right: 5px; }
+      .lb-close { top: 10px; right: 10px; }
+      .lb-caption { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="google_translate_element" class="translate-widget"></div>
+
+  <div id="fabContainer" class="fab-container">
+    <button class="fab-btn lang-fab" id="langBtn" type="button" title="Translate Page">
+      <span id="langIcon" class="fab-text">ಕ</span>
+    </button>
+    <button class="fab-btn enquiry-fab" id="enquiryFab" type="button" title="Admission Enquiry">
+      <span class="enquiry-text">Admission<br>Enquiry</span>
+    </button>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="pro-card">
+      <button class="btn-close" id="popupClose">&times;</button>
+      <div class="form-header-popup">
+        <h2>Admission Enquiry Form</h2>
+        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ</div>
+      </div>
+      <form id="admissionForm">
+        <div class="form-grid">
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Parent Name</span><span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span></div>
+            <input type="text" class="popup-input" required placeholder="Name">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Phone</span><span class="kn-lbl">ದೂರವಾಣಿ</span></div>
+            <input type="tel" class="popup-input" required placeholder="Mobile">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Child Name</span><span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span></div>
+            <input type="text" class="popup-input" required placeholder="Name">
+          </div>
+          <div class="input-group">
+            <div class="label-wrapper"><span class="en-lbl">Class</span><span class="kn-lbl">ತರಗತಿ</span></div>
+            <select class="popup-select" required>
+              <option value="" disabled selected>Select Class</option>
+              <option value="prenursery">Pre-Nursery</option>
+              <option value="nursery">Nursery</option>
+              <option value="lkg">LKG</option>
+              <option value="ukg">UKG</option>
+              <option value="1">Class I</option>
+              <option value="2">Class II</option>
+              <option value="3">Class III</option>
+            </select>
+          </div>
+          <div class="input-group full-width">
+            <div class="label-wrapper"><span class="en-lbl">Message</span><span class="kn-lbl">ಸಂದೇಶ</span></div>
+            <textarea class="popup-textarea" required placeholder="How can we help?"></textarea>
+          </div>
+        </div>
+        <div class="action-group">
+          <button type="button" class="form-btn btn-cancel" id="cancelButton"><span class="en-btn">Cancel</span><span class="kn-btn">ರದ್ದುಮಾಡಿ</span></button>
+          <button type="submit" class="form-btn btn-submit"><span class="en-btn">Submit Enquiry</span><span class="kn-btn">ಸಲ್ಲಿಸಿ</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <a class="topbar-item" href="mailto:school@mail.com"><small>Email</small> <strong>school@mail.com</strong></a>
+    <a class="topbar-item" href="tel:+919876543210"><small>Contact</small> <strong>+91 98765 43210</strong></a>
+  </div>
+  <header>
+    <div class="brand">
+      <div class="logo-mark">SCH</div>
+      <h2>School Name</h2>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="expertise.html">Expertise</a>
+      <a href="index.html#admissions">Admissions</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="scroll-reveal">A Chronicle of Excellence</h1>
+        <div class="scroll-reveal delay-1"><div class="gold-line"></div></div>
+        <svg class="scroll-indicator scroll-reveal delay-2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="7"/><path d="M12 6v4"/></svg>
+      </div>
+    </section>
+
+    <section class="legacy-section">
+      <div class="section-header scroll-reveal">
+        <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+        <h2 class="section-title">The Campus</h2>
+        <p class="section-desc">Explore the architectural grandeur of our campus, meticulously designed to inspire excellence. From sweeping corridors that echo with the footsteps of future leaders to our serene libraries filled with centuries of knowledge, every cornerstone is built to foster a prestigious environment for holistic development.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item scroll-reveal delay-1"><img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Grand Heritage Entrance</div></div></div>
+        <div class="gallery-item scroll-reveal delay-2"><img src="https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Central Library of Scholars</div></div></div>
+        <div class="gallery-item scroll-reveal delay-3"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Sweeping Academic Corridors</div></div></div>
+        <div class="gallery-item scroll-reveal delay-4"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Sunlit Learning Atriums</div></div></div>
+        <div class="gallery-item scroll-reveal delay-5"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Majestic Main Edifice</div></div></div>
+        <div class="gallery-item scroll-reveal delay-6"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Tranquil Study Gardens</div></div></div>
+        <div class="gallery-item scroll-reveal delay-7"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">State-of-the-Art Auditoriums</div></div></div>
+        <div class="gallery-item scroll-reveal delay-8"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Classical Archways</div></div></div>
+      </div>
+    </section>
+
+    <section class="legacy-section">
+      <div class="section-header scroll-reveal">
+        <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+        <h2 class="section-title">The Crucible of Learning</h2>
+        <p class="section-desc">Step into our advanced technological and scientific hubs. Equipped with cutting-edge smart boards, robotics labs, and comprehensive chemistry stations, this is where theoretical knowledge transforms into practical brilliance. Our digital ecosystems are designed to prepare scholars for the rapid advancements of tomorrow.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item scroll-reveal delay-1"><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Advanced Chemistry Lab</div></div></div>
+        <div class="gallery-item scroll-reveal delay-2"><img src="https://images.unsplash.com/photo-1571260899304-42507011bb6b?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Next-Gen Computer Lab</div></div></div>
+        <div class="gallery-item scroll-reveal delay-3"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Interactive Smart Boards</div></div></div>
+        <div class="gallery-item scroll-reveal delay-4"><img src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Digital Coding Seminars</div></div></div>
+        <div class="gallery-item scroll-reveal delay-5"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Hands-on Physics Experiments</div></div></div>
+        <div class="gallery-item scroll-reveal delay-6"><img src="https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Robotics & Innovation Wing</div></div></div>
+        <div class="gallery-item scroll-reveal delay-7"><img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Microscopic Biological Studies</div></div></div>
+        <div class="gallery-item scroll-reveal delay-8"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Collaborative Tech Discussions</div></div></div>
+      </div>
+    </section>
+
+    <section class="legacy-section">
+      <div class="section-header scroll-reveal">
+        <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+        <h2 class="section-title">The Arena</h2>
+        <p class="section-desc">Physical vitality is the bedrock of intellectual sharpness. The Arena showcases our dedication to sports, martial arts, and mindfulness. Whether it is mastering the discipline of Karate, finding inner peace through Yoga, or excelling on the sports field, our scholars are trained to achieve absolute physical and mental harmony.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item scroll-reveal delay-1"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Grand Running Track</div></div></div>
+        <div class="gallery-item scroll-reveal delay-2"><img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Disciplined Karate Training</div></div></div>
+        <div class="gallery-item scroll-reveal delay-3"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Morning Yoga & Meditation</div></div></div>
+        <div class="gallery-item scroll-reveal delay-4"><img src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Championship Basketball Court</div></div></div>
+        <div class="gallery-item scroll-reveal delay-5"><img src="https://images.unsplash.com/photo-1526676037598-3373ad24b335?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Physical Conditioning Routines</div></div></div>
+        <div class="gallery-item scroll-reveal delay-6"><img src="https://images.unsplash.com/photo-1554068808-7e44fc27b3b3?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Martial Arts Sparring</div></div></div>
+        <div class="gallery-item scroll-reveal delay-7"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Mindfulness Sessions</div></div></div>
+        <div class="gallery-item scroll-reveal delay-8"><img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Competitive Athletics</div></div></div>
+      </div>
+    </section>
+
+    <section class="legacy-section">
+      <div class="section-header scroll-reveal">
+        <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
+        <h2 class="section-title">Cultural Vibrance</h2>
+        <p class="section-desc">We celebrate the boundless creativity and artistic heritage of our students. From the rhythmic grace of classical dance and dynamic theatrical performances to intricate fine arts exhibitions and our grand Talents Week, this is the vibrant cultural heartbeat of our prestigious institution.</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item scroll-reveal delay-1"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Talents Week Musical Showcase</div></div></div>
+        <div class="gallery-item scroll-reveal delay-2"><img src="https://images.unsplash.com/photo-1510526279140-5a7bb9480b06?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Classical Dance Performances</div></div></div>
+        <div class="gallery-item scroll-reveal delay-3"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Fine Arts Exhibition</div></div></div>
+        <div class="gallery-item scroll-reveal delay-4"><img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Inter-House Academic Quiz</div></div></div>
+        <div class="gallery-item scroll-reveal delay-5"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Theatrical Arts & Drama</div></div></div>
+        <div class="gallery-item scroll-reveal delay-6"><img src="https://images.unsplash.com/photo-1525926477800-7a3afaf257bf?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Traditional Festival Celebrations</div></div></div>
+        <div class="gallery-item scroll-reveal delay-7"><img src="https://images.unsplash.com/photo-1560439514-e960a3ef5019?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">Creative Painting Workshops</div></div></div>
+        <div class="gallery-item scroll-reveal delay-8"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop" class="gallery-img"><div class="gallery-overlay"><div class="gallery-caption">The Grand Annual Symposium</div></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lb-controls">
+    <button class="lb-close">&times;</button>
+    <button class="lb-prev">&#10094;</button>
+    <img class="lb-img" src="" alt="Gallery Preview">
+    <div class="lb-caption"></div>
+    <button class="lb-next">&#10095;</button>
+  </div>
+
+  <script>
+    // Scroll Reveal Observer Logic
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+    // Lightbox Logic (Captures all gallery items globally)
+    const lb = document.getElementById('lightbox'), lbImg = document.querySelector('.lb-img'), lbCap = document.querySelector('.lb-caption');
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    let currentIdx = 0;
+    
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentIdx = index;
+        showLb(item);
+      });
+    });
+
+    function showLb(item) {
+      lbImg.src = item.querySelector('.gallery-img').src;
+      lbCap.textContent = item.querySelector('.gallery-caption').textContent;
+      lb.classList.add('active'); document.body.style.overflow = 'hidden';
+    }
+
+    document.querySelector('.lb-close').addEventListener('click', () => { lb.classList.remove('active'); document.body.style.overflow = ''; });
+    document.querySelector('.lb-next').addEventListener('click', () => {
+      currentIdx = (currentIdx + 1) % galleryItems.length; showLb(galleryItems[currentIdx]);
+    });
+    document.querySelector('.lb-prev').addEventListener('click', () => {
+      currentIdx = (currentIdx - 1 + galleryItems.length) % galleryItems.length; showLb(galleryItems[currentIdx]);
+    });
+    document.addEventListener("keydown", (e) => {
+      if(!lb.classList.contains('active')) return;
+      if(e.key === "Escape") { lb.classList.remove('active'); document.body.style.overflow = ''; }
+      if(e.key === "ArrowRight") document.querySelector('.lb-next').click();
+      if(e.key === "ArrowLeft") document.querySelector('.lb-prev').click();
+    });
+
+    // Translate Logic
+    const langBtn = document.getElementById("langBtn");
+    let currentLanguage = "en";
+    function setTranslateButtonState(lang) { document.getElementById("langIcon").textContent = lang === "kn" ? "EN" : "ಕ"; }
+    function applyLanguage(lang) {
+      const combo = document.querySelector(".goog-te-combo");
+      if(combo) { combo.value = lang; combo.dispatchEvent(new Event("change")); currentLanguage = lang; setTranslateButtonState(lang); }
+    }
+    langBtn.addEventListener("click", () => { applyLanguage(currentLanguage === "kn" ? "en" : "kn"); });
+    window.googleTranslateElementInit = function() { new google.translate.TranslateElement({ pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false }, "google_translate_element"); };
+
+    // Mobile Menu
+    const menuToggle = document.getElementById("menuToggle"), navMenu = document.querySelector("nav");
+    menuToggle.addEventListener("click", () => { navMenu.classList.toggle("active"); menuToggle.classList.toggle("active"); });
+    navMenu.querySelectorAll("a").forEach(link => { link.addEventListener("click", () => { navMenu.classList.remove("active"); menuToggle.classList.remove("active"); }); });
+
+    // Popup Form Logic
+    const popup = document.getElementById("popup");
+    document.getElementById("enquiryFab").addEventListener("click", () => { popup.classList.add("open"); document.body.classList.add("modal-open"); });
+    document.getElementById("popupClose").addEventListener("click", () => { popup.classList.remove("open"); document.body.classList.remove("modal-open"); });
+    document.getElementById("cancelButton").addEventListener("click", () => { popup.classList.remove("open"); document.body.classList.remove("modal-open"); });
+    popup.addEventListener("click", (e) => { if(e.target === popup) { popup.classList.remove("open"); document.body.classList.remove("modal-open"); } });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.classList.contains("open")) { popup.classList.remove("open"); document.body.classList.remove("modal-open"); } });
+
+    // FAB Drag Logic
+    const fabContainer = document.getElementById("fabContainer");
+    let isDragging = false, moved = false, startX, startY, initialLeft, initialTop;
+    function dragStart(e) {
+      if(e.target.closest('button')) {
+        startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+        startY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+        const rect = fabContainer.getBoundingClientRect();
+        initialLeft = rect.left; initialTop = rect.top;
+        isDragging = true; moved = false; fabContainer.style.transition = 'none';
+      }
+    }
+    function dragMove(e) {
+      if(!isDragging) return;
+      const currentX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+      const currentY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+      const dx = currentX - startX, dy = currentY - startY;
+      if(Math.abs(dx) > 5 || Math.abs(dy) > 5) moved = true;
+      if(moved) {
+        if(e.cancelable) e.preventDefault();
+        fabContainer.style.left = `${initialLeft + dx}px`;
+        fabContainer.style.top = `${initialTop + dy}px`;
+        fabContainer.style.right = 'auto';
+      }
+    }
+    function dragEnd() { isDragging = false; fabContainer.style.transition = 'transform 0.2s ease, top 0.3s ease'; }
+    fabContainer.addEventListener("mousedown", dragStart); document.addEventListener("mousemove", dragMove, {passive: false}); document.addEventListener("mouseup", dragEnd);
+    fabContainer.addEventListener("touchstart", dragStart, {passive: true}); document.addEventListener("touchmove", dragMove, {passive: false}); document.addEventListener("touchend", dragEnd);
+
+    document.getElementById("langBtn").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
+    document.getElementById("enquiryFab").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
