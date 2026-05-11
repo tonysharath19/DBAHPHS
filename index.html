@@ -29,9 +29,15 @@
     .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
     .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
 
-    .topbar { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); background: #061a33; color: var(--text-light); }
-    .topbar-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); }
+    .topbar { position: relative; z-index: 1002; display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 4px max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); background: #061a33; color: var(--text-light); }
+    .topbar-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; color: #ffffff; text-align: center; text-shadow: 0 1px 0 rgba(0,0,0,0.18); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; min-height: 44px; }
     .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    @media (max-width: 640px) {
+      .topbar { justify-content: center; gap: 10px; padding: 8px max(14px, env(safe-area-inset-right)) 8px max(14px, env(safe-area-inset-left)); }
+      .topbar-item { width: 100%; max-width: 520px; justify-content: space-between; padding: 8px 12px; border-radius: 14px; background: rgba(255,255,255,0.06); }
+      .topbar-item strong { font-size: 0.9rem; }
+    }
 
     header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; flex-direction: row; align-items: center; gap: 18px; padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); background: #0F2B46; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 24px rgba(15,43,70,0.18); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
     .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
@@ -40,8 +46,8 @@
     .menu-toggle.active span:nth-child(2) { opacity: 0; }
     .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; }
-    .logo-mark { position: relative; overflow: hidden; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%), linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%); color: #fff; font-weight: 800; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 16px 30px rgba(6,18,44,0.42), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 16px rgba(0,0,0,0.3); }
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; min-width: 0; }
+    .logo-mark { width: 56px; height: 56px; border-radius: 8px; display: block; object-fit: contain; background: transparent; box-shadow: none; border: none; }
     .brand h2 { color: #ffffff; font-size: 1.4rem; line-height: 1.1; letter-spacing: 0.01em; }
 
     nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; width: auto; text-align: left; margin-left: auto; }
@@ -111,6 +117,9 @@
     .contact-icon:hover { background: var(--brand-navy); transform: translateY(-4px); }
     .contact-icon svg { width: 22px; height: 22px; }
 
+    .site-footer { padding: 18px max(20px, env(safe-area-inset-right)) 18px max(20px, env(safe-area-inset-left)); background: #061a33; color: rgba(255,255,255,0.85); text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .site-footer p { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; }
+
     /* OPTIMIZED POPUP FORM */
     .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
     .popup.open { display: flex; }
@@ -156,14 +165,17 @@
       .story-section { min-height: 100vh; grid-template-columns: 1fr; display: flex; flex-direction: column; perspective: none; }
       .section-image { height: 40vh; min-height: 250px; width: 100%; order: 1; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: scale(calc(1.05 - (var(--reveal) * 0.05))); }
       .section-card { flex: 1; min-height: 50vh; order: 2; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translateY(calc((1 - var(--reveal)) * 40px)); }
-      header { justify-content: flex-start; }
-      .menu-toggle { display: flex; position: absolute; right: max(20px, env(safe-area-inset-right)); }
+      header { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 12px; justify-content: initial; }
+      .brand { display: contents; }
+      .logo-mark { width: 44px; height: 44px; border-radius: 8px; justify-self: start; }
+      .brand h2 { justify-self: center; text-align: center; font-size: 1.02rem; line-height: 1.15; white-space: normal; overflow-wrap: anywhere; }
+      .menu-toggle { display: flex; position: static; justify-self: end; }
       nav { position: absolute; top: 100%; left: 0; right: 0; background: #0F2B46; flex-direction: column; align-items: center; padding: 24px; gap: 16px; transform: translateY(-20px); opacity: 0; pointer-events: none; transition: 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1000; }
       nav.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
     }
 
     @media (max-width: 620px) {
-      .topbar, .topbar-item { justify-content: flex-end; }
+      .topbar, .topbar-item { justify-content: center; }
       .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
       .mobile-break { display: block; }
       
@@ -298,9 +310,9 @@
   </div>
 
   <div class="topbar">
-    <a class="topbar-item" href="mailto:school@mail.com">
+    <a class="topbar-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=ambedkarhps18@gmail.com" target="_blank" rel="noopener noreferrer">
       <small>Email</small>
-      <strong>school@mail.com</strong>
+      <strong>ambedkarhps18@gmail.com</strong>
     </a>
     <a class="topbar-item" href="tel:+919876543210">
       <small>Contact</small>
@@ -310,8 +322,8 @@
 
   <header>
     <div class="brand">
-      <div class="logo-mark notranslate" translate="no">SCH</div>
-      <h2 class="notranslate" translate="no">School Name</h2>
+      <img class="logo-mark" src="logo.jpeg" alt="Dr. BR Ambedkar Higher Primary &amp; High School logo">
+      <h2 class="notranslate" translate="no">Dr. BR Ambedkar Higher Primary &amp; High School</h2>
     </div>
     <nav aria-label="Primary navigation">
       <a href="about.html">About</a>
@@ -328,15 +340,15 @@
   <div class="status-toast" id="statusToast" aria-live="polite"></div>
 
   <main>
-    <section id="home" class="story-section theme-dark show" style="--section-image:url('https://images.unsplash.com/photo-1592066575517-58df903152f2?q=80&w=1298&auto=format&fit=crop');">
+    <section id="home" class="story-section theme-dark show" style="--section-image:url('MEDIA/IMAGES/INDEX/section-1.jpeg');">
       <div class="section-image" style="background-image: var(--section-image);"></div>
       <div class="section-card">
         <div class="section-copy">
-          <h1>Shaping Confident Learners</h1>
+          <h1>Inspiring Minds, Creating Futures</h1>
           <p class="section-info">
             <span>Strong Academics</span><span>Digital Learning</span><span>Sports</span><span>Mentorship</span>
           </p>
-          <p>Our campus blends strong academics, digital learning, sports, and mentorship so every child grows with discipline, curiosity, and confidence.</p>
+          <p>At Dr BR Ambedkar Higher Primary &amp; High School, we nurture young minds with knowledge, discipline, and values. Our mission is to create confident learners who are prepared to face the future with courage, creativity, and compassion.</p>
         </div>
       </div>
     </section>
@@ -348,7 +360,7 @@
           <p class="section-info">
             <span>Values</span><span>Excellence</span><span>Modern Learning</span><span>Confidence</span>
           </p>
-          <p>We focus on values, excellence, and modern learning so students build confidence, curiosity, and strong academic foundations.</p>
+          <p>We focus on nurturing confident learners, encouraging creativity, and helping every student grow into a responsible and successful individual. Our school creates a supportive environment where learning inspires a brighter future.</p>
           <a href="about.html" class="section-btn">Learn More</a>
         </div>
       </div>
@@ -363,7 +375,7 @@
           <p class="section-info">
             <span>Digital Classrooms</span><span>Structured Curriculum</span><span>Innovative Teaching</span><span>Guided Growth</span>
           </p>
-          <p>Digital classrooms, structured curriculum, and innovative teaching help students learn with clarity and confidence.</p>
+          <p>We specialize in delivering quality education with a balanced focus on academics, discipline, values, and overall personality development. Our experienced teaching approach helps students build confidence, creativity, leadership skills, and a strong foundation for future success.</p>
           <a href="expertise.html" class="section-btn">Learn More</a>
         </div>
       </div>
@@ -376,7 +388,7 @@
           <p class="section-info">
             <span>Learning</span><span>Activities</span><span>Creativity</span><span>Joy</span>
           </p>
-          <p>Campus life is built around learning, activities, and moments that help students grow with joy and purpose.</p>
+          <p>Our school campus is filled with learning, friendships, and joyful experiences. Along with studies, students take part in sports, cultural activities, and daily interactions that help them grow with confidence, discipline, and happiness.</p>
           <a href="gallery.html" class="section-btn">View Our Campus</a>
         </div>
       </div>
@@ -406,13 +418,18 @@
           </p>
           <p>Visit or connect with us directly for admissions questions, school visits, and quick support from our team.</p>
           <div class="contact-methods">
-            <a href="https://wa.me/919876543210" class="contact-icon" title="WhatsApp">
+            <a href="https://wa.me/917026764921" class="contact-icon" title="WhatsApp" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.04c0 2.12.554 4.189 1.602 6.006L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.635 0 12.038-5.403 12.04-12.04.001-3.218-1.252-6.242-3.525-8.514z"/></svg>
             </a>
-            <a href="https://instagram.com" class="contact-icon" title="Instagram">
+            <a href="https://www.instagram.com/ambedkarhps18?igsh=MXJqdDZvM3hmeWc2bg==" class="contact-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="mailto:school@mail.com" class="contact-icon" title="Email">
+            <a href="https://www.youtube.com/@drbrambedkarschoolkaiwara" class="contact-icon" title="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.7 12 4.7 12 4.7s-5.7 0-7.5.4A3 3 0 0 0 2.4 7.2 31.3 31.3 0 0 0 2 12a31.3 31.3 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.4 7.5.4 7.5.4s5.7 0 7.5-.4a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 22 12a31.3 31.3 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/>
+              </svg>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ambedkarhps18@gmail.com" class="contact-icon" title="Email" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </a>
             <a href="tel:+919876543210" class="contact-icon" title="Call">
@@ -424,6 +441,10 @@
       <div class="section-image" style="background-image: var(--section-image);"></div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Copyright 2026 | DBRAHPHS</p>
+  </footer>
 
   <script>
     const popup = document.getElementById("popup");

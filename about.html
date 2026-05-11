@@ -40,8 +40,8 @@
     .topbar-item small { font-size: 0.68rem; opacity: 0.78; text-transform: uppercase; letter-spacing: 0.08em; color: #ffffff; }
 
     header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; flex-direction: row; align-items: center; gap: 18px; padding: 14px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); background: #0F2B46; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 24px rgba(15,43,70,0.18); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; }
-    .logo-mark { position: relative; overflow: hidden; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.18), transparent 34%), linear-gradient(145deg, #314a93 0%, #253f80 38%, #182f66 68%, #0f1f4c 100%); color: #fff; font-weight: 800; letter-spacing: 0.08em; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 16px 30px rgba(6,18,44,0.42), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -10px 16px rgba(0,0,0,0.3); }
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 14px; text-align: left; flex: 0 0 auto; min-width: 0; }
+    .logo-mark { width: 56px; height: 56px; border-radius: 8px; display: block; object-fit: contain; background: transparent; box-shadow: none; border: none; }
     .brand h2 { color: #ffffff; font-size: 1.4rem; line-height: 1.1; letter-spacing: 0.01em; font-family: var(--font-main); font-weight: 700; }
     
     nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; width: auto; text-align: left; margin-left: auto; font-family: var(--font-main); }
@@ -128,6 +128,9 @@
     .principal-info h3 { font-size: 2.2rem; color: var(--brand-gold); margin-bottom: 8px; font-family: var(--font-heading); font-weight: 700; }
     .principal-info h4 { font-family: var(--font-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-bottom: 16px; font-weight: 600; }
 
+    .site-footer { padding: 18px max(20px, env(safe-area-inset-right)) 18px max(20px, env(safe-area-inset-left)); background: var(--brand-darker); color: rgba(255,255,255,0.85); text-align: center; border-top: 1px solid rgba(255,255,255,0.12); }
+    .site-footer p { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; }
+
     /* POPUP FORM */
     .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 43, 70, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
     .popup.open { display: flex; }
@@ -168,10 +171,14 @@
       .topbar, .topbar-item { justify-content: flex-end; }
       .logo-mark { width: 50px; height: 50px; border-radius: 16px; }
       
-      header { justify-content: flex-start; }
+      header { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 12px; justify-content: initial; }
+      .brand { display: contents; }
+      .logo-mark { width: 44px; height: 44px; border-radius: 8px; justify-self: start; }
+      .brand h2 { justify-self: center; text-align: center; font-size: 1.02rem; line-height: 1.15; white-space: normal; overflow-wrap: anywhere; }
       .menu-toggle { display: flex; position: absolute; right: 20px; }
       nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--brand-dark); flex-direction: column; align-items: center; padding: 24px; gap: 16px; opacity: 0; pointer-events: none; transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.1); transform: translateY(-10px); }
       nav.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .menu-toggle { position: static; justify-self: end; }
       
       .fab-container { top: 85px; right: 12px; gap: 10px; transform: scale(0.9); transform-origin: top right; }
       .enquiry-text { font-size: 0.4rem; }
@@ -274,13 +281,13 @@
   </div>
 
   <div class="topbar">
-    <a class="topbar-item" href="mailto:school@mail.com"><small>Email</small> <strong>school@mail.com</strong></a>
+    <a class="topbar-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=ambedkarhps18@gmail.com" target="_blank" rel="noopener noreferrer"><small>Email</small> <strong>ambedkarhps18@gmail.com</strong></a>
     <a class="topbar-item" href="tel:+919876543210"><small>Contact</small> <strong>+91 98765 43210</strong></a>
   </div>
   <header>
     <div class="brand">
-      <div class="logo-mark">SCH</div>
-      <h2>School Name</h2>
+      <img class="logo-mark" src="logo.jpeg" alt="Dr. BR Ambedkar Higher Primary &amp; High School logo">
+      <h2 class="notranslate" translate="no">Dr. BR Ambedkar Higher Primary &amp; High School</h2>
     </div>
     <nav>
       <a href="index.html">Home</a>
@@ -309,13 +316,13 @@
       <div class="content-wrapper">
         <div class="badge-art scroll-reveal">
           <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1200&auto=format&fit=crop" alt="Historic Building">
-          <div class="badge-label">Established 1952</div>
+          <div class="badge-label">Established 1987</div>
         </div>
         <div class="scroll-reveal delay-1">
           <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
-          <h2 class="legacy-title">Our Historic Roots</h2>
-          <p class="legacy-text drop-cap">Rooted deeply in the ethos of classical education, our institution began as a humble sanctuary for eager minds in 1952. What started in a modest brick building with a handful of visionary educators has blossomed into a sweeping campus of academic rigor and architectural majesty. Over the decades, we have meticulously preserved our historical foundations while seamlessly integrating modern pedagogical advancements.</p>
-          <p class="legacy-text">Our halls have echoed with the footsteps of generations of scholars, leaders, and pioneers. Every cornerstone of this campus was laid with the singular belief that education is not merely the transfer of knowledge, but the profound shaping of character. We stand today not just as a school, but as a living monument to intellectual heritage, unwavering discipline, and the timeless pursuit of excellence that defines our legacy.</p>
+          <h2 class="legacy-title">Roots of the Institution</h2>
+          <p class="legacy-text drop-cap">The roots of Dr. BR Ambedkar School lie in a simple yet powerful vision—to make education accessible to every child, regardless of their financial background. Founded in 1987 by Mr. Chikkaerappa, a devoted government teacher and follower of Dr. B.R. Ambedkar, the school began as a humble effort to uplift children from underprivileged communities. With limited resources but a strong purpose, he invested his own earnings and dedicated his life to creating opportunities for those who could not afford education.</p>
+          <p class="legacy-text">Inspired by the ideals of equality, empowerment, and social justice, the institution was built on values of discipline, hard work, and inclusiveness. Over the years, what started as a small initiative has grown into a respected institution, continuing to carry forward its founder’s mission—ensuring that no child is deprived of education and every student is given the chance to build a better future.</p>
         </div>
       </div>
     </section>
@@ -328,11 +335,11 @@
         </div>
         <div class="scroll-reveal delay-1" style="direction: ltr;">
           <svg class="ornament" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
-          <h2 class="legacy-title">Meet Our Founder</h2>
-          <p class="legacy-text">Prof. Parameshwar Hegde was a man whose foresight extended far beyond the horizons of his era. An esteemed scholar and a devoted philanthropist, he recognized that true societal progress could only be forged in the crucibles of exceptional education. Dedicating his life to academic betterment, he laid the foundation of this institution with nothing but a relentless vision and an unyielding spirit.</p>
-          <p class="legacy-text">He believed deeply that a school should be a sanctuary where intellect and morality are intertwined. His commitment to structured learning was balanced by his profound compassion for every student. Prof. Hegde’s philosophy—that character outshines curriculum—remains the very bedrock of our teaching methodology. Today, his legacy breathes through every corridor, inspiring a new generation to rise, to lead, and to conquer the complexities of the modern world with classical grace.</p>
+          <h2 class="legacy-title">About the Founder</h2>
+          <p class="legacy-text">Dr. BR Ambedkar School was established in 1987 by <strong>Mr. Chikkaerappa</strong>, a dedicated former government teacher and a true follower of Dr. B.R. Ambedkar’s principles. With a strong belief that education is the most powerful tool for social change, his vision was to provide quality education to students who could not afford it.</p>
+          <p class="legacy-text">He committed his earnings and efforts towards building an institution that uplifts underprivileged children and empowers them through knowledge. His mission continues to inspire the school’s values and dedication towards inclusive and accessible education for all.</p>
           <div class="signature-container">
-            <div class="signature">Parameshwar Hegde</div>
+            <div class="signature">Mr. Chikkaerappa</div>
           </div>
         </div>
       </div>
@@ -341,8 +348,10 @@
     <section id="message" class="legacy-section theme-light">
       <div class="content-single scroll-reveal">
         <svg class="ornament" style="margin-inline:auto;" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
-        <h2 class="legacy-title">The Founder's Message</h2>
-        <p class="legacy-text" style="font-size: 1.3rem; font-style: italic; text-align: center;">"Education is the grand architecture of the human soul. When we lay the bricks of knowledge, we must mortar them with integrity, discipline, and empathy. I established this institution not to merely populate the world with scholars, but to enrich it with individuals of profound character. Do not seek education simply to acquire wealth or status; seek it to illuminate the shadows of ignorance in your own mind and in the world around you. Walk these halls with the reverence of those who understand that learning is a sacred privilege. Leave them with the courage to lead, the wisdom to serve, and the unshakeable resolve to leave your mark upon the tapestry of history."</p>
+        <h2 class="legacy-title">About the President</h2>
+        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop" class="principal-img" style="margin: 26px auto 24px auto;" alt="President Mrs. S.M. Roja">
+        <p class="legacy-text">After the visionary leadership of the founder, the institution continues to grow under the guidance of <strong>Mrs. S.M. Roja</strong>, President of the school. Carrying forward the legacy of her late husband, she is deeply committed to upholding his values, principles, and mission.</p>
+        <p class="legacy-text">Her leadership is rooted in discipline, dedication, and a strong belief in quality education for all. With a clear goal that the school should stand equal to any other institution, she strives continuously to maintain high standards in both academics and character building, ensuring that every student receives the best possible opportunities to succeed.</p>
       </div>
     </section>
 
@@ -389,11 +398,12 @@
         <h2 class="legacy-title scroll-reveal">Meet The Leadership</h2>
         
         <div class="principal-card scroll-reveal delay-1">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" class="principal-img" alt="Principal Dr. Meera Krishnan">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" class="principal-img" alt="Principal Mr. Vivek">
           <div class="principal-info">
-            <h3>Dr. Meera Krishnan</h3>
-            <h4>Principal & Dean of Academics</h4>
-            <p class="legacy-text">An esteemed educationalist and seasoned administrator, Dr. Krishnan brings over two decades of uncompromising academic leadership to our campus. Her tenure has been defined by a fierce dedication to preserving our heritage while modernizing our scientific curriculum. She firmly believes that strict discipline and profound empathy are the twin pillars of a transformative education, guiding our scholars to global prominence.</p>
+            <h3>Mr. Vivek</h3>
+            <h4>Principal</h4>
+            <p class="legacy-text">The school is led by <strong>Mr. Vivek</strong>, who serves as the Principal with a vision to modernize and strengthen the institution while staying true to its core values. With a focus on quality education, innovation, and student development, he brings fresh ideas and a progressive approach to learning.</p>
+            <p class="legacy-text">He is committed to creating a supportive and inspiring environment where students can grow academically, socially, and morally. By blending traditional values with modern educational practices, he aims to take the school to greater heights and ensure every student is prepared for a successful future.</p>
           </div>
         </div>
 
@@ -419,6 +429,10 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Copyright 2026 | DBRAHPHS</p>
+  </footer>
 
   <script>
     // Scroll Reveal Observer

@@ -20,8 +20,11 @@
     
     body {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 1rem; background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);
+      padding: 1rem; padding-bottom: 68px; background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);
     }
+
+    .site-footer { position: fixed; left: 0; right: 0; bottom: 0; padding: 14px max(16px, env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: rgba(6,26,51,0.92); color: rgba(255,255,255,0.85); text-align: center; border-top: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .site-footer p { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; }
 
     .pro-card {
       background: var(--bg-main); width: 100%; max-width: 760px;
@@ -219,6 +222,10 @@
       </div>
     </form>
   </div>
+
+  <footer class="site-footer">
+    <p>Copyright 2026 | DBRAHPHS</p>
+  </footer>
 
   <script>
     const msgInput = document.getElementById('message');
