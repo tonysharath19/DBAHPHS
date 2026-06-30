@@ -123,6 +123,15 @@
     /* OPTIMIZED POPUP FORM */
     .popup { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
     .popup.open { display: flex; }
+    .results-modal { position: fixed; inset: 0; z-index: 1250; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .results-modal.open { display: flex; }
+    .results-card { position: relative; width: min(920px, 100%); border-radius: 22px; overflow: hidden; background: #fff; border: 2px solid var(--f-primary); box-shadow: 0 25px 60px rgba(0,0,0,0.45); }
+    .results-card img { display: block; width: 100%; height: auto; max-height: 82svh; object-fit: contain; background: #fff; }
+    .results-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(6, 26, 51, 0.92); color: #fff; font-size: 1.4rem; cursor: pointer; z-index: 1; }
+    .results-close:hover { background: var(--f-primary); }
+    @media (min-width: 821px) {
+      .results-card { width: min(560px, 92vw); }
+    }
     
     .pro-card { background: var(--f-bg); width: min(600px, 100%); border-radius: 24px; padding: 24px 32px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0; transition: all 0.5s ease; max-height: 95svh; overflow-y: auto; }
     .popup.open .pro-card { transform: translateY(0); opacity: 1; }
@@ -309,6 +318,13 @@
     </div>
   </div>
 
+  <div class="results-modal" id="resultsModal" aria-hidden="true">
+    <div class="results-card" role="dialog" aria-modal="true" aria-label="School Results">
+      <button class="results-close" id="resultsClose" type="button" aria-label="Close results">&times;</button>
+      <img src="results.png" alt="School Results">
+    </div>
+  </div>
+
   <div class="topbar">
     <a class="topbar-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=ambedkarhps18@gmail.com" target="_blank" rel="noopener noreferrer">
       <small>Email</small>
@@ -449,6 +465,8 @@
   <script>
     const popup = document.getElementById("popup");
     const popupCloseButton = document.getElementById("popupClose");
+    const resultsModal = document.getElementById("resultsModal");
+    const resultsCloseButton = document.getElementById("resultsClose");
     const enquiryForm = document.getElementById("admissionForm");
     const cancelButton = document.getElementById("cancelButton");
     const toast = document.getElementById("statusToast");
@@ -531,6 +549,23 @@
       popup.classList.remove("open"); popup.setAttribute("aria-hidden", "true"); document.body.classList.remove("modal-open");
     }
 
+    function closePopupAndShowResults() {
+      closePopup();
+      openResultsModal();
+    }
+
+    function openResultsModal() {
+      resultsModal.classList.add("open");
+      resultsModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeResultsModal() {
+      resultsModal.classList.remove("open");
+      resultsModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
     window.googleTranslateElementInit = function() {
       new google.translate.TranslateElement({ pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false, multilanguagePage: false }, "google_translate_element");
       translationReady = true;
@@ -597,17 +632,24 @@
       if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; }
     }
 
-    popup.addEventListener("click", (e) => { if(e.target === popup) closePopup(); });
-    popupCloseButton.addEventListener("click", closePopup);
+    popup.addEventListener("click", (e) => { if(e.target === popup) closePopupAndShowResults(); });
+    popupCloseButton.addEventListener("click", closePopupAndShowResults);
+    resultsModal.addEventListener("click", (e) => { if (e.target === resultsModal) closeResultsModal(); });
+    resultsCloseButton.addEventListener("click", closeResultsModal);
 
     if (enquiryForm) {
       enquiryForm.addEventListener("submit", (e) => { e.preventDefault(); closePopup(); showToast("Thanks! Your enquiry has been recorded."); });
     }
     if (cancelButton) {
-      cancelButton.addEventListener("click", () => { if(confirm("Discard enquiry? / ವಿಚಾರಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸಬೇಕೆ?")) closePopup(); });
+      cancelButton.addEventListener("click", closePopupAndShowResults);
     }
 
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popup.classList.contains("open")) closePopup(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (resultsModal.classList.contains("open")) closeResultsModal();
+        else if (popup.classList.contains("open")) closePopup();
+      }
+    });
     window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
     window.addEventListener("resize", requestParallaxUpdate);
     
