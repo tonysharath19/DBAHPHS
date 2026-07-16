@@ -77,15 +77,13 @@
     main { width: 100%; background: #0A192F; }
     .story-section { --bg-shift: 0; --card-tilt: 0; --reveal: 0; scroll-margin-top: 110px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 0; min-height: 100svh; overflow: hidden; isolation: isolate; perspective: 1600px; background: #0A192F; }
     
-    .section-card { grid-column: 2; width: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(48px, 7vw, 96px); transform-style: preserve-3d; transform: translate3d(0, calc((1 - var(--reveal)) * 72px), 0) rotateX(calc(((1 - var(--reveal)) * 10deg) + (var(--card-tilt) * 1deg))) scale(calc(0.94 + (var(--reveal) * 0.06))); opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease; text-align: center; }
-    .section-image { min-height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(1.1); transform-origin: center; opacity: calc(0.08 + (var(--reveal) * 0.92)); filter: blur(calc((1 - var(--reveal)) * 14px)); transition: transform 0.45s ease, opacity 0.22s ease, filter 0.22s ease; }
+    .section-card { grid-column: 2; width: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(48px, 7vw, 96px); text-align: center; transform: translate3d(0, calc((1 - var(--reveal)) * 54px), 0) scale(calc(0.96 + (var(--reveal) * 0.04))); opacity: calc(0.14 + (var(--reveal) * 0.86)); filter: blur(calc((1 - var(--reveal)) * 12px)); transition: background-color 0.35s ease, color 0.35s ease, transform 0.65s ease, opacity 0.65s ease, filter 0.65s ease; }
+    .section-image { min-height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(calc(1.02 + ((1 - var(--reveal)) * 0.02))); transform-origin: center; opacity: calc(0.18 + (var(--reveal) * 0.82)); filter: blur(calc((1 - var(--reveal)) * 12px)); transition: background-color 0.35s ease, transform 0.65s ease, opacity 0.65s ease, filter 0.65s ease; }
     
     .story-section:nth-child(odd) .section-image { grid-column: 1; }
     .story-section:nth-child(even) .section-image { grid-column: 2; }
     .story-section:nth-child(odd) .section-card { grid-column: 2; }
     .story-section:nth-child(even) .section-card { grid-column: 1; }
-    .story-section.show .section-card { opacity: 1; filter: blur(0); }
-    
     /* ALTERNATING COLORS LOGIC */
     .story-section.theme-dark .section-card { background: #0F2B46; color: #ffffff; }
     .story-section.theme-dark h1, .story-section.theme-dark h2 { color: #ffffff; }
@@ -172,8 +170,8 @@
 
     @media (max-width: 820px) {
       .story-section { min-height: 100vh; grid-template-columns: 1fr; display: flex; flex-direction: column; perspective: none; }
-      .section-image { height: 40vh; min-height: 250px; width: 100%; order: 1; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: scale(calc(1.05 - (var(--reveal) * 0.05))); }
-      .section-card { flex: 1; min-height: 50vh; order: 2; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: calc(0.1 + (var(--reveal) * 0.9)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translateY(calc((1 - var(--reveal)) * 40px)); }
+      .section-image { height: 40vh; min-height: 250px; width: 100%; order: 1; opacity: calc(0.18 + (var(--reveal) * 0.82)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translate3d(0, calc(var(--bg-shift) * 1px), 0) scale(calc(1.02 + ((1 - var(--reveal)) * 0.02))); }
+      .section-card { flex: 1; min-height: 50vh; order: 2; padding: 40px 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: calc(0.14 + (var(--reveal) * 0.86)); filter: blur(calc((1 - var(--reveal)) * 10px)); transform: translate3d(0, calc((1 - var(--reveal)) * 28px), 0) scale(calc(0.98 + (var(--reveal) * 0.02))); }
       header { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 12px; justify-content: initial; }
       .brand { display: contents; }
       .logo-mark { width: 44px; height: 44px; border-radius: 8px; justify-self: start; }
@@ -357,7 +355,7 @@
 
   <main>
     <section id="home" class="story-section theme-dark show" style="--section-image:url('MEDIA/IMAGES/INDEX/section-1.jpeg');">
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-image" style="background-image: var(--section-image); background-color: #ffffff; background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
       <div class="section-card">
         <div class="section-copy">
           <h1>Inspiring Minds, Creating Futures</h1>
@@ -380,11 +378,11 @@
           <a href="about.html" class="section-btn">Learn More</a>
         </div>
       </div>
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-image" style="background-image: var(--section-image); background-color: #0F2B46; background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
     </section>
 
     <section id="expertise" class="story-section theme-dark" style="--section-image:url('MEDIA/IMAGES/INDEX/our-expertise.jpeg');">
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-image" style="background-image: var(--section-image); background-color: #ffffff; background-size: contain; background-position: center center; background-repeat: no-repeat;"></div>
       <div class="section-card">
         <div class="section-copy">
           <h2>Our Expertise</h2>
@@ -408,11 +406,11 @@
           <a href="gallery.html" class="section-btn">View Our Campus</a>
         </div>
       </div>
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-image" style="background-image: var(--section-image); background-color: #0F2B46; background-size: contain; background-position: center center; background-repeat: no-repeat;"></div>
     </section>
 
-    <section id="admissions" class="story-section theme-dark" style="--section-image:url('https://media.istockphoto.com/id/1598301288/photo/father-talking-to-teacher-in-classroom.webp?a=1&b=1&s=612x612&w=0&k=20&c=7XADdEtn9pUgfwWXnNwzvLEx_Y6oqpJcWTeJxI6085w=');">
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+    <section id="admissions" class="story-section theme-dark" style="--section-image:url('media/images/index/ADMISSION_OPEN.png');">
+      <div class="section-image" style="background-image: var(--section-image); background-color: #ffffff; background-size: contain; background-position: center center; background-repeat: no-repeat;"></div>
       <div class="section-card">
         <div class="section-copy">
           <h2>Admissions Open <span class="mobile-break">2026-27</span></h2>
@@ -425,7 +423,7 @@
       </div>
     </section>
 
-    <section id="contact" class="story-section theme-light" style="--section-image:url('https://images.unsplash.com/photo-1629360067822-89c74b25bb66?w=600&auto=format&fit=crop');">
+    <section id="contact" class="story-section theme-light" style="--section-image:url('media/images/index/TEACHER_GROUP.jpeg');">
       <div class="section-card">
         <div class="section-copy">
           <h2>Contact Us</h2>
@@ -454,7 +452,7 @@
           </div>
         </div>
       </div>
-      <div class="section-image" style="background-image: var(--section-image);"></div>
+      <div class="section-image" style="background-image: var(--section-image); background-color: #0F2B46; background-size: contain; background-position: center center; background-repeat: no-repeat;"></div>
     </section>
   </main>
 
@@ -609,29 +607,6 @@
       });
     }
 
-    function updateParallax() {
-      // Keep mobile transitions purely opacity and standard transforms to prevent gaps
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const offset = rect.top + (rect.height / 2) - (vh / 2);
-        const progress = offset / vh;
-        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.82)));
-        const bgShift = Math.max(-40, Math.min(40, progress * -28));
-        const tilt = Math.max(-4, Math.min(4, progress * -2.6));
-
-        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
-        section.style.setProperty("--card-tilt", tilt.toFixed(2));
-        section.style.setProperty("--reveal", reveal.toFixed(3));
-        if (reveal > 0.16) section.classList.add("show");
-      });
-      ticking = false;
-    }
-
-    function requestParallaxUpdate() {
-      if (!ticking) { window.requestAnimationFrame(updateParallax); ticking = true; }
-    }
-
     popup.addEventListener("click", (e) => { if(e.target === popup) closePopupAndShowResults(); });
     popupCloseButton.addEventListener("click", closePopupAndShowResults);
     resultsModal.addEventListener("click", (e) => { if (e.target === resultsModal) closeResultsModal(); });
@@ -650,15 +625,34 @@
         else if (popup.classList.contains("open")) closePopup();
       }
     });
+    function updateSectionMotion() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const reveal = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.78)));
+        const bgShift = Math.max(-18, Math.min(18, ((rect.top + (rect.height / 2)) - (vh / 2)) / vh * -12));
+
+        section.style.setProperty("--reveal", reveal.toFixed(3));
+        section.style.setProperty("--bg-shift", bgShift.toFixed(2));
+        section.classList.toggle("show", reveal > 0.1);
+      });
+      ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateSectionMotion);
+        ticking = true;
+      }
+    }
+
+    // POPUP AUTO LOAD FIX
+    window.addEventListener("load", () => {
+      requestParallaxUpdate();
+      setTimeout(openPopup, 800);
+    });
     window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
     window.addEventListener("resize", requestParallaxUpdate);
-    
-    // POPUP AUTO LOAD FIX
-    window.addEventListener("load", () => { 
-      requestParallaxUpdate(); 
-      setTimeout(openPopup, 800); 
-    });
-    
     requestParallaxUpdate();
   </script>
 

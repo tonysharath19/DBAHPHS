@@ -95,6 +95,8 @@
     .badge-art { width: 100%; height: 500px; border-radius: 20px; background: var(--brand-dark); display: grid; place-items: center; position: relative; border: 4px solid var(--brand-gold); box-shadow: 0 30px 60px rgba(0,0,0,0.4); overflow: hidden; }
     .badge-art img { width: 100%; height: 100%; object-fit: contain; }
     .badge-label { position: absolute; bottom: 30px; background: var(--brand-gold); color: var(--brand-dark); padding: 12px 30px; font-family: var(--font-main); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    #founder .badge-art { width: min(100%, 320px); aspect-ratio: 3 / 4; height: auto; }
+    #founder .badge-art img { object-fit: contain; padding: 14px; background: rgba(255,255,255,0.02); }
 
     .signature-container { display: flex; justify-content: flex-start; width: 100%; margin-top: 20px; }
     .signature { font-family: 'Brush Script MT', cursive; font-size: 3.5rem; color: var(--brand-gold); transform: rotate(-2deg); }
@@ -166,6 +168,7 @@
       .content-wrapper { grid-template-columns: 1fr; gap: 40px; }
       .alignment-grid { grid-template-columns: 1fr; gap: 20px; }
       .badge-art { height: 400px; }
+      #founder .badge-art { width: min(100%, 300px); height: auto; }
       .principal-card { flex-direction: column; text-align: center; padding: 30px; }
       .principal-img { width: 180px; height: 180px; }
       .values-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -205,6 +208,7 @@
       .badge-art { width: min(100%, 340px); aspect-ratio: 3 / 4; height: auto; margin-inline: auto; }
       .badge-art img { width: 100%; height: 100%; object-fit: cover; }
       #history .badge-art img { object-fit: contain; }
+      #founder .badge-art img { object-fit: contain; }
       .mgmt-grid { gap: 15px; }
       .mgmt-img { border-radius: 8px; }
       .mgmt-card h4 { font-size: 1.1rem; }
@@ -351,7 +355,7 @@
     <section id="founder" class="legacy-section theme-dark">
       <div class="content-wrapper" style="direction: rtl;">
         <div class="badge-art scroll-reveal" style="direction: ltr;">
-          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Old Indian Professor">
+          <img src="media/images/about/FOUNDER.jpeg" alt="Founder Mr. Chikkaerappa">
           <div class="badge-label">The Visionary</div>
         </div>
         <div class="scroll-reveal delay-1" style="direction: ltr;">
@@ -370,7 +374,7 @@
       <div class="content-single scroll-reveal">
         <svg class="ornament" style="margin-inline:auto;" viewBox="0 0 100 20" fill="currentColor"><path d="M50 0L45 10L50 20L55 10Z"/><rect y="9" width="40" height="2"/><rect x="60" y="9" width="40" height="2"/></svg>
         <h2 class="legacy-title">About the President</h2>
-        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop" class="principal-img" style="margin: 26px auto 24px auto;" alt="President Mrs. S.M. Roja">
+        <img src="media/images/about/PRESIDENT.jpeg" class="principal-img" style="margin: 26px auto 24px auto;" alt="President Mrs. S.M. Roja">
         <p class="legacy-text">After the visionary leadership of the founder, the institution continues to grow under the guidance of <strong>Mrs. S.M. Roja</strong>, President of the school. Carrying forward the legacy of her late husband, she is deeply committed to upholding his values, principles, and mission.</p>
         <p class="legacy-text">Her leadership is rooted in discipline, dedication, and a strong belief in quality education for all. With a clear goal that the school should stand equal to any other institution, she strives continuously to maintain high standards in both academics and character building, ensuring that every student receives the best possible opportunities to succeed.</p>
       </div>
@@ -419,7 +423,7 @@
         <h2 class="legacy-title scroll-reveal">Meet The Leadership</h2>
         
         <div class="principal-card scroll-reveal delay-1">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" class="principal-img" alt="Principal Mr. Vivek">
+          <img src="media/images/about/PRINCIPAL.jpeg" class="principal-img" alt="Principal Mr. Vivek">
           <div class="principal-info">
             <h3>Mr. Vivek</h3>
             <h4>Principal</h4>
@@ -428,25 +432,6 @@
           </div>
         </div>
 
-        <h3 class="sub-heading-legacy scroll-reveal">Board of Trustees</h3>
-        <div class="mgmt-grid">
-          <div class="mgmt-card scroll-reveal delay-1">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Anand Sharma">
-            <h4>Anand Sharma</h4><span>Chairman</span>
-          </div>
-          <div class="mgmt-card scroll-reveal delay-2">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Rajesh Iyer">
-            <h4>Rajesh Iyer</h4><span>Vice Chairman</span>
-          </div>
-          <div class="mgmt-card scroll-reveal delay-3">
-            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Vikram Singh">
-            <h4>Vikram Singh</h4><span>Secretary</span>
-          </div>
-          <div class="mgmt-card scroll-reveal delay-1">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&auto=format&fit=crop" class="mgmt-img" alt="Trustee Priya Desai">
-            <h4>Priya Desai</h4><span>Treasurer</span>
-          </div>
-        </div>
       </div>
     </section>
   </main>
