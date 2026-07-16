@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -67,9 +67,13 @@
     nav a:hover, nav a:focus-visible { background: rgba(255,255,255,0.12); color: #d8ebff; transform: translateY(-1px); }
     .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001; }
     .menu-toggle span { display: block; width: 26px; height: 3px; background: #fff; border-radius: 4px; transition: transform 0.3s ease, opacity 0.3s ease; }
-
-    .site-footer { padding: 18px max(20px, env(safe-area-inset-right)) 18px max(20px, env(safe-area-inset-left)); background: var(--brand-darker); color: rgba(255,255,255,0.85); text-align: center; border-top: 1px solid rgba(255,255,255,0.12); }
-    .site-footer p { font-size: var(--fs-small); font-weight: 700; letter-spacing: 0.02em; }
+    
+    .site-footer { padding: 18px max(20px, env(safe-area-inset-right)) 18px max(20px, env(safe-area-inset-left)); background: var(--brand-darker); color: rgba(255,255,255,0.85); text-align: center; border-top: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .site-footer p { font-size: var(--fs-small); font-weight: 700; letter-spacing: 0.02em; margin: 0; }
+    .footer-contacts { display: flex; align-items: center; justify-content: center; gap: 20px; }
+    .footer-contact-icon { color: #fff; transition: color 0.3s ease, transform 0.3s ease; }
+    .footer-contact-icon:hover { color: var(--brand-gold); transform: translateY(-2px); }
+    .footer-contact-icon svg { width: 22px; height: 22px; }
 
     /* FLOATING ACTION BUTTONS */
     .translate-widget { position: fixed; left: -9999px; opacity: 0; pointer-events: none; }
@@ -135,13 +139,21 @@
     .results-card img { display: block; width: 100%; height: auto; max-height: 82svh; object-fit: contain; background: #fff; }
     .results-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(15,43,70,0.9); color: #fff; font-size: 1.4rem; cursor: pointer; z-index: 1; }
     .results-close:hover { background: var(--brand-gold); color: var(--brand-dark); }
+    .form-success-modal { position: fixed; inset: 0; z-index: 1300; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(15, 43, 70, 0.86); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .form-success-modal.open { display: flex; }
+    .form-success-card { width: min(380px, 100%); background: #fff; border-radius: 20px; padding: 26px 22px 22px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1px solid var(--f-border); }
+    .form-success-card h3 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--brand-dark); margin-bottom: 8px; }
+    .form-success-card p { font-size: 0.95rem; line-height: 1.6; color: var(--f-muted); }
+    .form-success-close { margin-top: 18px; border: none; border-radius: 999px; padding: 10px 18px; background: var(--brand-navy); color: #fff; font-family: var(--font-main); font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(65, 105, 225, 0.15); }
+    .form-success-close:hover { filter: brightness(1.05); }
     .pro-card { background: var(--bg-light); width: min(600px, 100%); border-radius: 24px; padding: 32px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 2px solid var(--brand-navy); max-height: 90svh; overflow-y: auto; }
     .btn-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 1px solid var(--brand-navy); font-size: 1.4rem; color: var(--brand-dark); cursor: pointer; display: grid; place-items: center; transition: 0.3s; z-index: 10; }
     .btn-close:hover { background: var(--f-error); color: #EF4444; border-color: #EF4444; transform: rotate(90deg); }
     .form-header-popup { text-align: center; margin-bottom: 20px; }
     .form-header-popup h2 { color: var(--brand-dark); font-size: 1.5rem; font-family: var(--font-heading); font-weight: 800; }
+    .form-header-popup h2 { color: var(--brand-dark); font-size: 1.5rem; font-family: var(--font-heading); font-weight: 800; }
     .form-header-popup .kn-heading { color: var(--brand-navy); font-size: 1rem; font-family: var(--font-heading); font-weight: 800; margin-top: 4px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; font-family: var(--font-main); }
+    .year-badge { display: block; font-size: 0.95rem; font-weight: 600; color: var(--f-muted); margin-top: 2px; }
     .input-group { display: flex; flex-direction: column; gap: 4px; }
     .input-group.full-width { grid-column: 1 / -1; }
     .label-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.2; margin-bottom: 4px; }
@@ -198,63 +210,6 @@
     <button class="fab-btn lang-fab" id="langBtn" type="button" title="Translate Page">
       <span id="langIcon" class="fab-text">ಕ</span>
     </button>
-    <button class="fab-btn enquiry-fab" id="enquiryFab" type="button" title="Admission Enquiry">
-      <span class="enquiry-text">Admission<br>Enquiry</span>
-    </button>
-  </div>
-
-  <div class="popup" id="popup">
-    <div class="pro-card">
-      <button class="btn-close" id="popupClose">&times;</button>
-      <div class="form-header-popup">
-        <h2>Admission Enquiry Form</h2>
-        <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ</div>
-      </div>
-      <form id="admissionForm">
-        <div class="form-grid">
-          <div class="input-group">
-            <div class="label-wrapper"><span class="en-lbl">Parent Name</span><span class="kn-lbl">ಪೋಷಕರ ಹೆಸರು</span></div>
-            <input type="text" class="popup-input" required placeholder="Name">
-          </div>
-          <div class="input-group">
-            <div class="label-wrapper"><span class="en-lbl">Phone</span><span class="kn-lbl">ದೂರವಾಣಿ</span></div>
-            <input type="tel" class="popup-input" required placeholder="Mobile">
-          </div>
-          <div class="input-group">
-            <div class="label-wrapper"><span class="en-lbl">Child Name</span><span class="kn-lbl">ಮಗುವಿನ ಹೆಸರು</span></div>
-            <input type="text" class="popup-input" required placeholder="Name">
-          </div>
-          <div class="input-group">
-            <div class="label-wrapper"><span class="en-lbl">Class</span><span class="kn-lbl">ತರಗತಿ</span></div>
-            <select class="popup-select" required>
-              <option value="" disabled selected>Select Class</option>
-              <option value="prenursery">Pre-Nursery</option>
-              <option value="nursery">Nursery</option>
-              <option value="lkg">LKG</option>
-              <option value="ukg">UKG</option>
-              <option value="1">Class I</option>
-              <option value="2">Class II</option>
-              <option value="3">Class III</option>
-            </select>
-          </div>
-          <div class="input-group full-width">
-            <div class="label-wrapper"><span class="en-lbl">Message</span><span class="kn-lbl">ಸಂದೇಶ</span></div>
-            <textarea class="popup-textarea" required placeholder="How can we help?"></textarea>
-          </div>
-        </div>
-        <div class="action-group">
-          <button type="button" class="form-btn btn-cancel" id="cancelButton"><span class="en-btn">Cancel</span><span class="kn-btn">ರದ್ದುಮಾಡಿ</span></button>
-          <button type="submit" class="form-btn btn-submit"><span class="en-btn">Submit Enquiry</span><span class="kn-btn">ಸಲ್ಲಿಸಿ</span></button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="results-modal" id="resultsModal" aria-hidden="true">
-    <div class="results-card" role="dialog" aria-modal="true" aria-label="Admission Results">
-      <button class="results-close" id="resultsClose" type="button" aria-label="Close results">&times;</button>
-      <img src="results.png" alt="Admission Results">
-    </div>
   </div>
 
   <div class="topbar">
@@ -475,7 +430,24 @@
   </div>
 
   <footer class="site-footer">
-    <p>Copyright 2026 | DBRAHPHS</p>
+    <p>&copy; 2026 | DBRAHPHS</p>
+    <div class="footer-contacts">
+      <a href="https://wa.me/917026764921" class="footer-contact-icon" title="WhatsApp" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.04c0 2.12.554 4.189 1.602 6.006L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.635 0 12.038-5.403 12.04-12.04.001-3.218-1.252-6.242-3.525-8.514z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/ambedkarhps18?igsh=MXJqdDZvM3hmeWc2bg==" class="footer-contact-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@drbrambedkarschoolkaiwara" class="footer-contact-icon" title="YouTube" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.7 12 4.7 12 4.7s-5.7 0-7.5.4A3 3 0 0 0 2.4 7.2 31.3 31.3 0 0 0 2 12a31.3 31.3 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.4 7.5.4 7.5.4s5.7 0 7.5-.4a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 22 12a31.3 31.3 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ambedkarhps18@gmail.com" class="footer-contact-icon" title="Email" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a href="tel:+919876543210" class="footer-contact-icon" title="Call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
   </footer>
 
   <script>
@@ -573,40 +545,6 @@
     menuToggle.addEventListener("click", () => { navMenu.classList.toggle("active"); menuToggle.classList.toggle("active"); });
     navMenu.querySelectorAll("a").forEach(link => { link.addEventListener("click", () => { navMenu.classList.remove("active"); menuToggle.classList.remove("active"); }); });
 
-    // Popup Form Logic
-    const popup = document.getElementById("popup");
-    const resultsModal = document.getElementById("resultsModal");
-    const resultsClose = document.getElementById("resultsClose");
-    function closePopupAndShowResults() {
-      popup.classList.remove("open");
-      popup.setAttribute("aria-hidden", "true");
-      resultsModal.classList.add("open");
-      resultsModal.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
-    }
-    function closeResultsModal() {
-      resultsModal.classList.remove("open");
-      resultsModal.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-    }
-    function closePopupOnly() {
-      popup.classList.remove("open");
-      popup.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-    }
-    document.getElementById("enquiryFab").addEventListener("click", () => { popup.classList.add("open"); popup.setAttribute("aria-hidden", "false"); document.body.classList.add("modal-open"); });
-    document.getElementById("popupClose").addEventListener("click", closePopupAndShowResults);
-    document.getElementById("cancelButton").addEventListener("click", closePopupAndShowResults);
-    popup.addEventListener("click", (e) => { if(e.target === popup) closePopupAndShowResults(); });
-    resultsModal.addEventListener("click", (e) => { if(e.target === resultsModal) closeResultsModal(); });
-    resultsClose.addEventListener("click", closeResultsModal);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        if (resultsModal.classList.contains("open")) closeResultsModal();
-        else if (popup.classList.contains("open")) closePopupOnly();
-      }
-    });
-
     // FAB Drag Logic
     const fabContainer = document.getElementById("fabContainer");
     let isDragging = false, moved = false, startX, startY, initialLeft, initialTop;
@@ -637,8 +575,10 @@
     fabContainer.addEventListener("touchstart", dragStart, {passive: true}); document.addEventListener("touchmove", dragMove, {passive: false}); document.addEventListener("touchend", dragEnd);
 
     document.getElementById("langBtn").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
-    document.getElementById("enquiryFab").addEventListener("click", (e) => { if(moved) e.preventDefault(); });
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
+
+

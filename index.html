@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>School</title>
+  <title>DBAHPHS</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,6 +128,13 @@
     .results-card img { display: block; width: 100%; height: auto; max-height: 82svh; object-fit: contain; background: #fff; }
     .results-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(6, 26, 51, 0.92); color: #fff; font-size: 1.4rem; cursor: pointer; z-index: 1; }
     .results-close:hover { background: var(--f-primary); }
+    .form-success-modal { position: fixed; inset: 0; z-index: 1300; display: none; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 24px); background: rgba(6, 26, 51, 0.86); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .form-success-modal.open { display: flex; }
+    .form-success-card { width: min(380px, 100%); background: #fff; border-radius: 20px; padding: 26px 22px 22px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.35); border: 1px solid var(--f-border); }
+    .form-success-card h3 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--f-dark); margin-bottom: 8px; }
+    .form-success-card p { font-size: 0.95rem; line-height: 1.6; color: var(--f-muted); }
+    .form-success-close { margin-top: 18px; border: none; border-radius: 999px; padding: 10px 18px; background: var(--f-primary); color: #fff; font-family: var(--font-main); font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px var(--f-primary-glow); }
+    .form-success-close:hover { filter: brightness(1.05); }
     @media (min-width: 821px) {
       .results-card { width: min(560px, 92vw); }
     }
@@ -229,7 +236,7 @@
         <div class="kn-heading">ಪ್ರವೇಶ ವಿಚಾರಣೆ ಫಾರ್ಮ್ <span class="year-badge">2026 - 2027</span></div>
       </div>
 
-      <form id="admissionForm">
+      <form id="admissionForm" action="https://formspree.io/f/xykrklaq" method="POST">
         <div class="form-grid">
           
           <div class="input-group">
@@ -239,7 +246,7 @@
             </div>
             <div class="field-wrapper">
               <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <input type="text" id="parentName" name="parentName" class="popup-input" required placeholder="Parent Name">
+              <input type="text" id="parentName" name="parentName" class="popup-input" required maxlength="30" placeholder="Parent Name">
             </div>
           </div>
 
@@ -250,7 +257,7 @@
             </div>
             <div class="field-wrapper">
               <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <input type="tel" id="phone" name="phone" class="popup-input" required placeholder="Mobile No.">
+              <input type="tel" id="phone" name="phone" class="popup-input" required maxlength="10" inputmode="numeric" pattern="[0-9]{10}" title="Enter exactly 10 digits" placeholder="Mobile No.">
             </div>
           </div>
 
@@ -261,7 +268,7 @@
             </div>
             <div class="field-wrapper">
               <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              <input type="text" id="childName" name="childName" class="popup-input" required placeholder="Child Name">
+              <input type="text" id="childName" name="childName" class="popup-input" required maxlength="30" placeholder="Child Name">
             </div>
           </div>
 
@@ -297,8 +304,8 @@
               <span class="en-lbl">Enquiry Message</span>
               <span class="kn-lbl">ವಿಚಾರಣೆ ಸಂದೇಶ</span>
             </div>
-            <textarea id="message" name="message" class="popup-textarea" maxlength="1000" required placeholder="How can we help you? / ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"></textarea>
-            <div class="char-counter" id="charCount">0 / 1000</div>
+            <textarea id="message" name="message" class="popup-textarea" maxlength="500" required placeholder="How can we help you? / ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"></textarea>
+            <div class="char-counter" id="charCount">0 / 500</div>
           </div>
           
         </div>
@@ -321,6 +328,14 @@
     <div class="results-card" role="dialog" aria-modal="true" aria-label="School Results">
       <button class="results-close" id="resultsClose" type="button" aria-label="Close results">&times;</button>
       <img src="results.png" alt="School Results">
+    </div>
+  </div>
+
+  <div class="form-success-modal" id="formSuccessModal" aria-hidden="true">
+    <div class="form-success-card" role="dialog" aria-modal="true" aria-labelledby="formSuccessTitle">
+      <h3 id="formSuccessTitle">Thank you</h3>
+      <p>Your enquiry has been submitted successfully.</p>
+      <button type="button" class="form-success-close" id="formSuccessClose">Close</button>
     </div>
   </div>
 
@@ -458,7 +473,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Copyright 2026 | DBRAHPHS</p>
+    <p>&copy; 2026 | DBRAHPH</p>
   </footer>
 
   <script>
@@ -472,6 +487,11 @@
     const sections = document.querySelectorAll(".story-section");
     const msgInput = document.getElementById('message');
     const charCounter = document.getElementById('charCount');
+    const formSuccessModal = document.getElementById("formSuccessModal");
+    const formSuccessClose = document.getElementById("formSuccessClose");
+    const phoneInput = document.getElementById("phone");
+    const parentNameInput = document.getElementById("parentName");
+    const childNameInput = document.getElementById("childName");
     const menuToggle = document.getElementById("menuToggle");
     const navMenu = document.querySelector("header nav");
 
@@ -565,6 +585,40 @@
       document.body.classList.remove("modal-open");
     }
 
+    function openFormSuccessModal() {
+      formSuccessModal.classList.add("open");
+      formSuccessModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeFormSuccessModal() {
+      formSuccessModal.classList.remove("open");
+      formSuccessModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    function limitToDigits(input) {
+      if (!input) return;
+      const validate = () => {
+        input.value = input.value.replace(/\D/g, "").slice(0, 10);
+        input.setCustomValidity(input.value.length === 10 ? "" : "Phone number must be exactly 10 digits.");
+      };
+      input.addEventListener("input", validate);
+      input.addEventListener("blur", validate);
+      validate();
+    }
+
+    function limitText(input, maxLength, message) {
+      if (!input) return;
+      const validate = () => {
+        input.value = input.value.slice(0, maxLength);
+        input.setCustomValidity(input.value.trim().length > 0 ? "" : message);
+      };
+      input.addEventListener("input", validate);
+      input.addEventListener("blur", validate);
+      validate();
+    }
+
     window.googleTranslateElementInit = function() {
       new google.translate.TranslateElement({ pageLanguage: "en", includedLanguages: "en,kn", autoDisplay: false, multilanguagePage: false }, "google_translate_element");
       translationReady = true;
@@ -599,13 +653,25 @@
       });
     }
 
-    const MAX_CHARS = 1000;
+    limitToDigits(phoneInput);
+    limitText(parentNameInput, 30, "Parent's name is required.");
+    limitText(childNameInput, 30, "Child's name is required.");
+
+    const MAX_CHARS = 500;
     if (msgInput && charCounter) {
       msgInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.slice(0, MAX_CHARS);
         const len = e.target.value.length;
         charCounter.textContent = `${len} / ${MAX_CHARS}`;
         charCounter.style.color = len >= MAX_CHARS ? 'var(--f-error)' : 'var(--f-muted)';
       });
+    }
+
+    if (formSuccessClose) {
+      formSuccessClose.addEventListener("click", closeFormSuccessModal);
+    }
+    if (formSuccessModal) {
+      formSuccessModal.addEventListener("click", (e) => { if (e.target === formSuccessModal) closeFormSuccessModal(); });
     }
 
     popup.addEventListener("click", (e) => { if(e.target === popup) closePopupAndShowResults(); });
@@ -614,7 +680,34 @@
     resultsCloseButton.addEventListener("click", closeResultsModal);
 
     if (enquiryForm) {
-      enquiryForm.addEventListener("submit", (e) => { e.preventDefault(); closePopup(); showToast("Thanks! Your enquiry has been recorded."); });
+      enquiryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!enquiryForm.checkValidity()) {
+          enquiryForm.reportValidity();
+          return;
+        }
+        const submitButton = enquiryForm.querySelector('button[type="submit"]');
+        if (submitButton) submitButton.disabled = true;
+        try {
+          const response = await fetch(enquiryForm.action, {
+            method: enquiryForm.method || "POST",
+            body: new FormData(enquiryForm),
+            headers: { Accept: "application/json" },
+          });
+          if (response.ok) {
+            enquiryForm.reset();
+            if (charCounter) charCounter.textContent = `0 / 500`;
+            closePopup();
+            openFormSuccessModal();
+          } else {
+            showToast("Sorry, we could not send your enquiry just now.");
+          }
+        } catch (error) {
+          showToast("Sorry, we could not send your enquiry just now.");
+        } finally {
+          if (submitButton) submitButton.disabled = false;
+        }
+      });
     }
     if (cancelButton) {
       cancelButton.addEventListener("click", closePopupAndShowResults);
@@ -622,6 +715,10 @@
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
+        if (formSuccessModal && formSuccessModal.classList.contains("open")) {
+          closeFormSuccessModal();
+          return;
+        }
         if (resultsModal.classList.contains("open")) closeResultsModal();
         else if (popup.classList.contains("open")) closePopup();
       }
@@ -661,3 +758,4 @@
 
 </body>
 </html>
+
